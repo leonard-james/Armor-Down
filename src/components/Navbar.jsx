@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import LogoIcon from './Logo';
 
 const navLinks = [
   { label: 'What Is It', href: '#whatis' },
@@ -53,15 +54,9 @@ export default function Navbar() {
           onClick={(e) => handleNavClick(e, '#hero')}
           style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}
         >
-          <div style={{
-            width: '36px', height: '36px',
-            background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
-            borderRadius: '8px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: '900', fontSize: '18px', color: 'white', fontFamily: 'Sora, sans-serif',
-          }}>B</div>
+          <LogoIcon style={{ height: '36px', width: '36px' }} />
           <span style={{ fontFamily: 'Sora, sans-serif', fontWeight: '700', fontSize: '15px', color: '#f1f5f9', letterSpacing: '-0.3px' }}>
-            Break the Silence
+            Armor Down
           </span>
         </a>
 

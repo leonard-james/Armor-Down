@@ -139,16 +139,15 @@ export default function Hero() {
           animation: 'fadeInUp 0.8s ease 0.1s both',
           color: '#f1f5f9',
         }}>
-          It's Okay{' '}
+          It's Safe to{' '}
           <span style={{
             background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Not to Be
+            Set It Down
           </span>
-          <br />Okay
         </h1>
 
         {/* Animated subtitle */}
@@ -174,8 +173,8 @@ export default function Hero() {
           lineHeight: '1.8',
           animation: 'fadeInUp 0.8s ease 0.4s both',
         }}>
-          Exploring how <strong style={{ color: '#94a3b8' }}>toxic masculinity</strong> silences men,
-          damages mental health, and what we can do to change it — one honest conversation at a time.
+          Exploring how <strong style={{ color: '#94a3b8' }}>toxic masculinity</strong> forces men to
+          carry weight they were never meant to hold — and how we can help them put it down. One honest conversation at a time.
         </p>
 
         {/* CTAs */}

@@ -2,22 +2,18 @@ import { useEffect, useRef, useState } from 'react';
 
 const keyPoints = [
   {
-    icon: '🔒',
     title: 'Emotional Suppression',
     desc: 'Men are conditioned to hide vulnerability, taught that expressing emotions is "unmanly."',
   },
   {
-    icon: '💪',
     title: 'Dominance Expectations',
     desc: 'The pressure to always appear strong, in control, and dominant in every situation.',
   },
   {
-    icon: '🚫',
     title: 'Stigmatization of Help',
     desc: 'Seeking mental health support is framed as weakness, keeping men from getting care they need.',
   },
   {
-    icon: '⚔️',
     title: 'Aggression as Norm',
     desc: 'Violence and aggression are normalized as acceptable masculine responses to conflict.',
   },
@@ -167,7 +163,7 @@ export default function WhatIs() {
                 onTouchStart={() => setHoveredCard(i)}
                 onTouchEnd={() => setHoveredCard(null)}
               >
-                <div style={{ fontSize: '28px', marginBottom: '12px' }}>{point.icon}</div>
+                <div style={{ fontSize: '28px', marginBottom: '12px' }} />
                 <h3 style={{ color: '#f1f5f9', fontSize: '15px', fontWeight: '700', margin: '0 0 8px', letterSpacing: '-0.2px' }}>
                   {point.title}
                 </h3>

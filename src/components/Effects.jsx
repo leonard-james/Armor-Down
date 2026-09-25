@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 
 const effects = [
   {
-    icon: '🌑',
     title: 'Depression & Anxiety',
     desc: 'Emotional suppression forces feelings inward. Men who cannot express grief, fear, or sadness are significantly more likely to develop clinical depression and anxiety disorders.',
     stat: '6M',
@@ -10,7 +9,6 @@ const effects = [
     color: '#3b82f6',
   },
   {
-    icon: '💥',
     title: 'Aggression & Anger',
     desc: 'When vulnerability is unacceptable, emotions re-emerge as anger. Suppressed pain manifests as aggression, impulsivity, and outbursts — hurting both the man and those around him.',
     stat: '76%',
@@ -18,7 +16,6 @@ const effects = [
     color: '#ef4444',
   },
   {
-    icon: '🍺',
     title: 'Substance Abuse',
     desc: 'Men are twice as likely as women to develop alcohol dependency — often using substances to numb emotional pain they were never taught to process.',
     stat: '2×',
@@ -26,7 +23,6 @@ const effects = [
     color: '#f59e0b',
   },
   {
-    icon: '🚪',
     title: 'Isolation & Loneliness',
     desc: 'The "don\'t show weakness" mentality prevents men from forming deep emotional bonds. Social isolation is a primary predictor of mental health deterioration and early death.',
     stat: '40%',
@@ -34,7 +30,6 @@ const effects = [
     color: '#8b5cf6',
   },
   {
-    icon: '🏥',
     title: 'Avoiding Medical Help',
     desc: 'Men are less likely to see doctors or seek any form of care. This directly contributes to men dying an average of 5 years earlier than women globally.',
     stat: '5 yrs',
@@ -42,7 +37,6 @@ const effects = [
     color: '#14b8a6',
   },
   {
-    icon: '💔',
     title: 'Relationship Damage',
     desc: 'Emotional unavailability creates deep relational distance. Inability to communicate needs or resolve conflict healthily leads to higher rates of divorce and estrangement.',
     stat: '69%',
@@ -86,7 +80,7 @@ function EffectCard({ effect, i, visible }) {
         transition: 'opacity 0.18s ease',
       }} />
 
-      <div style={{ fontSize: '32px', marginBottom: '14px' }}>{effect.icon}</div>
+      <div style={{ fontSize: '32px', marginBottom: '14px' }} />
 
       <h3 style={{
         color: '#f1f5f9', fontSize: '18px', fontWeight: '700',

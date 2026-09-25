@@ -6,42 +6,36 @@ const cards = [
     reality: 'Emotional expression is a hallmark of psychological health. Suppressing emotions leads to anxiety, depression, and physical health problems. Crying is a natural, healthy release.',
     mythColor: '#ef4444',
     realityColor: '#14b8a6',
-    icon: '😢',
   },
   {
     myth: '"Asking for help is weakness."',
     reality: 'Recognizing a problem and seeking help takes extraordinary courage. It is one of the most intelligent and self-aware things a person can do. Strength is knowing your limits.',
     mythColor: '#f97316',
     realityColor: '#3b82f6',
-    icon: '🙏',
   },
   {
     myth: '"Men should always be strong."',
     reality: "Mental health struggles affect every human being equally regardless of gender. Pretending otherwise doesn't create strength — it creates silence, and silence can be deadly.",
     mythColor: '#8b5cf6',
     realityColor: '#14b8a6',
-    icon: '💪',
   },
   {
     myth: '"Boys will be boys."',
     reality: 'This phrase normalizes harmful behavior and teaches boys to suppress emotions. Children deserve emotional guidance, not dismissal. Accountability and empathy must be taught.',
     mythColor: '#ec4899',
     realityColor: '#3b82f6',
-    icon: '👦',
   },
   {
     myth: '"Men don\'t need therapy."',
     reality: "Therapy is a proven, effective tool for improving quality of life for anyone. Mental health care is healthcare. Refusing it doesn't demonstrate toughness — it perpetuates suffering.",
     mythColor: '#f59e0b',
     realityColor: '#14b8a6',
-    icon: '🧠',
   },
   {
     myth: '"Talking about problems makes you weak."',
     reality: 'Verbalizing struggles is one of the most effective ways to process them. Therapy, peer support, and honest conversations are scientifically validated paths to healing.',
     mythColor: '#6366f1',
     realityColor: '#3b82f6',
-    icon: '💬',
   },
 ];
 
@@ -68,7 +62,7 @@ function FlipCard({ card, index, isVisible }) {
       aria-label={flipped ? 'Show myth' : 'Reveal reality'}
       onKeyDown={(e) => e.key === 'Enter' && handleFlip()}
       style={{
-        height: 'clamp(240px, 35vw, 280px)',
+        minHeight: 'clamp(200px, 40vw, 280px)',
         cursor: 'pointer',
         borderRadius: '16px',
         border: `1px solid ${color}40`,
@@ -131,21 +125,17 @@ function FlipCard({ card, index, isVisible }) {
           gap: '5px',
         }}>
           <span style={{ color, fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
-            {flipped ? '✓ Reality' : '✗ Myth'}
+            {flipped ? 'Reality' : 'Myth'}
           </span>
         </div>
 
         {/* Icon (only on myth side) */}
-        {!flipped && (
-          <div style={{ fontSize: '34px', marginBottom: '14px', lineHeight: 1 }}>
-            {card.icon}
-          </div>
-        )}
+        {/* icon removed */}
 
         {/* Text */}
         <p style={{
           color: flipped ? '#cbd5e1' : '#f1f5f9',
-          fontSize: flipped ? '13px' : '17px',
+          fontSize: flipped ? '13px' : 'clamp(14px, 1.8vw, 17px)',
           fontWeight: flipped ? '400' : '700',
           lineHeight: flipped ? '1.75' : '1.4',
           fontStyle: flipped ? 'normal' : 'italic',
@@ -253,11 +243,11 @@ export default function MythsReality() {
           </p>
         </div>
 
-        {/* Cards grid */}
+        {/* Cards grid — 1 col on very small, 2 col on mobile, 3 col on desktop */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 'clamp(10px, 2vw, 20px)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+          gap: 'clamp(12px, 2vw, 20px)',
         }}>
           {cards.map((card, i) => (
             <FlipCard key={i} card={card} index={i} isVisible={visible} />
@@ -270,7 +260,7 @@ export default function MythsReality() {
           opacity: visible ? 1 : 0, transition: 'opacity 0.7s ease 0.8s',
         }}>
           <p style={{ color: '#334155', fontSize: '13px', margin: 0 }}>
-            👆 Tap or click any card to reveal the reality
+            Tap or click any card to reveal the reality
           </p>
         </div>
       </div>

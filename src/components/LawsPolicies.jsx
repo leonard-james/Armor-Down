@@ -6,64 +6,60 @@ const laws = [
     title: 'Philippine Mental Health Act',
     year: '2018',
     description:
-      'The landmark legislation that guarantees all Filipinos the right to access mental health services. It mandates mental health facilities in hospitals, workplaces, schools, and communities. It also addresses the stigma around mental health and protects the rights of individuals with mental health conditions.',
+      'The cornerstone of mental health legislation in the Philippines. It guarantees every Filipino — including men — the right to access mental health services without fear of discrimination or stigma. It directly addresses the culture of silence around mental health by mandating services in hospitals, workplaces, and schools.',
     highlights: [
-      'Mandates mental health services in all hospitals',
-      'Establishes a National Mental Health Policy',
-      'Protects rights of persons with mental health conditions',
-      'Requires mental health programs in schools and workplaces',
+      'Guarantees the right to mental health care for all Filipinos',
+      'Mandates mental health services in hospitals and workplaces',
+      'Explicitly prohibits discrimination against those seeking help',
+      'Establishes a National Mental Health Policy targeting stigma',
     ],
     color: '#3b82f6',
-    icon: '⚖️',
     tag: 'Primary Law',
   },
   {
-    number: 'RA 10533',
-    title: 'Enhanced Basic Education Act',
-    year: '2013',
+    number: 'RA 11313',
+    title: 'Safe Spaces Act',
+    year: '2019',
     description:
-      'The K–12 reform law that expanded basic education to 13 years. Critically, it mandates the inclusion of mental health and emotional well-being topics in the curriculum, recognizing that healthy development must include psychological literacy from a young age.',
+      'Also known as the "Bawal Bastos" law, this act addresses gender-based harassment in public spaces, online, and in workplaces and schools. For men\'s mental health, it is directly relevant: it challenges the toxic masculine norm that harassment and aggression are acceptable expressions of manhood — behaviors rooted in the same culture that discourages men from seeking help.',
     highlights: [
-      'Includes mental health in the K–12 curriculum',
-      'Promotes holistic student development',
-      'Addresses social-emotional learning',
-      'Supports gender-responsive education',
+      'Prohibits gender-based sexual harassment in all spaces',
+      'Challenges norms that normalize male aggression',
+      'Covers online harassment — a growing source of male-perpetrated harm',
+      'Signals a legal shift away from toxic masculinity as the default',
     ],
     color: '#14b8a6',
-    icon: '📚',
-    tag: 'Education',
+    tag: 'Gender Norms',
   },
   {
     number: 'DOH AO 2020-0013',
     title: 'National Mental Health Program',
     year: '2020',
     description:
-      'An administrative order by the Department of Health establishing the operational framework for the National Mental Health Program. It provides specific guidelines for mental health service delivery, with emphasis on community-based care and addressing underserved populations.',
+      'The Department of Health\'s operational framework for delivering mental health services across the Philippines. It prioritizes community-based care and targets underserved populations — a category that disproportionately includes men, who are least likely to seek help through formal hospital channels.',
     highlights: [
-      'Strengthens community-based mental health care',
-      'Provides guidelines for service implementation',
-      'Targets underserved and vulnerable populations',
-      'Aligns with the WHO Mental Health Action Plan',
+      'Expands community-based mental health access beyond hospitals',
+      'Targets underserved groups — including men who avoid formal care',
+      'Funds mental health awareness and destigmatization campaigns',
+      'Aligns with the WHO Mental Health Action Plan 2013–2030',
     ],
     color: '#8b5cf6',
-    icon: '🏥',
     tag: 'Policy',
   },
   {
-    number: 'RA 9262',
-    title: 'Anti-Violence Against Women and Children Act',
-    year: '2004',
+    number: 'RA 10533',
+    title: 'Enhanced Basic Education Act (K–12)',
+    year: '2013',
     description:
-      'While primarily focused on protecting women and children, this law is highly relevant as it illustrates how toxic masculinity directly enables violence and harm. It criminalizes physical, sexual, psychological, and economic abuse — behaviors often rooted in harmful masculine norms.',
+      'The K–12 reform law that restructured Philippine basic education. It mandates the inclusion of mental health, emotional well-being, and social-emotional learning in the curriculum. Reaching boys early — before toxic masculine norms are fully internalized — is one of the most effective long-term strategies for improving men\'s mental health outcomes.',
     highlights: [
-      'Criminalizes domestic violence and abuse',
-      'Addresses psychological and emotional abuse',
-      'Provides protection orders for victims',
-      'Highlights root causes linked to gender norms',
+      'Integrates mental health and emotional literacy into the curriculum',
+      'Reaches boys before harmful gender norms become deeply ingrained',
+      'Promotes help-seeking as a normal, healthy behavior from youth',
+      'Supports gender-responsive and inclusive education standards',
     ],
     color: '#f59e0b',
-    icon: '🛡️',
-    tag: 'Protection',
+    tag: 'Education',
   },
 ];
 
@@ -179,16 +175,6 @@ export default function LawsPolicies() {
               {/* Header row */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div style={{
-                    width: '52px', height: '52px',
-                    background: `${law.color}15`,
-                    border: `1px solid ${law.color}30`,
-                    borderRadius: '12px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '22px', flexShrink: 0,
-                  }}>
-                    {law.icon}
-                  </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
                       <span style={{

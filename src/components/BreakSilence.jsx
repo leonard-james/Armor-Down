@@ -7,7 +7,6 @@ const hotlines = [
     tel: 'tel:1553',
     desc: 'Philippines 24/7 crisis hotline',
     color: '#3b82f6',
-    icon: '📞',
   },
   {
     name: 'Hopeline Philippines',
@@ -15,7 +14,6 @@ const hotlines = [
     tel: 'tel:88044673',
     desc: 'Free emotional support & counseling',
     color: '#14b8a6',
-    icon: '💙',
   },
   {
     name: 'In Touch Community Services',
@@ -23,7 +21,6 @@ const hotlines = [
     tel: 'tel:0288937603',
     desc: 'Mental health counseling & support',
     color: '#8b5cf6',
-    icon: '🤝',
   },
   {
     name: 'DOH Mental Health Program',
@@ -31,7 +28,6 @@ const hotlines = [
     tel: 'tel:0286517800',
     desc: 'Department of Health mental health services',
     color: '#14b8a6',
-    icon: '🏥',
   },
 ];
 
@@ -205,7 +201,7 @@ export default function BreakSilence() {
               onTouchStart={() => setHoveredCard(i)}
               onTouchEnd={() => setHoveredCard(null)}
             >
-              <div style={{ fontSize: '24px', marginBottom: '12px' }}>{h.icon}</div>
+              <div style={{ fontSize: '24px', marginBottom: '12px' }} />
               <a
                 href={h.tel}
                 style={{ color: 'inherit', textDecoration: 'none' }}
