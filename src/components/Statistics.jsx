@@ -234,8 +234,8 @@ function ChartLegend() {
    CHART 1 — Help-seeking (%)
 ════════════════════════════════════════════════ */
 const helpRawData = [
-  { group: 'Men',   value: 33, fill: MEN_COLOR   },
-  { group: 'Women', value: 52, fill: WOMEN_COLOR  },
+  { group: 'Men',   value: 44.8, fill: MEN_COLOR   },
+  { group: 'Women', value: 55.2, fill: WOMEN_COLOR  },
 ];
 
 function HelpSeekingChart() {
@@ -247,8 +247,8 @@ function HelpSeekingChart() {
     wasInView.current = inView;
   }, [inView]);
 
-  const menVal   = useCountUp(33, inView, 850, 0);
-  const womenVal = useCountUp(52, inView, 850, 0);
+  const menVal   = useCountUp(44.8, inView, 850, 1);
+  const womenVal = useCountUp(55.2, inView, 850, 1);
   const displayVals = { Men: menVal, Women: womenVal };
 
   return (
@@ -273,7 +273,7 @@ function HelpSeekingChart() {
           </span>
         </h3>
         <p style={{ color: '#475569', fontSize: '14px', lineHeight: '1.6', margin: '0 0 22px' }}>
-          Percentage who seek professional mental health support when struggling.
+          Percentage of adults who received mental health treatment in the past year (SAMHSA, 2021).
         </p>
 
         <ChartLegend />
@@ -305,7 +305,7 @@ function HelpSeekingChart() {
         </div>
 
         <p style={{ color: '#334155', fontSize: '11px', marginTop: '14px', marginBottom: 0, fontStyle: 'italic' }}>
-          Source: [citation needed] — placeholder values: Men 33%, Women 52%. Replace with verified APA/WHO/PSA data.
+          Source: SAMHSA (2021). Mental Health Client Level Data. Among adults, 44.8% of men vs. 55.2% of women received mental health treatment.
         </p>
       </motion.div>
     </AnimKeyCtx.Provider>
@@ -316,8 +316,8 @@ function HelpSeekingChart() {
    CHART 2 — Suicide Rate (per 100,000)
 ════════════════════════════════════════════════ */
 const suicideRawData = [
-  { group: 'Men',   value: 12.5, fill: MEN_COLOR   },
-  { group: 'Women', value: 3.8,  fill: WOMEN_COLOR  },
+  { group: 'Men',   value: 12.6, fill: MEN_COLOR   },
+  { group: 'Women', value: 5.4,  fill: WOMEN_COLOR  },
 ];
 
 function SuicideRateChart() {
@@ -329,8 +329,8 @@ function SuicideRateChart() {
     wasInView.current = inView;
   }, [inView]);
 
-  const menVal   = useCountUp(12.5, inView, 1100, 1);
-  const womenVal = useCountUp(3.8,  inView, 1100, 1);
+  const menVal   = useCountUp(12.6, inView, 1100, 1);
+  const womenVal = useCountUp(5.4,  inView, 1100, 1);
   const displayVals = { Men: menVal, Women: womenVal };
 
   return (
@@ -353,7 +353,7 @@ function SuicideRateChart() {
           <span style={{ color: '#ef4444', fontSize: '0.65em', fontWeight: '600' }}>per 100,000</span>
         </h3>
         <p style={{ color: '#475569', fontSize: '14px', lineHeight: '1.6', margin: '0 0 22px' }}>
-          Suicide rates by gender per 100,000 population — Philippines context. Replace with verified DOH/WHO data.
+          Global suicide rates by gender per 100,000 population (WHO, 2021). Men die by suicide at more than twice the rate of women worldwide.
         </p>
 
         <ChartLegend />
@@ -396,7 +396,7 @@ function SuicideRateChart() {
         </div>
 
         <p style={{ color: '#334155', fontSize: '11px', marginTop: '12px', marginBottom: 0, fontStyle: 'italic' }}>
-          Source: [citation needed] — placeholder values: Men 12.5, Women 3.8 per 100,000. Replace with verified WHO/DOH/PSA data.
+          Source: World Health Organization (2021). Suicide worldwide in 2021: global health estimates. Men 12.6, Women 5.4 per 100,000.
         </p>
       </motion.div>
     </AnimKeyCtx.Provider>

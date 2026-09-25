@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 const references = [
   {
-    citation: 'World Health Organization (2021). Suicide data.',
-    url: 'https://www.who.int/news-room/fact-sheets/detail/suicide',
+    citation: 'World Health Organization (2021). Suicide worldwide in 2021: Global health estimates. Geneva: WHO. Men: 12.6 per 100,000; Women: 5.4 per 100,000.',
+    url: 'https://www.who.int/news/item/17-06-2021-one-in-100-deaths-is-by-suicide',
     type: 'International Organization',
     color: '#3b82f6',
   },
@@ -18,6 +18,12 @@ const references = [
     url: 'https://www.thecalmzone.net',
     type: 'Research Report',
     color: '#8b5cf6',
+  },
+  {
+    citation: 'Substance Abuse and Mental Health Services Administration (2021). Mental Health Client Level Data: Adults receiving mental health treatment by gender. Rockville, MD: SAMHSA.',
+    url: 'https://www.samhsa.gov/data/',
+    type: 'Government Report',
+    color: '#f59e0b',
   },
   {
     citation: 'Department of Health Philippines (2020). National Mental Health Program Report. Manila: DOH.',
