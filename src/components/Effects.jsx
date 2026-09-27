@@ -53,16 +53,22 @@ const effects = [
 
 function EffectCard({ effect, i, visible }) {
   const [show, setShow] = useState(false);
-  // Use a small delay on hide so the mouse can travel from card → modal
+  const [isTouch, setIsTouch] = useState(false);
   const hideTimer = useRef(null);
 
+  // Detect touch device once on mount — disable popup on touch screens
+  useEffect(() => {
+    setIsTouch(window.matchMedia('(hover: none)').matches);
+  }, []);
+
   const handleEnter = () => {
+    if (isTouch) return;
     clearTimeout(hideTimer.current);
     setShow(true);
   };
 
   const handleLeave = () => {
-    // 120 ms grace period so the user can move the cursor onto the popup
+    if (isTouch) return;
     hideTimer.current = setTimeout(() => setShow(false), 120);
   };
 
