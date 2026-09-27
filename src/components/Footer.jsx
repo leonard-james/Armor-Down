@@ -9,18 +9,18 @@ const scrollTo = (href) => {
 };
 
 const links = [
-  { label: 'What Is It',      href: '#whatis'     },
-  { label: 'Statistics',      href: '#statistics'  },
-  { label: 'Myths vs Reality',href: '#myths'       },
-  { label: 'Effects',         href: '#effects'     },
-  { label: 'Laws & Policies', href: '#laws'        },
-  { label: 'Break the Silence', href: '#silence'   },
-  { label: 'References',      href: '#references'  },
+  { label: 'What Is It',        href: '#whatis'     },
+  { label: 'Statistics',        href: '#statistics'  },
+  { label: 'Myths vs Reality',  href: '#myths'       },
+  { label: 'Effects',           href: '#effects'     },
+  { label: 'Laws & Policies',   href: '#laws'        },
+  { label: 'Break the Silence', href: '#silence'     },
+  { label: 'References',        href: '#references'  },
 ];
 
 const hotlines = [
-  { name: 'NCMH Crisis Line', num: '1553',          tel: 'tel:1553'         },
-  { name: 'Hopeline PH',      num: '8804-4673',     tel: 'tel:88044673'     },
+  { name: 'NCMH Crisis Line', num: '1553',           tel: 'tel:1553'         },
+  { name: 'Hopeline PH',      num: '8804-4673',      tel: 'tel:88044673'     },
   { name: 'In Touch',         num: '(02) 8893-7603', tel: 'tel:0288937603'  },
 ];
 
@@ -29,27 +29,29 @@ const currentYear = new Date().getFullYear();
 export default function Footer() {
   return (
     <footer style={{
-      background: '#050810',
-      borderTop: '1px solid rgba(45,212,191,0.12)',
+      background: '#0a0805',
+      borderTop: '1px solid rgba(196,122,58,0.1)',
       padding: 'clamp(48px, 7vw, 72px) clamp(16px, 4vw, 24px) clamp(24px, 4vw, 36px)',
       position: 'relative',
     }}>
       {/* Top gradient line */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '1px',
-        background: 'linear-gradient(90deg, transparent, #2dd4bf40, #3b82f640, transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(196,122,58,0.3), rgba(232,168,124,0.2), transparent)',
       }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
-        {/* ── Top grid ── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
-          gap: 'clamp(32px, 5vw, 56px)',
-          marginBottom: 'clamp(40px, 6vw, 56px)',
-        }}>
-
+        {/* Top grid */}
+        <div
+          id="footer-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
+            gap: 'clamp(32px, 5vw, 56px)',
+            marginBottom: 'clamp(40px, 6vw, 56px)',
+          }}
+        >
           {/* Brand */}
           <div>
             <button
@@ -64,25 +66,23 @@ export default function Footer() {
               <LogoIcon style={{ height: '36px', width: '36px' }} />
               <span style={{
                 fontFamily: 'Sora, sans-serif', fontWeight: '700',
-                fontSize: '16px', color: '#f1f5f9', letterSpacing: '-0.3px',
+                fontSize: '16px', color: '#e8e0d5', letterSpacing: '-0.3px',
               }}>
                 Armor Down
               </span>
             </button>
-            <p style={{ color: '#475569', fontSize: '14px', lineHeight: '1.85', maxWidth: '280px', margin: '0 0 20px' }}>
+            <p style={{ color: '#4a3f38', fontSize: '14px', lineHeight: '1.85', maxWidth: '280px', margin: '0 0 20px' }}>
               A gender awareness project on toxic masculinity and men's mental health.
               Created for Gender &amp; Society course, 4th Year.
             </p>
-            {/* Accent rule */}
-            <div style={{ height: '2px', width: '48px', background: 'linear-gradient(90deg, #2dd4bf, #3b82f6)', borderRadius: '2px' }} />
+            <div style={{ height: '2px', width: '48px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)', borderRadius: '2px' }} />
           </div>
 
           {/* Navigation */}
           <div>
             <h4 style={{
-              color: '#334155', fontSize: '11px', fontWeight: '700',
-              letterSpacing: '2px', textTransform: 'uppercase',
-              margin: '0 0 20px',
+              color: '#3a3028', fontSize: '11px', fontWeight: '700',
+              letterSpacing: '2px', textTransform: 'uppercase', margin: '0 0 20px',
             }}>
               Navigate
             </h4>
@@ -93,12 +93,12 @@ export default function Footer() {
                     onClick={() => scrollTo(l.href)}
                     style={{
                       background: 'none', border: 'none', cursor: 'pointer',
-                      color: '#475569', fontSize: '14px', padding: 0,
+                      color: '#4a3f38', fontSize: '14px', padding: 0,
                       transition: 'color 0.2s', textAlign: 'left',
                       fontFamily: 'Inter, system-ui, sans-serif',
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = '#2dd4bf'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#e8a87c'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a3f38'}
                   >
                     {l.label}
                   </button>
@@ -110,13 +110,12 @@ export default function Footer() {
           {/* Crisis hotlines */}
           <div>
             <h4 style={{
-              color: '#334155', fontSize: '11px', fontWeight: '700',
-              letterSpacing: '2px', textTransform: 'uppercase',
-              margin: '0 0 20px',
+              color: '#3a3028', fontSize: '11px', fontWeight: '700',
+              letterSpacing: '2px', textTransform: 'uppercase', margin: '0 0 20px',
             }}>
               Crisis Hotlines
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
               {hotlines.map((h) => (
                 <a
                   key={h.name}
@@ -126,22 +125,22 @@ export default function Footer() {
                     textDecoration: 'none',
                     padding: '8px 12px',
                     borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.04)',
-                    background: 'rgba(255,255,255,0.02)',
+                    border: '1px solid rgba(255,255,255,0.03)',
+                    background: 'rgba(255,255,255,0.01)',
                     transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(45,212,191,0.25)';
-                    e.currentTarget.style.background = 'rgba(45,212,191,0.05)';
+                    e.currentTarget.style.borderColor = 'rgba(196,122,58,0.22)';
+                    e.currentTarget.style.background = 'rgba(196,122,58,0.04)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)';
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.03)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.01)';
                   }}
                 >
-                  <span style={{ color: '#475569', fontSize: '13px' }}>{h.name}</span>
+                  <span style={{ color: '#4a3f38', fontSize: '13px' }}>{h.name}</span>
                   <span style={{
-                    color: '#2dd4bf', fontWeight: '700', fontSize: '13px',
+                    color: '#c47a3a', fontWeight: '700', fontSize: '13px',
                     fontFamily: 'Sora, sans-serif', letterSpacing: '-0.3px',
                   }}>{h.num}</span>
                 </a>
@@ -150,40 +149,31 @@ export default function Footer() {
 
             {/* Emergency callout */}
             <div style={{
-              background: 'rgba(239,68,68,0.06)',
-              border: '1px solid rgba(239,68,68,0.18)',
+              background: 'rgba(192,80,77,0.06)',
+              border: '1px solid rgba(192,80,77,0.18)',
               borderRadius: '10px',
               padding: '14px 16px',
             }}>
-              <p style={{ color: '#64748b', fontSize: '12px', lineHeight: '1.65', margin: 0 }}>
+              <p style={{ color: '#5a4f48', fontSize: '12px', lineHeight: '1.65', margin: 0 }}>
                 If you are in immediate danger, please call{' '}
-                <strong style={{ color: '#ef4444' }}>911</strong>{' '}
+                <strong style={{ color: '#c0504d' }}>911</strong>{' '}
                 or go to your nearest emergency room.
               </p>
             </div>
           </div>
         </div>
 
-        {/* ── Divider ── */}
+        {/* Divider */}
         <div style={{
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)',
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)',
           marginBottom: 'clamp(18px, 3vw, 24px)',
         }} />
 
-        {/* ── Bottom row ── */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '10px',
-        }}>
-          <p style={{ color: '#334155', fontSize: '13px', margin: 0 }}>
+        {/* Bottom row */}
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ color: '#3a3028', fontSize: '13px', margin: 0 }}>
             © {currentYear} Armor Down — Gender &amp; Society Midterm Project
-          </p>
-          <p style={{ color: '#1e293b', fontSize: '12px', margin: 0 }}>
-            Built with React + Vite &nbsp;|&nbsp; Content based on cited research
           </p>
         </div>
 

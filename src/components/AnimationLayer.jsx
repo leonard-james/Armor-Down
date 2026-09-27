@@ -23,9 +23,9 @@ function ScrollProgressBar() {
       <div style={{
         height: '100%',
         width: `${progress}%`,
-        background: 'linear-gradient(90deg, #3b82f6, #14b8a6, #8b5cf6)',
+        background: 'linear-gradient(90deg, #c47a3a, #e8a87c, #a0522d)',
         transition: 'width 0.1s linear',
-        boxShadow: '0 0 10px rgba(59,130,246,0.8), 0 0 20px rgba(20,184,166,0.4)',
+        boxShadow: '0 0 10px rgba(196,122,58,0.7), 0 0 20px rgba(232,168,124,0.3)',
       }} />
     </div>
   );
@@ -173,7 +173,7 @@ function AmbientOrbs() {
     window.addEventListener('resize', resize);
 
     // Init orbs
-    const colors = ['59,130,246', '20,184,166', '139,92,246', '59,130,246'];
+    const colors = ['196,122,58', '122,158,126', '160,82,45', '196,122,58'];
     orbsRef.current = Array.from({ length: 5 }, (_, i) => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -255,7 +255,7 @@ function ScrollToTop() {
         width: '48px',
         height: '48px',
         borderRadius: '50%',
-        background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
+        background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
         border: 'none',
         cursor: 'pointer',
         display: 'flex',
@@ -263,7 +263,7 @@ function ScrollToTop() {
         justifyContent: 'center',
         fontSize: '20px',
         zIndex: 9990,
-        boxShadow: '0 8px 32px rgba(59,130,246,0.4)',
+        boxShadow: '0 8px 28px rgba(196,122,58,0.35)',
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.8)',
         opacity: visible ? 1 : 0,
         transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -271,11 +271,11 @@ function ScrollToTop() {
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-4px) scale(1.1)';
-        e.currentTarget.style.boxShadow = '0 16px 40px rgba(59,130,246,0.6)';
+        e.currentTarget.style.boxShadow = '0 16px 36px rgba(196,122,58,0.55)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0) scale(1)';
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(59,130,246,0.4)';
+        e.currentTarget.style.boxShadow = '0 8px 28px rgba(196,122,58,0.35)';
       }}
     >
       ↑
@@ -324,9 +324,6 @@ export default function AnimationLayer() {
   return (
     <>
       {!isTouch && <AmbientOrbs />}
-      <ScrollProgressBar />
-      {!isTouch && <CursorTrail />}
-      {!isTouch && <RippleEffect />}
       <ScrollToTop />
       <SectionReveal />
     </>

@@ -25,8 +25,7 @@ export default function Navbar() {
     setMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      const offset = 80;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top, behavior: 'smooth' });
     }
   };
@@ -35,19 +34,18 @@ export default function Navbar() {
     <nav
       style={{
         position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 0, left: 0, right: 0,
         zIndex: 1000,
         transition: 'all 0.4s ease',
-        backgroundColor: scrolled ? 'rgba(10, 14, 26, 0.95)' : 'transparent',
+        backgroundColor: scrolled ? 'rgba(15,13,11,0.95)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(59, 130, 246, 0.15)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.5)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(196,122,58,0.15)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.4)' : 'none',
         padding: scrolled ? '12px 0' : '20px 0',
       }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
         {/* Logo */}
         <a
           href="#hero"
@@ -55,7 +53,7 @@ export default function Navbar() {
           style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}
         >
           <LogoIcon style={{ height: '36px', width: '36px' }} />
-          <span style={{ fontFamily: 'Sora, sans-serif', fontWeight: '700', fontSize: '15px', color: '#f1f5f9', letterSpacing: '-0.3px' }}>
+          <span style={{ fontFamily: 'Sora, sans-serif', fontWeight: '700', fontSize: '15px', color: '#e8e0d5', letterSpacing: '-0.3px' }}>
             Armor Down
           </span>
         </a>
@@ -71,7 +69,7 @@ export default function Navbar() {
                 className="animated-underline"
                 style={{
                   textDecoration: 'none',
-                  color: '#94a3b8',
+                  color: '#7a6b60',
                   fontSize: '13px',
                   fontWeight: '500',
                   padding: '6px 12px',
@@ -81,11 +79,11 @@ export default function Navbar() {
                   letterSpacing: '0.2px',
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.color = '#f1f5f9';
-                  e.target.style.background = 'rgba(59,130,246,0.1)';
+                  e.target.style.color = '#e8e0d5';
+                  e.target.style.background = 'rgba(196,122,58,0.1)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.color = '#94a3b8';
+                  e.target.style.color = '#7a6b60';
                   e.target.style.background = 'transparent';
                 }}
               >
@@ -95,51 +93,47 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA button */}
+        {/* CTA */}
         <a
           href="#silence"
           onClick={(e) => handleNavClick(e, '#silence')}
+          className="nav-cta"
           style={{
-            background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
-            color: 'white',
+            background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+            color: '#1a1008',
             textDecoration: 'none',
             padding: '8px 18px',
             borderRadius: '8px',
             fontSize: '13px',
-            fontWeight: '600',
+            fontWeight: '700',
             transition: 'opacity 0.2s, transform 0.2s',
             letterSpacing: '0.2px',
           }}
           onMouseEnter={(e) => { e.target.style.opacity = '0.85'; e.target.style.transform = 'scale(1.03)'; }}
           onMouseLeave={(e) => { e.target.style.opacity = '1'; e.target.style.transform = 'scale(1)'; }}
-          className="nav-cta"
         >
           Get Help Now
         </a>
 
-        {/* Hamburger for mobile */}
+        {/* Hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
           className="nav-hamburger"
           style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '6px',
-            flexDirection: 'column',
-            gap: '5px',
+            background: 'none', border: 'none', cursor: 'pointer', padding: '6px',
+            flexDirection: 'column', gap: '5px',
           }}
         >
           {[0, 1, 2].map((i) => (
             <span key={i} style={{
               display: 'block', width: '24px', height: '2px',
-              background: '#f1f5f9', borderRadius: '2px',
+              background: '#e8e0d5', borderRadius: '2px',
               transition: 'all 0.3s ease',
               transform: menuOpen
                 ? i === 0 ? 'rotate(45deg) translate(5px, 5px)'
-                : i === 1 ? 'opacity: 0; scaleX(0)'
-                : 'rotate(-45deg) translate(5px, -5px)'
+                : i === 2 ? 'rotate(-45deg) translate(5px, -5px)'
+                : 'none'
                 : 'none',
               opacity: menuOpen && i === 1 ? 0 : 1,
             }} />
@@ -150,8 +144,8 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div style={{
-          background: 'rgba(10, 14, 26, 0.98)',
-          borderTop: '1px solid rgba(59, 130, 246, 0.15)',
+          background: 'rgba(15,13,11,0.98)',
+          borderTop: '1px solid rgba(196,122,58,0.15)',
           padding: '16px 24px 24px',
         }}>
           {navLinks.map((link) => (
@@ -162,15 +156,15 @@ export default function Navbar() {
               style={{
                 display: 'block',
                 textDecoration: 'none',
-                color: '#94a3b8',
+                color: '#7a6b60',
                 fontSize: '15px',
                 fontWeight: '500',
                 padding: '12px 0',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                borderBottom: '1px solid rgba(255,255,255,0.04)',
                 transition: 'color 0.2s',
               }}
-              onMouseEnter={(e) => e.target.style.color = '#3b82f6'}
-              onMouseLeave={(e) => e.target.style.color = '#94a3b8'}
+              onMouseEnter={(e) => e.target.style.color = '#e8a87c'}
+              onMouseLeave={(e) => e.target.style.color = '#7a6b60'}
             >
               {link.label}
             </a>
@@ -180,10 +174,10 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, '#silence')}
             style={{
               display: 'block', marginTop: '16px',
-              background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
-              color: 'white', textDecoration: 'none',
+              background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+              color: '#1a1008', textDecoration: 'none',
               padding: '12px 20px', borderRadius: '8px',
-              fontSize: '14px', fontWeight: '600', textAlign: 'center',
+              fontSize: '14px', fontWeight: '700', textAlign: 'center',
             }}
           >
             Get Help Now

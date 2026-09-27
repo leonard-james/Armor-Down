@@ -9,7 +9,7 @@ export default function LogoIcon({ className, style }) {
       aria-label="Armor Down logo"
     >
       <title>Armor Down</title>
-      <circle cx="130" cy="130" r="90" fill="#0f172a" />
+      <circle cx="130" cy="130" r="90" fill="#1a1008" />
       <path
         d="M 130 72
            L 96 86
@@ -19,11 +19,11 @@ export default function LogoIcon({ className, style }) {
            L 164 86
            L 148 79.5"
         fill="none"
-        stroke="#2dd4bf"
+        stroke="#c47a3a"
         strokeWidth="8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }

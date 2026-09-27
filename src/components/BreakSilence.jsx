@@ -6,28 +6,28 @@ const hotlines = [
     number: '1553',
     tel: 'tel:1553',
     desc: 'Philippines 24/7 crisis hotline',
-    color: '#3b82f6',
+    color: '#c47a3a',
   },
   {
     name: 'Hopeline Philippines',
     number: '8804-4673',
     tel: 'tel:88044673',
     desc: 'Free emotional support & counseling',
-    color: '#14b8a6',
+    color: '#e8a87c',
   },
   {
     name: 'In Touch Community Services',
     number: '(02) 8893-7603',
     tel: 'tel:0288937603',
     desc: 'Mental health counseling & support',
-    color: '#8b5cf6',
+    color: '#8b6b4e',
   },
   {
     name: 'DOH Mental Health Program',
     number: '(02) 8651-7800',
     tel: 'tel:0286517800',
     desc: 'Department of Health mental health services',
-    color: '#14b8a6',
+    color: '#e8a87c',
   },
 ];
 
@@ -37,6 +37,13 @@ const affirmations = [
   'Asking for help is brave.',
   'You don\'t have to face this alone.',
   'Recovery is possible.',
+];
+
+const steps = [
+  { step: '01', text: 'Acknowledge you\'re struggling — that alone takes strength.', color: '#c47a3a' },
+  { step: '02', text: 'Tell one trusted person how you\'re really feeling.', color: '#e8a87c' },
+  { step: '03', text: 'Call a hotline or schedule a counseling session.', color: '#8b6b4e' },
+  { step: '04', text: 'Be patient — healing is a process, not a destination.', color: '#e8a87c' },
 ];
 
 export default function BreakSilence() {
@@ -72,29 +79,29 @@ export default function BreakSilence() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 10vw, 120px) clamp(16px, 4vw, 24px)',
-        background: 'linear-gradient(135deg, #0a0e1a 0%, #0d1220 30%, #0a1420 60%, #0a0e1a 100%)',
+        background: 'linear-gradient(160deg, #130f0b 0%, #0f0d0b 50%, #0d0b09 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Ambient light effects */}
+      {/* Warm ambient glow */}
       <div style={{
-        position: 'absolute', top: '10%', left: '50%', transform: 'translateX(-50%)',
-        width: '800px', height: '400px',
-        background: 'radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%)',
+        position: 'absolute', top: '8%', left: '50%', transform: 'translateX(-50%)',
+        width: '700px', height: '350px',
+        background: 'radial-gradient(ellipse, rgba(196,122,58,0.07) 0%, transparent 70%)',
         borderRadius: '50%', pointerEvents: 'none',
       }} />
       <div style={{
-        position: 'absolute', bottom: '10%', left: '20%',
-        width: '400px', height: '400px',
-        background: 'radial-gradient(circle, rgba(20,184,166,0.06) 0%, transparent 70%)',
+        position: 'absolute', bottom: '8%', left: '15%',
+        width: '350px', height: '350px',
+        background: 'radial-gradient(circle, rgba(122,158,126,0.05) 0%, transparent 70%)',
         borderRadius: '50%', pointerEvents: 'none',
       }} />
 
       {/* Top border */}
       <div style={{
         position: 'absolute', left: 0, right: 0, top: 0, height: '2px',
-        background: 'linear-gradient(90deg, transparent, #3b82f6, #14b8a6, transparent)',
+        background: 'linear-gradient(90deg, transparent, #c47a3a, #e8a87c, transparent)',
       }} />
 
       <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
@@ -102,12 +109,12 @@ export default function BreakSilence() {
         {/* Badge */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.3)',
+          background: 'rgba(196,122,58,0.08)', border: '1px solid rgba(196,122,58,0.28)',
           borderRadius: '50px', padding: '8px 20px', marginBottom: '36px',
           opacity: visible ? 1 : 0, transition: 'all 0.7s ease',
         }}>
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444', animation: 'pulse-slow 1.5s infinite' }} />
-          <span style={{ color: '#93c5fd', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#c0504d', animation: 'pulse-slow 1.5s infinite' }} />
+          <span style={{ color: '#e8a87c', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase' }}>
             Break the Silence
           </span>
         </div>
@@ -123,11 +130,11 @@ export default function BreakSilence() {
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(30px)',
           transition: 'all 0.8s ease 0.1s',
-          color: '#f1f5f9',
+          color: '#e8e0d5',
         }}>
           You Don't Have to{' '}
           <span style={{
-            background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
+            background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
@@ -143,7 +150,7 @@ export default function BreakSilence() {
         }}>
           <p style={{
             fontSize: 'clamp(18px, 3vw, 24px)',
-            color: '#64748b',
+            color: '#7a6b60',
             fontStyle: 'italic',
             fontWeight: '400',
             margin: 0,
@@ -156,7 +163,7 @@ export default function BreakSilence() {
 
         {/* Main paragraph */}
         <p style={{
-          color: '#475569',
+          color: '#5a4f48',
           fontSize: '17px',
           lineHeight: '1.85',
           maxWidth: '680px',
@@ -164,7 +171,7 @@ export default function BreakSilence() {
           opacity: visible ? 1 : 0,
           transition: 'all 0.7s ease 0.3s',
         }}>
-          The most important thing you can do right now is <strong style={{ color: '#94a3b8' }}>reach out</strong>.
+          The most important thing you can do right now is <strong style={{ color: '#9e8a78' }}>reach out</strong>.
           Whether it's talking to a friend, a family member, a counselor, or a crisis hotline —
           taking that first step is an act of extraordinary courage.
           <br /><br />
@@ -172,40 +179,39 @@ export default function BreakSilence() {
         </p>
 
         {/* Hotline cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '16px',
-          marginBottom: '60px',
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(30px)',
-          transition: 'all 0.8s ease 0.4s',
-        }}>
+        <div
+          className="hotline-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '14px',
+            marginBottom: '60px',
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'all 0.8s ease 0.4s',
+          }}
+        >
           {hotlines.map((h, i) => (
             <div
               key={i}
               style={{
-                background: hoveredCard === i ? `rgba(17,24,39,0.95)` : 'rgba(17,24,39,0.8)',
-                border: `1px solid ${hoveredCard === i ? h.color + '55' : h.color + '25'}`,
-                borderRadius: '16px',
-                padding: '24px 20px',
+                background: hoveredCard === i ? 'rgba(28,22,18,0.95)' : 'rgba(22,17,13,0.8)',
+                border: `1px solid ${hoveredCard === i ? h.color + '50' : h.color + '20'}`,
+                borderRadius: '14px',
+                padding: '22px 18px',
                 transition: 'all 0.3s ease',
                 position: 'relative',
                 overflow: 'hidden',
                 cursor: 'pointer',
                 transform: hoveredCard === i ? 'translateY(-4px)' : 'translateY(0)',
-                boxShadow: hoveredCard === i ? `0 16px 40px ${h.color}20` : 'none',
+                boxShadow: hoveredCard === i ? `0 14px 36px ${h.color}14` : 'none',
               }}
               onMouseEnter={() => setHoveredCard(i)}
               onMouseLeave={() => setHoveredCard(null)}
               onTouchStart={() => setHoveredCard(i)}
               onTouchEnd={() => setHoveredCard(null)}
             >
-              <div style={{ fontSize: '24px', marginBottom: '12px' }} />
-              <a
-                href={h.tel}
-                style={{ color: 'inherit', textDecoration: 'none' }}
-              >
+              <a href={h.tel} style={{ color: 'inherit', textDecoration: 'none' }}>
                 <div style={{
                   fontFamily: 'Sora, sans-serif',
                   fontSize: '22px', fontWeight: '800',
@@ -215,10 +221,10 @@ export default function BreakSilence() {
                   {h.number}
                 </div>
               </a>
-              <div style={{ color: '#f1f5f9', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
+              <div style={{ color: '#c4b5a8', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
                 {h.name}
               </div>
-              <div style={{ color: '#475569', fontSize: '12px' }}>
+              <div style={{ color: '#4a3f38', fontSize: '12px' }}>
                 {h.desc}
               </div>
               <div style={{
@@ -229,42 +235,37 @@ export default function BreakSilence() {
           ))}
         </div>
 
-        {/* Steps to getting help */}
+        {/* Steps */}
         <div style={{
-          background: 'rgba(59,130,246,0.05)',
-          border: '1px solid rgba(59,130,246,0.15)',
-          borderRadius: '20px',
-          padding: '40px',
+          background: 'rgba(196,122,58,0.04)',
+          border: '1px solid rgba(196,122,58,0.12)',
+          borderRadius: '18px',
+          padding: '36px 40px',
           marginBottom: '50px',
           opacity: visible ? 1 : 0,
           transition: 'all 0.8s ease 0.6s',
+          textAlign: 'left',
         }}>
           <h3 style={{
             fontFamily: 'Sora, sans-serif',
-            fontSize: '22px', fontWeight: '700',
-            color: '#f1f5f9', margin: '0 0 30px',
+            fontSize: '20px', fontWeight: '700',
+            color: '#c4b5a8', margin: '0 0 28px',
             letterSpacing: '-0.3px',
           }}>
             First Steps Toward Healing
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 160px), 1fr))', gap: '20px' }}>
-            {[
-              { step: '01', text: 'Acknowledge you\'re struggling — that alone takes strength.', color: '#3b82f6' },
-              { step: '02', text: 'Tell one trusted person how you\'re really feeling.', color: '#14b8a6' },
-              { step: '03', text: 'Call a hotline or schedule a counseling session.', color: '#8b5cf6' },
-              { step: '04', text: 'Be patient — healing is a process, not a destination.', color: '#f59e0b' },
-            ].map((s, i) => (
-              <div key={i} style={{ textAlign: 'left' }}>
+            {steps.map((s, i) => (
+              <div key={i}>
                 <div style={{
                   fontFamily: 'Sora, sans-serif',
                   fontSize: '36px', fontWeight: '900',
-                  color: `${s.color}40`,
-                  lineHeight: '1',
-                  marginBottom: '10px',
+                  color: `${s.color}35`,
+                  lineHeight: '1', marginBottom: '10px',
                 }}>
                   {s.step}
                 </div>
-                <p style={{ color: '#64748b', fontSize: '14px', lineHeight: '1.7', margin: 0 }}>
+                <p style={{ color: '#5a4f48', fontSize: '14px', lineHeight: '1.7', margin: 0 }}>
                   {s.text}
                 </p>
               </div>
@@ -273,20 +274,15 @@ export default function BreakSilence() {
         </div>
 
         {/* Final message */}
-        <div style={{
-          opacity: visible ? 1 : 0,
-          transition: 'all 0.8s ease 0.8s',
-        }}>
-          <p style={{
-            color: '#334155', fontSize: '15px', lineHeight: '1.8', margin: '0 0 8px',
-          }}>
+        <div style={{ opacity: visible ? 1 : 0, transition: 'all 0.8s ease 0.8s' }}>
+          <p style={{ color: '#3a3028', fontSize: '15px', lineHeight: '1.8', margin: '0 0 8px' }}>
             Remember: seeking help is not a sign of weakness.
           </p>
           <p style={{
             fontFamily: 'Sora, sans-serif',
             fontSize: 'clamp(20px, 3vw, 28px)',
             fontWeight: '800',
-            background: 'linear-gradient(135deg, #3b82f6, #14b8a6)',
+            background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',

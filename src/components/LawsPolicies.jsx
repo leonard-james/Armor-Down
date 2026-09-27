@@ -13,7 +13,7 @@ const laws = [
       'Explicitly prohibits discrimination against those seeking help',
       'Establishes a National Mental Health Policy targeting stigma',
     ],
-    color: '#3b82f6',
+    color: '#c47a3a',
     tag: 'Primary Law',
   },
   {
@@ -28,7 +28,7 @@ const laws = [
       'Covers online harassment — a growing source of male-perpetrated harm',
       'Signals a legal shift away from toxic masculinity as the default',
     ],
-    color: '#14b8a6',
+    color: '#e8a87c',
     tag: 'Gender Norms',
   },
   {
@@ -43,7 +43,7 @@ const laws = [
       'Funds mental health awareness and destigmatization campaigns',
       'Aligns with the WHO Mental Health Action Plan 2013–2030',
     ],
-    color: '#8b5cf6',
+    color: '#8b6b4e',
     tag: 'Policy',
   },
   {
@@ -58,7 +58,7 @@ const laws = [
       'Promotes help-seeking as a normal, healthy behavior from youth',
       'Supports gender-responsive and inclusive education standards',
     ],
-    color: '#f59e0b',
+    color: '#e8a87c',
     tag: 'Education',
   },
 ];
@@ -82,16 +82,15 @@ export default function LawsPolicies() {
       id="laws"
       ref={ref}
       style={{
-        padding: '100px 24px',
-        background: 'linear-gradient(180deg, #080c18 0%, #0a0e1a 100%)',
+        padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 24px)',
+        background: 'linear-gradient(180deg, #0d0b09 0%, #0f0d0b 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Decorative lines */}
       <div style={{
         position: 'absolute', left: 0, right: 0, top: 0, height: '1px',
-        background: 'linear-gradient(90deg, transparent, rgba(20,184,166,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(122,158,126,0.2), transparent)',
       }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -103,11 +102,11 @@ export default function LawsPolicies() {
             transition: 'all 0.7s ease',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px',
           }}>
-            <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #3b82f6, #14b8a6)' }} />
-            <span style={{ color: '#14b8a6', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
+            <span style={{ color: '#c47a3a', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
               Philippine Context
             </span>
-            <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #14b8a6, #3b82f6)' }} />
+            <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
           </div>
 
           <h2 style={{
@@ -116,14 +115,14 @@ export default function LawsPolicies() {
             fontWeight: '800',
             margin: '0 0 16px',
             letterSpacing: '-1px',
-            color: '#f1f5f9',
+            color: '#e8e0d5',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.7s ease 0.1s',
           }}>
             Laws &amp;{' '}
             <span style={{
-              background: 'linear-gradient(135deg, #14b8a6, #3b82f6)',
+              background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -131,7 +130,7 @@ export default function LawsPolicies() {
           </h2>
 
           <p style={{
-            color: '#64748b', fontSize: '16px', maxWidth: '560px', margin: '0 auto',
+            color: '#5a4f48', fontSize: '16px', maxWidth: '560px', margin: '0 auto',
             lineHeight: '1.7',
             opacity: visible ? 1 : 0,
             transition: 'all 0.7s ease 0.2s',
@@ -142,66 +141,66 @@ export default function LawsPolicies() {
         </div>
 
         {/* Laws list */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {laws.map((law, i) => (
             <div
               key={i}
               onClick={() => setActiveIndex(activeIndex === i ? null : i)}
               style={{
-                background: activeIndex === i ? 'rgba(17,24,39,0.95)' : 'rgba(17,24,39,0.5)',
-                border: `1px solid ${activeIndex === i ? law.color + '50' : law.color + '20'}`,
-                borderRadius: '20px',
-                padding: '28px 32px',
+                background: activeIndex === i ? 'rgba(28,22,18,0.95)' : 'rgba(22,17,13,0.6)',
+                border: `1px solid ${activeIndex === i ? law.color + '45' : law.color + '18'}`,
+                borderRadius: '18px',
+                padding: '26px 30px',
                 cursor: 'pointer',
                 transition: 'all 0.4s ease',
                 opacity: visible ? 1 : 0,
                 transform: visible ? 'translateX(0)' : 'translateX(-30px)',
                 transitionDelay: `${0.2 + i * 0.1}s`,
-                boxShadow: activeIndex === i ? `0 20px 60px ${law.color}15` : 'none',
+                boxShadow: activeIndex === i ? `0 16px 48px ${law.color}10` : 'none',
               }}
               onMouseEnter={(e) => {
                 if (activeIndex !== i) {
-                  e.currentTarget.style.borderColor = `${law.color}35`;
-                  e.currentTarget.style.background = 'rgba(17,24,39,0.8)';
+                  e.currentTarget.style.borderColor = `${law.color}30`;
+                  e.currentTarget.style.background = 'rgba(28,22,18,0.8)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (activeIndex !== i) {
-                  e.currentTarget.style.borderColor = `${law.color}20`;
-                  e.currentTarget.style.background = 'rgba(17,24,39,0.5)';
+                  e.currentTarget.style.borderColor = `${law.color}18`;
+                  e.currentTarget.style.background = 'rgba(22,17,13,0.6)';
                 }
               }}
             >
               {/* Header row */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+              <div className="law-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
                       <span style={{
                         fontFamily: 'Sora, sans-serif',
-                        fontWeight: '800', fontSize: '18px',
-                        color: law.color,
-                        letterSpacing: '-0.3px',
+                        fontWeight: '800', fontSize: '17px',
+                        color: law.color, letterSpacing: '-0.3px',
                       }}>
                         {law.number}
                       </span>
                       <span style={{
-                        background: `${law.color}15`, border: `1px solid ${law.color}30`,
+                        background: `${law.color}12`, border: `1px solid ${law.color}28`,
                         borderRadius: '6px', padding: '2px 8px',
-                        color: law.color, fontSize: '10px', fontWeight: '700', letterSpacing: '0.8px', textTransform: 'uppercase',
+                        color: law.color, fontSize: '10px', fontWeight: '700',
+                        letterSpacing: '0.8px', textTransform: 'uppercase',
                       }}>
                         {law.tag}
                       </span>
-                      <span style={{ color: '#334155', fontSize: '12px' }}>{law.year}</span>
+                      <span style={{ color: '#3a3028', fontSize: '12px' }}>{law.year}</span>
                     </div>
-                    <h3 style={{ color: '#f1f5f9', fontSize: '16px', fontWeight: '700', margin: 0, letterSpacing: '-0.2px' }}>
+                    <h3 style={{ color: '#c4b5a8', fontSize: '15px', fontWeight: '700', margin: 0, letterSpacing: '-0.2px' }}>
                       {law.title}
                     </h3>
                   </div>
                 </div>
                 <div style={{
                   width: '28px', height: '28px',
-                  border: `1px solid ${law.color}30`,
+                  border: `1px solid ${law.color}28`,
                   borderRadius: '50%',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: law.color, fontSize: '14px', flexShrink: 0,
@@ -214,8 +213,8 @@ export default function LawsPolicies() {
 
               {/* Expanded content */}
               {activeIndex === i && (
-                <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: `1px solid ${law.color}15` }}>
-                  <p style={{ color: '#94a3b8', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' }}>
+                <div style={{ marginTop: '22px', paddingTop: '22px', borderTop: `1px solid ${law.color}12` }}>
+                  <p style={{ color: '#7a6b60', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' }}>
                     {law.description}
                   </p>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
@@ -223,12 +222,12 @@ export default function LawsPolicies() {
                       <div key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                         <span style={{
                           width: '20px', height: '20px', borderRadius: '50%',
-                          background: `${law.color}20`, border: `1px solid ${law.color}40`,
+                          background: `${law.color}15`, border: `1px solid ${law.color}35`,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           flexShrink: 0, marginTop: '1px',
                           color: law.color, fontSize: '10px',
                         }}>✓</span>
-                        <span style={{ color: '#64748b', fontSize: '13px', lineHeight: '1.6' }}>{h}</span>
+                        <span style={{ color: '#5a4f48', fontSize: '13px', lineHeight: '1.6' }}>{h}</span>
                       </div>
                     ))}
                   </div>
@@ -240,16 +239,16 @@ export default function LawsPolicies() {
 
         {/* Bottom callout */}
         <div style={{
-          marginTop: '50px',
-          background: 'rgba(59,130,246,0.06)',
-          border: '1px solid rgba(59,130,246,0.15)',
-          borderRadius: '16px',
-          padding: '28px 32px',
+          marginTop: '48px',
+          background: 'rgba(196,122,58,0.05)',
+          border: '1px solid rgba(196,122,58,0.14)',
+          borderRadius: '14px',
+          padding: '26px 30px',
           opacity: visible ? 1 : 0,
           transition: 'opacity 0.7s ease 1s',
         }}>
-          <p style={{ color: '#64748b', fontSize: '14px', lineHeight: '1.8', margin: 0, textAlign: 'center' }}>
-            <span style={{ color: '#3b82f6', fontWeight: '600' }}>Note:</span> While laws exist, implementation remains uneven.
+          <p style={{ color: '#5a4f48', fontSize: '14px', lineHeight: '1.8', margin: 0, textAlign: 'center' }}>
+            <span style={{ color: '#c47a3a', fontWeight: '600' }}>Note:</span> While laws exist, implementation remains uneven.
             Many Filipino men are still unaware of the services they are entitled to.
             Awareness and destigmatization remain critical next steps.
           </p>
