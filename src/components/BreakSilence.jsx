@@ -192,8 +192,9 @@ export default function BreakSilence() {
           }}
         >
           {hotlines.map((h, i) => (
-            <div
+            <a
               key={i}
+              href={h.tel}
               style={{
                 background: hoveredCard === i ? 'rgba(28,22,18,0.95)' : 'rgba(22,17,13,0.8)',
                 border: `1px solid ${hoveredCard === i ? h.color + '50' : h.color + '20'}`,
@@ -205,22 +206,22 @@ export default function BreakSilence() {
                 cursor: 'pointer',
                 transform: hoveredCard === i ? 'translateY(-4px)' : 'translateY(0)',
                 boxShadow: hoveredCard === i ? `0 14px 36px ${h.color}14` : 'none',
+                textDecoration: 'none',
+                display: 'block',
               }}
               onMouseEnter={() => setHoveredCard(i)}
               onMouseLeave={() => setHoveredCard(null)}
               onTouchStart={() => setHoveredCard(i)}
               onTouchEnd={() => setHoveredCard(null)}
             >
-              <a href={h.tel} style={{ color: 'inherit', textDecoration: 'none' }}>
-                <div style={{
-                  fontFamily: 'Sora, sans-serif',
-                  fontSize: '22px', fontWeight: '800',
-                  color: h.color, marginBottom: '6px',
-                  letterSpacing: '-0.5px',
-                }}>
-                  {h.number}
-                </div>
-              </a>
+              <div style={{
+                fontFamily: 'Sora, sans-serif',
+                fontSize: '22px', fontWeight: '800',
+                color: h.color, marginBottom: '6px',
+                letterSpacing: '-0.5px',
+              }}>
+                {h.number}
+              </div>
               <div style={{ color: '#c4b5a8', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
                 {h.name}
               </div>
@@ -231,7 +232,7 @@ export default function BreakSilence() {
                 position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
                 background: `linear-gradient(90deg, transparent, ${h.color}, transparent)`,
               }} />
-            </div>
+            </a>
           ))}
         </div>
 

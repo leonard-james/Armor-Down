@@ -172,31 +172,6 @@ export default function Hero() {
           </button>
         </div>
 
-        {/* Scroll indicator */}
-        <div
-          onClick={handleScroll}
-          style={{
-            marginTop: '70px', display: 'flex', flexDirection: 'column',
-            alignItems: 'center', gap: '8px', cursor: 'pointer',
-            animation: 'fadeInUp 0.8s ease 0.8s both',
-          }}
-        >
-          <span style={{ color: '#4a3f38', fontSize: '12px', fontWeight: '500', letterSpacing: '2px', textTransform: 'uppercase' }}>
-            Scroll Down
-          </span>
-          <div style={{
-            width: '28px', height: '44px',
-            border: '2px solid rgba(196,122,58,0.25)',
-            borderRadius: '14px',
-            display: 'flex', justifyContent: 'center', paddingTop: '8px',
-          }}>
-            <div style={{
-              width: '4px', height: '10px',
-              background: '#c47a3a', borderRadius: '2px',
-              animation: 'float 1.5s ease-in-out infinite',
-            }} />
-          </div>
-        </div>
       </div>
     </section>
   );
