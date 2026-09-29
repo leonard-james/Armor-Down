@@ -52,173 +52,115 @@ const effects = [
 ];
 
 function EffectCard({ effect, i, visible }) {
-  const [show, setShow] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
-  const hideTimer = useRef(null);
+  const [expanded, setExpanded] = useState(false);
 
-  // Detect touch device once on mount — disable popup on touch screens
-  useEffect(() => {
-    setIsTouch(window.matchMedia('(hover: none)').matches);
-  }, []);
-
-  const handleEnter = () => {
-    if (isTouch) return;
-    clearTimeout(hideTimer.current);
-    setShow(true);
-  };
-
-  const handleLeave = () => {
-    if (isTouch) return;
-    hideTimer.current = setTimeout(() => setShow(false), 120);
-  };
-
-  useEffect(() => () => clearTimeout(hideTimer.current), []);
+  const toggle = () => setExpanded(e => !e);
 
   return (
-    <div style={{ position: 'relative' }}>
-      {/* ── Card ── */}
-      <div
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-        style={{
-          background: show ? 'rgba(28,22,18,0.95)' : 'rgba(24,19,15,0.7)',
-          border: `1px solid ${show ? effect.color + '55' : effect.color + '20'}`,
-          borderRadius: '18px',
-          padding: '28px',
-          position: 'relative',
-          overflow: 'hidden',
-          cursor: 'default',
-          opacity: visible ? 1 : 0,
-          transform: visible
-            ? show ? 'translateY(-4px)' : 'translateY(0)'
-            : 'translateY(36px)',
-          boxShadow: show ? `0 20px 48px ${effect.color}18` : 'none',
-          transition: visible
-            ? 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.6s ease'
-            : `opacity 0.6s ease ${0.15 + i * 0.08}s, transform 0.6s ease ${0.15 + i * 0.08}s`,
-        }}
-      >
-        {/* Left accent bar */}
-        <div style={{
-          position: 'absolute', left: 0, top: '20%', bottom: '20%', width: '3px',
-          background: `linear-gradient(180deg, transparent, ${effect.color}, transparent)`,
-          opacity: show ? 1 : 0.4,
-          transition: 'opacity 0.2s ease',
-        }} />
-
-        <h3 style={{
-          color: '#c4b5a8', fontSize: '17px', fontWeight: '700',
-          margin: '0 0 10px', letterSpacing: '-0.2px',
-        }}>
-          {effect.title}
-        </h3>
-
-        <p style={{ color: '#5a4f48', fontSize: '13px', lineHeight: '1.8', margin: '0 0 18px' }}>
-          {effect.desc}
-        </p>
-
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: `${effect.color}0e`, border: `1px solid ${effect.color}25`,
-          borderRadius: '50px', padding: '5px 14px',
-        }}>
-          <span style={{ color: effect.color, fontSize: '15px', fontWeight: '800', fontFamily: 'Sora, sans-serif' }}>
-            {effect.stat}
-          </span>
-          <span style={{ color: '#4a3f38', fontSize: '11px', fontWeight: '500', lineHeight: '1.4' }}>
-            {effect.statLabel}
-          </span>
-        </div>
-      </div>
-
-      {/* ── Hover popup — fixed center of screen ── */}
-      <div
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-        style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: show
-            ? 'translate(-50%, -50%) scale(1)'
-            : 'translate(-50%, -48%) scale(0.97)',
-          width: 'min(480px, 90vw)',
-          zIndex: 9000,
-          pointerEvents: show ? 'auto' : 'none',
-          opacity: show ? 1 : 0,
-          transition: 'opacity 0.22s ease, transform 0.22s ease',
-        }}
-      >
-        <div style={{
-          background: 'linear-gradient(160deg, #1c1610 0%, #160f0b 100%)',
-          border: `1px solid ${effect.color}40`,
-          borderRadius: '20px',
-          padding: '32px',
-          boxShadow: `0 32px 80px rgba(0,0,0,0.85), 0 0 0 1px ${effect.color}15`,
-          position: 'relative',
-          overflow: 'hidden',
-        }}>
-          {/* Top accent */}
-          <div style={{
-            position: 'absolute', top: 0, left: '15%', right: '15%', height: '2px',
-            background: `linear-gradient(90deg, transparent, ${effect.color}, transparent)`,
-          }} />
-
-          {/* Stat badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: `${effect.color}12`, border: `1px solid ${effect.color}30`,
-            borderRadius: '50px', padding: '4px 14px', marginBottom: '16px',
-          }}>
-            <span style={{ color: effect.color, fontSize: '16px', fontWeight: '900', fontFamily: 'Sora, sans-serif' }}>
-              {effect.stat}
-            </span>
-            <span style={{ color: '#5a4f48', fontSize: '11px' }}>{effect.statLabel}</span>
-          </div>
-
-          {/* Title */}
-          <h4 style={{
-            fontFamily: 'Sora, sans-serif', fontSize: '20px', fontWeight: '800',
-            color: '#e8e0d5', margin: '0 0 12px', letterSpacing: '-0.3px',
-          }}>
-            {effect.title}
-          </h4>
-
-          {/* Divider */}
-          <div style={{
-            height: '1px',
-            background: `linear-gradient(90deg, ${effect.color}28, transparent)`,
-            marginBottom: '14px',
-          }} />
-
-          {/* Short desc */}
-          <p style={{ color: '#9e8a78', fontSize: '14px', lineHeight: '1.8', margin: '0 0 14px' }}>
-            {effect.desc}
-          </p>
-
-          {/* Detail */}
-          <p style={{
-            color: '#6b5f55', fontSize: '13px', lineHeight: '1.85', margin: 0,
-            padding: '16px 18px',
-            background: `${effect.color}06`,
-            border: `1px solid ${effect.color}14`,
-            borderRadius: '12px',
-          }}>
-            {effect.detail}
-          </p>
-        </div>
-      </div>
-
-      {/* Backdrop dimmer */}
+    <div
+      onClick={toggle}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle()}
+      role="button"
+      tabIndex={0}
+      aria-expanded={expanded}
+      style={{
+        background: expanded ? 'rgba(28,22,18,0.95)' : 'rgba(24,19,15,0.7)',
+        border: `1px solid ${expanded ? effect.color + '55' : effect.color + '20'}`,
+        borderRadius: '18px',
+        padding: '28px',
+        position: 'relative',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(36px)',
+        boxShadow: expanded ? `0 20px 48px ${effect.color}18` : 'none',
+        transition: visible
+          ? 'border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, opacity 0.6s ease'
+          : `opacity 0.6s ease ${0.15 + i * 0.08}s, transform 0.6s ease ${0.15 + i * 0.08}s`,
+        outline: 'none',
+        userSelect: 'none',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = `${effect.color}50`;
+        e.currentTarget.style.transform = 'translateY(-3px)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = expanded ? `${effect.color}55` : `${effect.color}20`;
+        e.currentTarget.style.transform = 'translateY(0)';
+      }}
+    >
+      {/* Left accent bar */}
       <div style={{
-        position: 'fixed', inset: 0,
-        background: 'rgba(10,8,6,0.55)',
-        backdropFilter: 'blur(3px)',
-        zIndex: 8999,
-        pointerEvents: 'none',
-        opacity: show ? 1 : 0,
-        transition: 'opacity 0.22s ease',
+        position: 'absolute', left: 0, top: '20%', bottom: '20%', width: '3px',
+        background: `linear-gradient(180deg, transparent, ${effect.color}, transparent)`,
+        opacity: expanded ? 1 : 0.4,
+        transition: 'opacity 0.2s ease',
       }} />
+
+      {/* Top accent line when expanded */}
+      {expanded && (
+        <div style={{
+          position: 'absolute', top: 0, left: '10%', right: '10%', height: '2px',
+          background: `linear-gradient(90deg, transparent, ${effect.color}, transparent)`,
+        }} />
+      )}
+
+      <h3 style={{
+        color: '#c4b5a8', fontSize: '17px', fontWeight: '700',
+        margin: '0 0 10px', letterSpacing: '-0.2px',
+      }}>
+        {effect.title}
+      </h3>
+
+      <p style={{ color: '#5a4f48', fontSize: '13px', lineHeight: '1.8', margin: '0 0 18px' }}>
+        {effect.desc}
+      </p>
+
+      <div style={{
+        display: 'inline-flex', alignItems: 'center', gap: '8px',
+        background: `${effect.color}0e`, border: `1px solid ${effect.color}25`,
+        borderRadius: '50px', padding: '5px 14px',
+        marginBottom: expanded ? '18px' : 0,
+      }}>
+        <span style={{ color: effect.color, fontSize: '15px', fontWeight: '800', fontFamily: 'Sora, sans-serif' }}>
+          {effect.stat}
+        </span>
+        <span style={{ color: '#4a3f38', fontSize: '11px', fontWeight: '500', lineHeight: '1.4' }}>
+          {effect.statLabel}
+        </span>
+      </div>
+
+      {/* Expanded detail — slides open inline */}
+      <div style={{
+        overflow: 'hidden',
+        maxHeight: expanded ? '300px' : '0',
+        opacity: expanded ? 1 : 0,
+        transition: 'max-height 0.35s ease, opacity 0.25s ease',
+      }}>
+        <div style={{
+          height: '1px',
+          background: `linear-gradient(90deg, ${effect.color}35, transparent)`,
+          marginBottom: '14px',
+        }} />
+        <p style={{
+          color: '#6b5f55', fontSize: '13px', lineHeight: '1.85', margin: 0,
+          padding: '14px 16px',
+          background: `${effect.color}07`,
+          border: `1px solid ${effect.color}15`,
+          borderRadius: '12px',
+        }}>
+          {effect.detail}
+        </p>
+      </div>
+
+      {/* Tap hint */}
+      <div style={{
+        position: 'absolute', bottom: '10px', right: '14px',
+        color: '#3a3028', fontSize: '11px', fontWeight: '500',
+        transition: 'color 0.2s',
+      }}>
+        {expanded ? 'collapse' : 'read more'}
+      </div>
     </div>
   );
 }
