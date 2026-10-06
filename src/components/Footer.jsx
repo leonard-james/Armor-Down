@@ -16,6 +16,7 @@ const links = [
   { label: 'Effects',           href: '#effects'     },
   { label: 'Laws & Policies',   href: '#laws'        },
   { label: 'Break the Silence', href: '#silence'     },
+  { label: 'About Us',          href: '#about'       },
   { label: 'References',        href: '#references'  },
 ];
 
@@ -57,6 +58,7 @@ export default function Footer() {
           <div>
             <Link
               to="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               style={{
                 display: 'flex', alignItems: 'center', gap: '10px',
                 textDecoration: 'none', marginBottom: '18px',
@@ -104,23 +106,7 @@ export default function Footer() {
                   </button>
                 </li>
               ))}
-              {/* About page */}
-              <li>
-                <Link
-                  to="/about"
-                  style={{
-                    background: 'none', border: 'none', cursor: 'pointer',
-                    color: '#4a3f38', fontSize: '14px', padding: 0,
-                    transition: 'color 0.2s', textAlign: 'left',
-                    fontFamily: 'Inter, system-ui, sans-serif',
-                    textDecoration: 'none', display: 'inline-block',
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#e8a87c'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#4a3f38'}
-                >
-                  About Us
-                </Link>
-              </li>
+
             </ul>
           </div>
 

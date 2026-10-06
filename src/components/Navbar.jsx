@@ -8,6 +8,7 @@ const sectionLinks = [
   { label: 'Myths vs Reality',href: '#myths'       },
   { label: 'Effects',         href: '#effects'     },
   { label: 'Laws',            href: '#laws'        },
+  { label: 'About',           href: '#about'       },
   { label: 'References',      href: '#references'  },
 ];
 
@@ -72,10 +73,11 @@ export default function Navbar({ introActive = false }) {
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
-        {/* Logo — always goes to / */}
+        {/* Logo — navigates to / and scrolls to top */}
         <Link
           to="/"
           aria-label="Go to homepage"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px',
                    transition: 'opacity 0.2s ease, transform 0.2s ease' }}
           onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.75'; e.currentTarget.style.transform = 'scale(1.03)'; }}
@@ -115,25 +117,6 @@ export default function Navbar({ introActive = false }) {
             </li>
           ))}
 
-          {/* About page link */}
-          <li>
-            <Link
-              to="/about"
-              onClick={() => setMenuOpen(false)}
-              style={{
-                ...linkStyle,
-                color: location.pathname === '/about' ? '#e8a87c' : '#7a6b60',
-                background: location.pathname === '/about' ? 'rgba(196,122,58,0.1)' : 'transparent',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#e8e0d5'; e.currentTarget.style.background = 'rgba(196,122,58,0.1)'; }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = location.pathname === '/about' ? '#e8a87c' : '#7a6b60';
-                e.currentTarget.style.background = location.pathname === '/about' ? 'rgba(196,122,58,0.1)' : 'transparent';
-              }}
-            >
-              About
-            </Link>
-          </li>
         </ul>
 
         {/* CTA */}
@@ -196,15 +179,6 @@ export default function Navbar({ introActive = false }) {
               {link.label}
             </a>
           ))}
-
-          {/* About in mobile menu */}
-          <Link
-            to="/about"
-            onClick={() => setMenuOpen(false)}
-            style={{ display: 'block', textDecoration: 'none', color: location.pathname === '/about' ? '#e8a87c' : '#7a6b60', fontSize: '15px', fontWeight: '500', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.04)', transition: 'color 0.2s' }}
-          >
-            About
-          </Link>
 
           <a
             href="#silence"
