@@ -91,32 +91,33 @@ function PhotoAvatar({ src, name }) {
 }
 
 /* ── Member card ── */
-function MemberCard({ member, index, visible }) {
+function MemberCard({ member, index, visible, isHovered, anyHovered, onEnter, onLeave }) {
+  const dimmed = anyHovered && !isHovered;
+
   return (
     <div
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
       style={{
         background: 'rgba(24,19,15,0.7)',
-        border: '1px solid rgba(196,122,58,0.18)',
+        border: `1px solid ${isHovered ? 'rgba(196,122,58,0.55)' : 'rgba(196,122,58,0.18)'}`,
         borderRadius: '24px',
         padding: 'clamp(20px, 2.5vw, 32px)',
         position: 'relative',
         overflow: 'hidden',
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(32px)',
-        transition: `opacity 0.65s ease ${0.15 + index * 0.1}s,
-                     transform 0.65s ease ${0.15 + index * 0.1}s,
+        opacity: visible ? (dimmed ? 0.45 : 1) : 0,
+        transform: visible
+          ? isHovered ? 'translateY(-10px) scale(1.03)' : 'translateY(0) scale(1)'
+          : 'translateY(32px)',
+        filter: dimmed ? 'blur(2px)' : 'none',
+        boxShadow: isHovered ? '0 24px 56px rgba(196,122,58,0.18)' : 'none',
+        zIndex: isHovered ? 2 : 1,
+        transition: `opacity 0.65s ease ${visible ? 0 : 0.15 + index * 0.1}s,
+                     transform 0.3s ease,
+                     filter 0.3s ease,
                      border-color 0.2s ease,
-                     box-shadow 0.2s ease`,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(196,122,58,0.45)';
-        e.currentTarget.style.transform   = 'translateY(-3px)';
-        e.currentTarget.style.boxShadow   = '0 16px 40px rgba(196,122,58,0.1)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'rgba(196,122,58,0.18)';
-        e.currentTarget.style.transform   = 'translateY(0)';
-        e.currentTarget.style.boxShadow   = 'none';
+                     box-shadow 0.3s ease`,
+        cursor: 'default',
       }}
     >
       {/* Top accent bar */}
@@ -173,7 +174,40 @@ function MemberCard({ member, index, visible }) {
   );
 }
 
-/* ── Main section ── */
+/* ── Member grid with hover state ── */
+function MemberGrid({ visible }) {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  return (
+    <>
+      <div className="about-member-grid" style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: 'clamp(12px, 2vw, 20px)',
+      }}>
+        {members.map((member, i) => (
+          <MemberCard
+            key={i}
+            member={member}
+            index={i}
+            visible={visible}
+            isHovered={hoveredIndex === i}
+            anyHovered={hoveredIndex !== null}
+            onEnter={() => setHoveredIndex(i)}
+            onLeave={() => setHoveredIndex(null)}
+          />
+        ))}
+      </div>
+      <style>{`
+        @media (max-width: 700px) {
+          .about-member-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (min-width: 701px) and (max-width: 960px) {
+          .about-member-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
+    </>
+  );
+}
 export default function AboutSection() {
   const [visible, setVisible] = useState(false);
   const ref = useRef(null);
@@ -296,24 +330,7 @@ export default function AboutSection() {
         </div>
 
         {/* ── 4-column member grid ── */}
-        <div className="about-member-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 'clamp(12px, 2vw, 20px)',
-        }}>
-          {members.map((member, i) => (
-            <MemberCard key={i} member={member} index={i} visible={visible} />
-          ))}
-        </div>
-
-        <style>{`
-          @media (max-width: 700px) {
-            .about-member-grid { grid-template-columns: 1fr !important; }
-          }
-          @media (min-width: 701px) and (max-width: 960px) {
-            .about-member-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          }
-        `}</style>
+        <MemberGrid visible={visible} />
 
         {/* ── Bottom note ── */}
         <div style={{

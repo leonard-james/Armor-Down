@@ -35,7 +35,7 @@ const members = [
     initials: 'FG',
     role: 'Research & Content',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
   {
@@ -43,7 +43,7 @@ const members = [
     initials: 'LG',
     role: 'Design & Layout',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
   {
@@ -51,7 +51,7 @@ const members = [
     initials: 'LG',
     role: 'Development',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
   {
@@ -59,7 +59,7 @@ const members = [
     initials: 'ME',
     role: 'Data & Statistics',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
 ];
