@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import LogoIcon from './Logo';
 
 const scrollTo = (href) => {
@@ -54,14 +55,13 @@ export default function Footer() {
         >
           {/* Brand */}
           <div>
-            <button
-              onClick={() => scrollTo('#hero')}
+            <Link
+              to="/"
               style={{
                 display: 'flex', alignItems: 'center', gap: '10px',
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: 0, marginBottom: '18px',
+                textDecoration: 'none', marginBottom: '18px',
               }}
-              aria-label="Scroll to top"
+              aria-label="Go to home"
             >
               <LogoIcon style={{ height: '36px', width: '36px' }} />
               <span style={{
@@ -70,7 +70,7 @@ export default function Footer() {
               }}>
                 Armor Down
               </span>
-            </button>
+            </Link>
             <p style={{ color: '#4a3f38', fontSize: '14px', lineHeight: '1.85', maxWidth: '280px', margin: '0 0 20px' }}>
               A gender awareness project on toxic masculinity and men's mental health.
               Created for Gender &amp; Society course, 4th Year.
@@ -104,6 +104,23 @@ export default function Footer() {
                   </button>
                 </li>
               ))}
+              {/* About page */}
+              <li>
+                <Link
+                  to="/about"
+                  style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    color: '#4a3f38', fontSize: '14px', padding: 0,
+                    transition: 'color 0.2s', textAlign: 'left',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    textDecoration: 'none', display: 'inline-block',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#e8a87c'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#4a3f38'}
+                >
+                  About Us
+                </Link>
+              </li>
             </ul>
           </div>
 
