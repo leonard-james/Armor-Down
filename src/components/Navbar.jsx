@@ -11,7 +11,7 @@ const sectionLinks = [
   { label: 'References',      href: '#references'  },
 ];
 
-export default function Navbar() {
+export default function Navbar({ introActive = false }) {
   const [scrolled,  setScrolled]  = useState(false);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const location   = useLocation();
@@ -75,10 +75,25 @@ export default function Navbar() {
         {/* Logo — always goes to / */}
         <Link
           to="/"
-          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}
+          aria-label="Go to homepage"
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px',
+                   transition: 'opacity 0.2s ease, transform 0.2s ease' }}
+          onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.75'; e.currentTarget.style.transform = 'scale(1.03)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.opacity = '1';    e.currentTarget.style.transform = 'scale(1)'; }}
         >
-          <LogoIcon style={{ height: '36px', width: '36px' }} />
-          <span style={{ fontFamily: 'Sora, sans-serif', fontWeight: '700', fontSize: '15px', color: '#e8e0d5', letterSpacing: '-0.3px' }}>
+          {/*
+            Plain wrapper — layoutId removed since the splash
+            no longer uses a shared layout animation.
+            The overlay covers the navbar during the intro so
+            no duplicate-logo treatment is needed.
+          */}
+          <div style={{ width: '36px', height: '36px', flexShrink: 0 }}>
+            <LogoIcon style={{ height: '36px', width: '36px', display: 'block' }} />
+          </div>
+          <span style={{
+            fontFamily: 'Sora, sans-serif', fontWeight: '700', fontSize: '15px',
+            color: '#e8e0d5', letterSpacing: '-0.3px',
+          }}>
             Armor Down
           </span>
         </Link>

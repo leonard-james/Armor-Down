@@ -32,27 +32,35 @@ const AVATAR_COLORS = [
 const members = [
   {
     name: 'Fola Faustine L. Gersalia',
-    initials: 'MN',
+    initials: 'FG',
     role: 'Research & Content',
-    bio: 'A short bio goes here.',
+    course: 'BSIT NAS 4-2',
+    university: 'Sorsogon State University Bulan Campus',
+    year: '2026',
   },
   {
     name: 'Lloyd Allan B. Gimena',
-    initials: 'MN',
+    initials: 'LG',
     role: 'Design & Layout',
-    bio: 'A short bio goes here.',
+    course: 'BSIT NAS 4-2',
+    university: 'Sorsogon State University Bulan Campus',
+    year: '2026',
   },
   {
     name: 'Leonard James H. Gobris',
-    initials: 'MN',
+    initials: 'LG',
     role: 'Development',
-    bio: 'A short bio goes here.',
+    course: 'BSIT NAS 4-2',
+    university: 'Sorsogon State University Bulan Campus',
+    year: '2026',
   },
   {
     name: 'Mark John D. Ernacio',
-    initials: 'MN',
+    initials: 'ME',
     role: 'Data & Statistics',
-    bio: 'A short bio goes here.',
+    course: 'BSIT NAS 4-2',
+    university: 'Sorsogon State University Bulan Campus',
+    year: '2026',
   },
 ];
 
@@ -158,15 +166,34 @@ function MemberCard({ member, index, visible }) {
         marginBottom: '14px',
       }} />
 
-      {/* Bio */}
-      <p style={{
-        color: '#5a4f48',
-        fontSize: '14px',
-        lineHeight: '1.75',
-        margin: 0,
-      }}>
-        {member.bio}
-      </p>
+      {/* Info fields */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {[
+          { label: 'Course / Section', value: member.course },
+          { label: 'University',       value: member.university },
+          { label: 'Year',             value: member.year },
+        ].map(({ label, value }) => (
+          <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+            <span style={{
+              color: '#3a3028',
+              fontSize: '10px',
+              fontWeight: '600',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+            }}>
+              {label}
+            </span>
+            <span style={{
+              color: '#7a6b60',
+              fontSize: '13px',
+              fontWeight: '500',
+              lineHeight: '1.5',
+            }}>
+              {value}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -275,16 +302,21 @@ export default function About() {
           </p>
         </div>
 
-        {/* ── Member grid — 2×2 desktop, 1-col mobile ── */}
-        <div style={{
+        {/* ── Member grid — 4 columns desktop, 1-col mobile ── */}
+        <div className="member-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 440px), 1fr))',
-          gap: 'clamp(16px, 2.5vw, 24px)',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 'clamp(12px, 2vw, 20px)',
         }}>
           {members.map((member, i) => (
             <MemberCard key={i} member={member} index={i} visible={visible} />
           ))}
         </div>
+        <style>{`
+          @media (max-width: 700px) {
+            .member-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
 
         {/* ── Bottom note — same muted style as Statistics disclaimer ── */}
         <div style={{
