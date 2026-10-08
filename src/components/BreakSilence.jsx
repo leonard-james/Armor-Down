@@ -130,7 +130,7 @@ export default function BreakSilence() {
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(30px)',
           transition: 'all 0.8s ease 0.1s',
-          color: '#e8e0d5',
+          color: 'var(--text-primary)',
         }}>
           You Don't Have to{' '}
           <span style={{
@@ -150,7 +150,7 @@ export default function BreakSilence() {
         }}>
           <p style={{
             fontSize: 'clamp(18px, 3vw, 24px)',
-            color: '#7a6b60',
+            color: 'var(--text-muted)',
             fontStyle: 'italic',
             fontWeight: '400',
             margin: 0,
@@ -163,7 +163,7 @@ export default function BreakSilence() {
 
         {/* Main paragraph */}
         <p style={{
-          color: '#5a4f48',
+          color: 'var(--text-dim)',
           fontSize: '17px',
           lineHeight: '1.85',
           maxWidth: '680px',
@@ -222,10 +222,10 @@ export default function BreakSilence() {
               }}>
                 {h.number}
               </div>
-              <div style={{ color: '#c4b5a8', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
+              <div style={{ color: 'var(--text-secondary)', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
                 {h.name}
               </div>
-              <div style={{ color: '#4a3f38', fontSize: '12px' }}>
+              <div style={{ color: 'var(--text-dimmer)', fontSize: '12px' }}>
                 {h.desc}
               </div>
               <div style={{
@@ -250,7 +250,7 @@ export default function BreakSilence() {
           <h3 style={{
             fontFamily: 'Sora, sans-serif',
             fontSize: '20px', fontWeight: '700',
-            color: '#c4b5a8', margin: '0 0 28px',
+            color: 'var(--text-secondary)', margin: '0 0 28px',
             letterSpacing: '-0.3px',
           }}>
             First Steps Toward Healing
@@ -266,7 +266,7 @@ export default function BreakSilence() {
                 }}>
                   {s.step}
                 </div>
-                <p style={{ color: '#5a4f48', fontSize: '14px', lineHeight: '1.7', margin: 0 }}>
+                <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.7', margin: 0 }}>
                   {s.text}
                 </p>
               </div>
@@ -276,7 +276,7 @@ export default function BreakSilence() {
 
         {/* Final message */}
         <div style={{ opacity: visible ? 1 : 0, transition: 'all 0.8s ease 0.8s' }}>
-          <p style={{ color: '#3a3028', fontSize: '15px', lineHeight: '1.8', margin: '0 0 8px' }}>
+          <p style={{ color: 'var(--text-faint)', fontSize: '15px', lineHeight: '1.8', margin: '0 0 8px' }}>
             Remember: seeking help is not a sign of weakness.
           </p>
           <p style={{

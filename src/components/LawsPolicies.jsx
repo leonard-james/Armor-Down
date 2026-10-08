@@ -115,7 +115,7 @@ export default function LawsPolicies() {
             fontWeight: '800',
             margin: '0 0 16px',
             letterSpacing: '-1px',
-            color: '#e8e0d5',
+            color: 'var(--text-primary)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.7s ease 0.1s',
@@ -130,7 +130,7 @@ export default function LawsPolicies() {
           </h2>
 
           <p style={{
-            color: '#5a4f48', fontSize: '16px', maxWidth: '560px', margin: '0 auto',
+            color: 'var(--text-dim)', fontSize: '16px', maxWidth: '560px', margin: '0 auto',
             lineHeight: '1.7',
             opacity: visible ? 1 : 0,
             transition: 'all 0.7s ease 0.2s',
@@ -191,9 +191,9 @@ export default function LawsPolicies() {
                       }}>
                         {law.tag}
                       </span>
-                      <span style={{ color: '#3a3028', fontSize: '12px' }}>{law.year}</span>
+                      <span style={{ color: 'var(--text-faint)', fontSize: '12px' }}>{law.year}</span>
                     </div>
-                    <h3 style={{ color: '#c4b5a8', fontSize: '15px', fontWeight: '700', margin: 0, letterSpacing: '-0.2px' }}>
+                    <h3 style={{ color: 'var(--text-secondary)', fontSize: '15px', fontWeight: '700', margin: 0, letterSpacing: '-0.2px' }}>
                       {law.title}
                     </h3>
                   </div>
@@ -214,7 +214,7 @@ export default function LawsPolicies() {
               {/* Expanded content */}
               {activeIndex === i && (
                 <div style={{ marginTop: '22px', paddingTop: '22px', borderTop: `1px solid ${law.color}12` }}>
-                  <p style={{ color: '#7a6b60', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' }}>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' }}>
                     {law.description}
                   </p>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
@@ -227,7 +227,7 @@ export default function LawsPolicies() {
                           flexShrink: 0, marginTop: '1px',
                           color: law.color, fontSize: '10px',
                         }}>✓</span>
-                        <span style={{ color: '#5a4f48', fontSize: '13px', lineHeight: '1.6' }}>{h}</span>
+                        <span style={{ color: 'var(--text-dim)', fontSize: '13px', lineHeight: '1.6' }}>{h}</span>
                       </div>
                     ))}
                   </div>
@@ -247,7 +247,7 @@ export default function LawsPolicies() {
           opacity: visible ? 1 : 0,
           transition: 'opacity 0.7s ease 1s',
         }}>
-          <p style={{ color: '#5a4f48', fontSize: '14px', lineHeight: '1.8', margin: 0, textAlign: 'center' }}>
+          <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.8', margin: 0, textAlign: 'center' }}>
             <span style={{ color: '#c47a3a', fontWeight: '600' }}>Note:</span> While laws exist, implementation remains uneven.
             Many Filipino men are still unaware of the services they are entitled to.
             Awareness and destigmatization remain critical next steps.

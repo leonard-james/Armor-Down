@@ -88,7 +88,7 @@ export default function References() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 24px)',
-        background: '#0d0b09',
+        background: 'var(--bg-page-alt)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -120,7 +120,7 @@ export default function References() {
             fontWeight: '800',
             margin: '0 0 16px',
             letterSpacing: '-1px',
-            color: '#e8e0d5',
+            color: 'var(--text-primary)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.7s ease 0.1s',
@@ -135,7 +135,7 @@ export default function References() {
           </h2>
 
           <p style={{
-            color: '#5a4f48', fontSize: '15px',
+            color: 'var(--text-dim)', fontSize: '15px',
             opacity: visible ? 1 : 0, transition: 'all 0.7s ease 0.2s',
           }}>
             All claims in this project are supported by academic, governmental, and organizational sources.
@@ -182,7 +182,7 @@ export default function References() {
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
                   <p style={{
-                    color: '#7a6b60',
+                    color: 'var(--text-muted)',
                     fontSize: '14px',
                     lineHeight: '1.7',
                     margin: 0,
@@ -237,7 +237,7 @@ export default function References() {
           marginTop: '40px', textAlign: 'center',
           opacity: visible ? 1 : 0, transition: 'opacity 0.7s ease 1.2s',
         }}>
-          <p style={{ color: '#2a2018', fontSize: '13px' }}>
+          <p style={{ color: 'var(--text-ghost)', fontSize: '13px' }}>
             All references formatted in APA 7th Edition style.
           </p>
         </div>

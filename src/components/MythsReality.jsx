@@ -127,7 +127,7 @@ function FlipCard({ card, index, isVisible }) {
 
         {/* Text */}
         <p style={{
-          color: flipped ? '#c4b5a8' : '#e8e0d5',
+          color: flipped ? 'var(--text-secondary)' : 'var(--text-primary)',
           fontSize: flipped ? '13px' : 'clamp(14px, 1.8vw, 17px)',
           fontWeight: flipped ? '400' : '700',
           lineHeight: flipped ? '1.75' : '1.4',
@@ -141,7 +141,7 @@ function FlipCard({ card, index, isVisible }) {
       {/* Bottom hint */}
       <div style={{
         position: 'absolute', bottom: '12px', left: 0, right: 0,
-        textAlign: 'center', color: '#3a3028', fontSize: '11px', fontWeight: '500',
+        textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px', fontWeight: '500',
         opacity: animating ? 0 : 1, transition: 'opacity 0.18s ease',
       }}>
         {flipped ? '↩ Click to go back' : '↩ Click to reveal the truth'}
@@ -169,7 +169,7 @@ export default function MythsReality() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 24px)',
-        background: '#0f0d0b',
+        background: 'var(--bg-page)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -204,13 +204,13 @@ export default function MythsReality() {
             fontWeight: '800',
             margin: '0 0 16px',
             letterSpacing: '-1px',
-            color: '#e8e0d5',
+            color: 'var(--text-primary)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 0.7s ease 0.1s',
           }}>
             Myths{' '}
-            <span style={{ color: '#4a3f38' }}>vs</span>{' '}
+            <span style={{ color: 'var(--text-dimmer)' }}>vs</span>{' '}
             <span style={{
               background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
               WebkitBackgroundClip: 'text',
@@ -220,7 +220,7 @@ export default function MythsReality() {
           </h2>
 
           <p style={{
-            color: '#5a4f48', fontSize: 'clamp(14px, 2vw, 16px)', maxWidth: '520px', margin: '0 auto',
+            color: 'var(--text-dim)', fontSize: 'clamp(14px, 2vw, 16px)', maxWidth: '520px', margin: '0 auto',
             lineHeight: '1.7',
             opacity: visible ? 1 : 0,
             transition: 'all 0.7s ease 0.2s',
@@ -244,7 +244,7 @@ export default function MythsReality() {
           marginTop: '24px', textAlign: 'center',
           opacity: visible ? 1 : 0, transition: 'opacity 0.7s ease 0.8s',
         }}>
-          <p style={{ color: '#3a3028', fontSize: '13px', margin: 0 }}>
+          <p style={{ color: 'var(--text-faint)', fontSize: '13px', margin: 0 }}>
             Tap or click any card to reveal the reality
           </p>
         </div>

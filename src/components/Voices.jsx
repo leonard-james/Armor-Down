@@ -135,8 +135,8 @@ function StoryPanel({ story }) {
             flexShrink: 0,
           }} />
           <div>
-            <div style={{ color: '#5a4f48', fontSize: '13px', fontWeight: '600' }}>Anonymous</div>
-            <div style={{ color: '#3a3028', fontSize: '12px' }}>Composite reflection</div>
+            <div style={{ color: 'var(--text-dim)', fontSize: '13px', fontWeight: '600' }}>Anonymous</div>
+            <div style={{ color: 'var(--text-faint)', fontSize: '12px' }}>Composite reflection</div>
           </div>
         </div>
       </div>
@@ -195,7 +195,7 @@ export default function Voices() {
       ref={sectionRef}
       style={{
         padding: 'clamp(60px, 8vw, 100px) 0',
-        background: '#0d0b09',
+        background: 'var(--bg-page-alt)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -225,7 +225,7 @@ export default function Voices() {
           fontFamily: 'Sora, sans-serif',
           fontSize: 'clamp(28px, 5vw, 48px)',
           fontWeight: '800', margin: '0 0 12px',
-          letterSpacing: '-1px', color: '#e8e0d5',
+          letterSpacing: '-1px', color: 'var(--text-primary)',
         }}>
           When Silence{' '}
           <span style={{
@@ -233,7 +233,7 @@ export default function Voices() {
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>Finally Breaks</span>
         </h2>
-        <p style={{ color: '#5a4f48', fontSize: 'clamp(14px, 2vw, 16px)', maxWidth: '520px', margin: '0 auto', lineHeight: '1.7' }}>
+        <p style={{ color: 'var(--text-dim)', fontSize: 'clamp(14px, 2vw, 16px)', maxWidth: '520px', margin: '0 auto', lineHeight: '1.7' }}>
           These reflections capture experiences commonly described by men in mental health literature.
         </p>
       </div>
@@ -275,7 +275,7 @@ export default function Voices() {
                   borderRadius: '8px',
                   border: `1px solid ${isActive ? story.color : 'rgba(255,255,255,0.06)'}`,
                   background: isActive ? `${story.color}15` : 'transparent',
-                  color: isActive ? story.color : '#4a3f38',
+                  color: isActive ? story.color : 'var(--text-dimmer)',
                   fontSize: '13px',
                   fontWeight: isActive ? '700' : '500',
                   fontFamily: 'Inter, system-ui, sans-serif',
@@ -296,7 +296,7 @@ export default function Voices() {
                 onMouseLeave={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                    e.currentTarget.style.color = '#4a3f38';
+                    e.currentTarget.style.color = 'var(--text-dimmer)';
                   }
                 }}
               >
@@ -335,8 +335,8 @@ export default function Voices() {
           borderRadius: '12px', padding: '14px 18px',
           display: 'flex', gap: '10px', alignItems: 'flex-start',
         }}>
-          <p style={{ color: '#3a3028', fontSize: '12px', lineHeight: '1.7', margin: 0, fontStyle: 'italic' }}>
-            <strong style={{ color: '#4a3f38', fontStyle: 'normal' }}>Disclaimer:</strong>{' '}
+          <p style={{ color: 'var(--text-faint)', fontSize: '12px', lineHeight: '1.7', margin: 0, fontStyle: 'italic' }}>
+            <strong style={{ color: 'var(--text-dimmer)', fontStyle: 'normal' }}>Disclaimer:</strong>{' '}
             Composite reflections based on common experiences described in mental health literature — not direct quotes from named individuals.
           </p>
         </div>

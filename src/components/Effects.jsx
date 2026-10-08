@@ -106,13 +106,13 @@ function EffectCard({ effect, i, visible }) {
       )}
 
       <h3 style={{
-        color: '#c4b5a8', fontSize: '17px', fontWeight: '700',
+        color: 'var(--text-secondary)', fontSize: '17px', fontWeight: '700',
         margin: '0 0 10px', letterSpacing: '-0.2px',
       }}>
         {effect.title}
       </h3>
 
-      <p style={{ color: '#5a4f48', fontSize: '13px', lineHeight: '1.8', margin: '0 0 18px' }}>
+      <p style={{ color: 'var(--text-dim)', fontSize: '13px', lineHeight: '1.8', margin: '0 0 18px' }}>
         {effect.desc}
       </p>
 
@@ -125,7 +125,7 @@ function EffectCard({ effect, i, visible }) {
         <span style={{ color: effect.color, fontSize: '15px', fontWeight: '800', fontFamily: 'Sora, sans-serif' }}>
           {effect.stat}
         </span>
-        <span style={{ color: '#4a3f38', fontSize: '11px', fontWeight: '500', lineHeight: '1.4' }}>
+        <span style={{ color: 'var(--text-dimmer)', fontSize: '11px', fontWeight: '500', lineHeight: '1.4' }}>
           {effect.statLabel}
         </span>
       </div>
@@ -143,7 +143,7 @@ function EffectCard({ effect, i, visible }) {
           marginBottom: '14px',
         }} />
         <p style={{
-          color: '#6b5f55', fontSize: '13px', lineHeight: '1.85', margin: 0,
+          color: 'var(--text-dim)', fontSize: '13px', lineHeight: '1.85', margin: 0,
           padding: '14px 16px',
           background: `${effect.color}07`,
           border: `1px solid ${effect.color}15`,
@@ -156,7 +156,7 @@ function EffectCard({ effect, i, visible }) {
       {/* Tap hint */}
       <div style={{
         position: 'absolute', bottom: '10px', right: '14px',
-        color: '#3a3028', fontSize: '11px', fontWeight: '500',
+        color: 'var(--text-faint)', fontSize: '11px', fontWeight: '500',
         transition: 'color 0.2s',
       }}>
         {expanded ? 'collapse' : 'read more'}
@@ -216,7 +216,7 @@ export default function Effects() {
             fontWeight: '800',
             margin: '0 0 16px',
             letterSpacing: '-1px',
-            color: '#e8e0d5',
+            color: 'var(--text-primary)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(20px)',
             transition: 'all 0.6s ease 0.1s',
@@ -231,7 +231,7 @@ export default function Effects() {
           </h2>
 
           <p style={{
-            color: '#5a4f48', fontSize: 'clamp(14px, 2vw, 16px)', maxWidth: '560px',
+            color: 'var(--text-dim)', fontSize: 'clamp(14px, 2vw, 16px)', maxWidth: '560px',
             margin: '0 auto', lineHeight: '1.7',
             opacity: visible ? 1 : 0,
             transition: 'all 0.6s ease 0.2s',
