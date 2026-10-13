@@ -64,21 +64,6 @@ export default function Hero() {
       {/* Content */}
       <div style={{ maxWidth: '860px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
 
-        {/* Badge */}
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(196,122,58,0.1)',
-          border: '1px solid rgba(196,122,58,0.3)',
-          borderRadius: '50px',
-          padding: '8px 20px', marginBottom: '36px',
-          animation: 'fadeInUp 0.6s ease forwards',
-        }}>
-          <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#c47a3a', animation: 'pulse-slow 2s infinite' }} />
-          <span style={{ color: '#e8a87c', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase' }}>
-            Gender &amp; Society — Midterm Project
-          </span>
-        </div>
-
         {/* Main headline */}
         <h1 style={{
           fontFamily: 'Sora, sans-serif',

@@ -14,7 +14,9 @@ const keyPoints = [
   {
     num: '03',
     title: 'Stigmatization of Help',
-    desc: 'Seeking mental health support is framed as weakness. This keeps men from getting care they need until a crisis forces their hand.',
+    desc: 'Seeking mental health support is framed as weakness. This keeps men from getting care they need until a crisis forces their hand. Research on men\'s help-seeking links masculine socialization to whether men use mental health services (Addis & Mahalik, 2003).',
+    citationHref: 'https://doi.org/10.1037/0003-066X.58.1.5',
+    citationLabel: '[13]',
   },
   {
     num: '04',
@@ -131,9 +133,18 @@ export default function WhatIs() {
             </p>
 
             <p style={{ color: '#7a6b60', lineHeight: '1.9', fontSize: '16px', marginBottom: '20px' }}>
-              First widely studied by sociologist <strong style={{ color: '#c4b5a8' }}>R.W. Connell (2005)</strong> through
-              the concept of <em>hegemonic masculinity</em>, toxic masculinity describes how certain male behaviors are
-              socially rewarded while others — like crying or admitting weakness — are punished.
+              First set out by sociologist <strong style={{ color: '#c4b5a8' }}>R.W. Connell</strong> in{' '}
+              <em>Masculinities</em> (1995; 2nd ed. 2005), the concept of{' '}
+              <em>hegemonic masculinity</em> describes how certain male behaviors are socially rewarded
+              while others — like crying or admitting weakness — are punished.{' '}
+              <a
+                href="https://ucpress.edu/books/masculinities/paper"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#c47a3a', textDecoration: 'none', borderBottom: '1px solid rgba(196,122,58,0.4)', paddingBottom: '1px' }}
+              >
+                [8]
+              </a>
             </p>
 
             <p style={{ color: '#7a6b60', lineHeight: '1.9', fontSize: '16px' }}>
@@ -245,6 +256,14 @@ export default function WhatIs() {
                       maxWidth: '340px',
                     }}>
                       {point.desc}
+                      {point.citationHref && (
+                        <>{' '}<a
+                          href={point.citationHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#c47a3a', textDecoration: 'none', borderBottom: '1px solid rgba(196,122,58,0.4)', paddingBottom: '1px' }}
+                        >{point.citationLabel}</a></>
+                      )}
                     </p>
                   </div>
                 </div>

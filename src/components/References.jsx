@@ -1,69 +1,94 @@
 import { useEffect, useRef, useState } from 'react';
 
 const references = [
+  // [1] WHO 2025
   {
-    citation: 'World Health Organization (2021). Suicide worldwide in 2021: Global health estimates. Geneva: WHO. Men: 12.6 per 100,000; Women: 5.4 per 100,000.',
-    url: 'https://www.who.int/news/item/17-06-2021-one-in-100-deaths-is-by-suicide',
+    citation: 'World Health Organization. (2025). Suicide worldwide in 2021: Global health estimates. World Health Organization. https://www.who.int/publications/i/item/9789240110069',
+    url: 'https://www.who.int/publications/i/item/9789240110069',
     type: 'International Organization',
     color: '#c47a3a',
   },
+  // [2] APA 2018 guidelines
   {
-    citation: 'American Psychological Association (2021). Men and mental health. APA Publications.',
-    url: 'https://www.apa.org',
-    type: 'Academic Organization',
+    citation: 'American Psychological Association. (2018). APA guidelines for psychological practice with boys and men. American Psychological Association. https://www.apa.org/about/policy/boys-men-practice-guidelines.pdf',
+    url: 'https://www.apa.org/about/policy/boys-men-practice-guidelines.pdf',
+    type: 'Clinical Guidelines',
     color: '#e8a87c',
   },
+  // [3] CALM / HuffPost 2016
   {
-    citation: 'CALM – Campaign Against Living Miserably (2019). Survey on men\'s mental health. London, UK.',
-    url: 'https://www.thecalmzone.net',
+    citation: 'Campaign Against Living Miserably & HuffPost UK. (2016). Masculinity audit 2016: Research reveals pressures on modern men. CALM. https://www.thecalmzone.net/masculinity-audit-2016-research-reveals-pressures-on-modern-men',
+    url: 'https://www.thecalmzone.net/masculinity-audit-2016-research-reveals-pressures-on-modern-men',
     type: 'Research Report',
     color: '#a0522d',
   },
+  // [4] Priory Group
   {
-    citation: 'Substance Abuse and Mental Health Services Administration (2021). Mental Health Client Level Data: Adults receiving mental health treatment by gender. Rockville, MD: SAMHSA.',
-    url: 'https://www.samhsa.gov/data/',
-    type: 'Government Report',
+    citation: 'Priory Group. (n.d.). Men\'s mental health: 40% of men won\'t talk to anyone about their mental health. Priory Group. https://www.priorygroup.com/blog/40-of-men-wont-talk-to-anyone-about-their-mental-health',
+    url: 'https://www.priorygroup.com/blog/40-of-men-wont-talk-to-anyone-about-their-mental-health',
+    type: 'Survey / Report',
     color: '#8b6b4e',
   },
+  // [5] NIMH
   {
-    citation: 'Department of Health Philippines (2020). National Mental Health Program Report. Manila: DOH.',
-    url: 'https://www.doh.gov.ph',
-    type: 'Government Report',
+    citation: 'National Institute of Mental Health. (n.d.). Mental illness. National Institute of Mental Health. https://www.nimh.nih.gov/health/statistics/mental-illness',
+    url: 'https://www.nimh.nih.gov/health/statistics/mental-illness',
+    type: 'Government Statistics',
     color: '#c47a3a',
   },
+  // [6] Our World in Data / WHO
   {
-    citation: 'Connell, R. W. (2005). Masculinities (2nd ed.). University of California Press.',
-    url: null,
+    citation: 'Ritchie, H., & Roser, M. (2024). Male vs. female suicide rate, 2021 [Data visualization]. Our World in Data. https://ourworldindata.org/grapher/male-vs-female-suicide',
+    url: 'https://ourworldindata.org/grapher/male-vs-female-suicide',
+    type: 'Data Visualization',
+    color: '#e8a87c',
+  },
+  // [7] WHO Special Initiative — Philippines 2020
+  {
+    citation: 'World Health Organization. (2020). WHO Special Initiative for Mental Health: Philippines country brief. World Health Organization. https://www.who.int/docs/default-source/mental-health/special-initiative/who-special-initiative-country-brief-report---philippines---2020-04-23-brief.pdf',
+    url: 'https://www.who.int/docs/default-source/mental-health/special-initiative/who-special-initiative-country-brief-report---philippines---2020-04-23-brief.pdf',
+    type: 'WHO Country Brief',
+    color: '#c47a3a',
+  },
+  // [8] Connell
+  {
+    citation: 'Connell, R. W. (2005). Masculinities (2nd ed.). University of California Press. https://ucpress.edu/books/masculinities/paper',
+    url: 'https://ucpress.edu/books/masculinities/paper',
     type: 'Academic Book',
     color: '#e8a87c',
   },
+  // [9] RA 11036
   {
-    citation: 'Republic Act No. 11036 (2018). Philippine Mental Health Act. Republic of the Philippines.',
-    url: 'https://www.officialgazette.gov.ph/2018/07/30/republic-act-no-11036/',
+    citation: 'Republic of the Philippines. (2018). Republic Act No. 11036: An act establishing a national mental health policy for the purpose of enhancing the delivery of integrated mental health services, promoting and protecting the rights of persons utilizing psychiatric, neurologic and psychosocial health services, appropriating funds therefor, and for other purposes [Mental Health Act]. Senate of the Philippines Legislative Reference Bureau. https://ldr.senate.gov.ph/legislative-issuance/republic-act-no-11036',
+    url: 'https://ldr.senate.gov.ph/legislative-issuance/republic-act-no-11036',
     type: 'Philippine Law',
     color: '#a0522d',
   },
+  // [10] RA 10533
   {
-    citation: 'Republic Act No. 10533 (2013). Enhanced Basic Education Act of 2013. Republic of the Philippines.',
-    url: 'https://www.officialgazette.gov.ph',
+    citation: 'Republic of the Philippines. (2013). Republic Act No. 10533: An act enhancing the Philippine basic education system by strengthening its curriculum and increasing the number of years for basic education [Enhanced Basic Education Act of 2013]. Senate of the Philippines Legislative Reference Bureau. https://ldr.senate.gov.ph/bills/senate-bill-no-3286-15th-congress-republic',
+    url: 'https://ldr.senate.gov.ph/bills/senate-bill-no-3286-15th-congress-republic',
     type: 'Philippine Law',
     color: '#8b6b4e',
   },
+  // [11] DOH AO 2016-0039
   {
-    citation: 'Department of Health Philippines (2020). Administrative Order 2020-0013: National Mental Health Program.',
-    url: 'https://www.doh.gov.ph',
+    citation: 'Department of Health Philippines. (2016). Administrative Order No. 2016-0039: Revised operational framework for a comprehensive national mental health program. Department of Health. https://www.scribd.com/document/748744909/Administrative-Order-No-2016-0039-Revised-Operational-Framework-for-a-Comprehensive-National-Mental-Health-Program',
+    url: 'https://www.scribd.com/document/748744909/Administrative-Order-No-2016-0039-Revised-Operational-Framework-for-a-Comprehensive-National-Mental-Health-Program',
     type: 'Administrative Order',
     color: '#c47a3a',
   },
+  // [12] NCMH
   {
-    citation: 'National Center for Mental Health Philippines. (n.d.). Crisis hotline services.',
-    url: 'https://www.ncmh.gov.ph',
+    citation: 'National Center for Mental Health. (n.d.). NCMH crisis hotline. National Center for Mental Health, Department of Health. https://ncmh.gov.ph',
+    url: 'https://ncmh.gov.ph',
     type: 'Government Agency',
     color: '#e8a87c',
   },
+  // [13] Addis & Mahalik
   {
-    citation: 'Addis, M. E., & Mahalik, J. R. (2003). Men, masculinity, and the contexts of help seeking. American Psychologist, 58(1), 5–14.',
-    url: null,
+    citation: 'Addis, M. E., & Mahalik, J. R. (2003). Men, masculinity, and the contexts of help seeking. American Psychologist, 58(1), 5–14. https://doi.org/10.1037/0003-066X.58.1.5',
+    url: 'https://doi.org/10.1037/0003-066X.58.1.5',
     type: 'Journal Article',
     color: '#a0522d',
   },
@@ -227,6 +252,21 @@ export default function References() {
                     {item.type}
                   </span>
                 </div>
+                {item.needsVerification && (
+                  <div style={{
+                    display: 'inline-block',
+                    marginLeft: '8px',
+                    marginTop: '8px',
+                    background: 'rgba(192,80,77,0.08)',
+                    border: '1px solid rgba(192,80,77,0.35)',
+                    borderRadius: '4px',
+                    padding: '2px 8px',
+                  }}>
+                    <span style={{ color: '#c0504d', fontSize: '10px', fontWeight: '700', letterSpacing: '0.5px' }}>
+                      ⚠ Needs verification
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           ))}

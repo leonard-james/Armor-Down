@@ -28,8 +28,8 @@ const effects = [
   {
     title: 'Isolation & Loneliness',
     desc: 'The "don\'t show weakness" mentality prevents men from forming deep emotional bonds. Social isolation is a primary predictor of mental health deterioration and early death.',
-    stat: '40%',
-    statLabel: 'of men report chronic loneliness (Cigna, 2020)',
+    stat: '61%',
+    statLabel: 'of US adults report feeling lonely — men score slightly lonelier than women (Cigna, 2020) ⚠ the "40% of men" figure previously shown here is not confirmed by this source',
     color: '#8b6b4e',
     detail: 'Men are taught that needing others is weakness. As a result, many adult men have no close friendships in which they can be honest. Loneliness is now recognized by the WHO as a public health epidemic — and men are disproportionately affected.',
   },
@@ -44,8 +44,8 @@ const effects = [
   {
     title: 'Relationship Damage',
     desc: 'Emotional unavailability creates deep relational distance. Inability to communicate needs or resolve conflict healthily leads to higher rates of divorce and estrangement.',
-    stat: '69%',
-    statLabel: 'of divorces initiated by women citing emotional issues (APA, 2019)',
+    stat: null,
+    statLabel: null,
     color: '#c47a3a',
     detail: 'When men cannot identify or express their emotions, intimacy becomes impossible. Partners feel unseen; children grow up with emotionally absent fathers. The cost is generational — boys who watch their fathers suppress emotion learn to do the same.',
   },
@@ -116,6 +116,7 @@ function EffectCard({ effect, i, visible }) {
         {effect.desc}
       </p>
 
+      {effect.stat && (
       <div style={{
         display: 'inline-flex', alignItems: 'center', gap: '8px',
         background: `${effect.color}0e`, border: `1px solid ${effect.color}25`,
@@ -129,6 +130,7 @@ function EffectCard({ effect, i, visible }) {
           {effect.statLabel}
         </span>
       </div>
+      )}
 
       {/* Expanded detail — slides open inline */}
       <div style={{

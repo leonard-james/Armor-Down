@@ -8,7 +8,7 @@ const AMBER    = '#c47a3a';
 const AMBER_LT = '#e8a87c';
 
 /* ── Avatar size — single source of truth ── */
-const AVATAR_SIZE = 'clamp(64px, 8vw, 78px)';
+const AVATAR_SIZE = 'clamp(90px, 12vw, 120px)';
 
 /* ── Member data ─────────────────────────────────────────────
    Set photo: <importedImage> when a real photo is ready.
@@ -249,6 +249,36 @@ export default function AboutSection() {
       }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+
+        {/* ── Course pill ── */}
+        <div style={{
+          display: 'flex', justifyContent: 'center',
+          marginBottom: 'clamp(32px, 5vw, 52px)',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(24px)',
+          transition: 'all 0.6s ease',
+        }}>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            background: 'rgba(196,122,58,0.1)',
+            border: '1px solid rgba(196,122,58,0.3)',
+            borderRadius: '50px',
+            padding: '8px 20px',
+            maxWidth: '100%',
+          }}>
+            <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#c47a3a', flexShrink: 0, animation: 'pulse-slow 2s infinite' }} />
+            <span style={{
+              color: '#e8a87c',
+              fontSize: 'clamp(11px, 1.5vw, 13px)',
+              fontWeight: '600',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}>
+              Gender &amp; Society — Midterm Project
+            </span>
+          </div>
+        </div>
 
         {/* ── 1. Our Rationale ── */}
         <div style={{

@@ -214,9 +214,24 @@ function makeBarShape(transition) {
 const BarShapeSnappy = makeBarShape({ duration: 0.85, ease: [0.16, 1, 0.3, 1] });
 const BarShapeSmooth = makeBarShape({ duration: 1.1,  ease: 'easeOut' });
 
-/* ════════════════════════════════════════════════
-   Shared chart legend
-════════════════════════════════════════════════ */
+function SuicideLegend() {
+  return (
+    <div style={{ display: 'flex', gap: '16px', marginBottom: '14px', flexWrap: 'wrap' }}>
+      {[
+        { label: 'Men (Global)',   color: MEN_COLOR   },
+        { label: 'Women (Global)', color: WOMEN_COLOR },
+        { label: 'Men (PH)',       color: '#a0522d'   },
+        { label: 'Women (PH)',     color: '#d4956a'   },
+      ].map(l => (
+        <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+          <div style={{ width: '12px', height: '12px', borderRadius: '3px', background: l.color }} />
+          <span style={{ color: 'var(--text-muted)', fontSize: '12px', fontWeight: '600' }}>{l.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ChartLegend() {
   return (
     <div style={{ display: 'flex', gap: '20px', marginBottom: '14px' }}>
@@ -234,8 +249,8 @@ function ChartLegend() {
    CHART 1 — Help-seeking (%)
 ════════════════════════════════════════════════ */
 const helpRawData = [
-  { group: 'Men',   value: 44.8, fill: MEN_COLOR   },
-  { group: 'Women', value: 55.2, fill: WOMEN_COLOR  },
+  { group: 'Men',   value: 41.6, fill: MEN_COLOR   },
+  { group: 'Women', value: 56.9, fill: WOMEN_COLOR  },
 ];
 
 function HelpSeekingChart() {
@@ -247,8 +262,8 @@ function HelpSeekingChart() {
     wasInView.current = inView;
   }, [inView]);
 
-  const menVal   = useCountUp(44.8, inView, 850, 1);
-  const womenVal = useCountUp(55.2, inView, 850, 1);
+  const menVal   = useCountUp(41.6, inView, 850, 1);
+  const womenVal = useCountUp(56.9, inView, 850, 1);
   const displayVals = { Men: menVal, Women: womenVal };
 
   return (
@@ -273,7 +288,7 @@ function HelpSeekingChart() {
           </span>
         </h3>
         <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.6', margin: '0 0 22px' }}>
-          Percentage of adults who received mental health treatment in the past year (SAMHSA, 2021).
+          Percentage of US adults with any mental illness who received mental health treatment in the past year (2022).
         </p>
 
         <ChartLegend />
@@ -305,7 +320,7 @@ function HelpSeekingChart() {
         </div>
 
         <p style={{ color: 'var(--text-faint)', fontSize: '11px', marginTop: '14px', marginBottom: 0, fontStyle: 'italic' }}>
-          Source: SAMHSA (2021). Mental Health Client Level Data. Among adults, 44.8% of men vs. 55.2% of women received mental health treatment.
+          Source: NIMH, using SAMHSA National Survey on Drug Use and Health data (2022). See reference [5]. Among US adults with any mental illness: 41.6% of men vs. 56.9% of women received mental health treatment.
         </p>
       </motion.div>
     </AnimKeyCtx.Provider>
@@ -316,8 +331,10 @@ function HelpSeekingChart() {
    CHART 2 — Suicide Rate (per 100,000)
 ════════════════════════════════════════════════ */
 const suicideRawData = [
-  { group: 'Men',   value: 12.6, fill: MEN_COLOR   },
-  { group: 'Women', value: 5.4,  fill: WOMEN_COLOR  },
+  { group: 'Men (Global)',   value: 12.3, fill: MEN_COLOR   },
+  { group: 'Women (Global)', value: 5.6,  fill: WOMEN_COLOR  },
+  { group: 'Men (PH)',       value: 6.1,  fill: '#a0522d'    },
+  { group: 'Women (PH)',     value: 2.1,  fill: '#d4956a'    },
 ];
 
 function SuicideRateChart() {
@@ -329,9 +346,9 @@ function SuicideRateChart() {
     wasInView.current = inView;
   }, [inView]);
 
-  const menVal   = useCountUp(12.6, inView, 1100, 1);
-  const womenVal = useCountUp(5.4,  inView, 1100, 1);
-  const displayVals = { Men: menVal, Women: womenVal };
+  const menVal   = useCountUp(12.3, inView, 1100, 1);
+  const womenVal = useCountUp(5.6,  inView, 1100, 1);
+  const displayVals = { 'Men (Global)': menVal, 'Women (Global)': womenVal };
 
   return (
     <AnimKeyCtx.Provider value={animKey}>
@@ -353,14 +370,14 @@ function SuicideRateChart() {
           <span style={{ color: '#c0504d', fontSize: '0.65em', fontWeight: '600' }}>per 100,000</span>
         </h3>
         <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.6', margin: '0 0 22px' }}>
-          Global suicide rates by gender per 100,000 population (WHO, 2021). Men die by suicide at more than twice the rate of women worldwide.
+          Global and Philippines suicide rates by sex per 100,000 population (WHO Global Health Estimates, 2021 data). Men die by suicide at more than twice the rate of women worldwide.
         </p>
 
-        <ChartLegend />
+        <SuicideLegend />
 
-        {/* Count-up numbers */}
+        {/* Count-up numbers — global figures only */}
         <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px' }}>
-          {suicideRawData.map(d => (
+          {suicideRawData.filter(d => d.group.includes('Global')).map(d => (
             <div key={d.group} style={{ textAlign: 'center' }}>
               <span style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '900', color: d.fill, filter: `drop-shadow(0 0 10px ${d.fill}55)` }}>
                 {displayVals[d.group]}
@@ -369,6 +386,9 @@ function SuicideRateChart() {
             </div>
           ))}
         </div>
+        <p style={{ color: 'var(--text-faint)', fontSize: '11px', margin: '0 0 10px', fontStyle: 'italic', textAlign: 'center' }}>
+          Philippines (2021): Men 6.1 · Women 2.1 per 100,000 — Source: WHO via Our World in Data, 2021 (see reference [6])
+        </p>
 
         <div style={{ width: '100%', height: '200px' }}>
           <ResponsiveContainer width="100%" height="100%">
@@ -396,7 +416,7 @@ function SuicideRateChart() {
         </div>
 
         <p style={{ color: 'var(--text-faint)', fontSize: '11px', marginTop: '12px', marginBottom: 0, fontStyle: 'italic' }}>
-          Source: World Health Organization (2021). Suicide worldwide in 2021: global health estimates. Men 12.6, Women 5.4 per 100,000.
+          Source: WHO Global Health Estimates (2021), via Our World in Data. Global — Men 12.3, Women 5.6 per 100,000. Philippines — Men 6.1, Women 2.1 per 100,000. See references [1] and [6].
         </p>
       </motion.div>
     </AnimKeyCtx.Provider>
@@ -461,13 +481,12 @@ export default function Statistics() {
             Help-seeking & awareness gaps
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(24px, 4vw, 48px)' }}>
-            <RadialRing percent={33} color="#c47a3a" size={130} stroke={11} label="1 in 3" sublabel="Men who actually seek mental health help (APA, 2021)" isVisible={visible} delay={400} />
-            <RadialRing percent={40} color="#c0504d" size={130} stroke={11} label="40%" sublabel="Men who never spoke to anyone about mental health (CALM, 2019)" isVisible={visible} delay={550} />
-            <RadialRing percent={77} color="#8b6b4e" size={130} stroke={11} label="77%" sublabel="Men with mental illness receive no treatment (WHO, 2022)" isVisible={visible} delay={700} />
-            <RadialRing percent={85} color="#e8a87c" size={130} stroke={11} label="85%" sublabel="Homeless adults who are male — linked to untreated mental illness (SAMHSA, 2020)" isVisible={visible} delay={850} />
+            <RadialRing percent={41.6} color="#c47a3a" size={130} stroke={11} label="41.6%" sublabel="Men with any mental illness who received treatment (NIMH, 2022)" isVisible={visible} delay={400} />
+            <RadialRing percent={50}   color="#e8a87c" size={130} stroke={11} label="~50%"  sublabel="Men who felt very depressed and told someone — vs. 67% of women (CALM, 2016)" isVisible={visible} delay={550} />
+            <RadialRing percent={40}   color="#a0522d" size={130} stroke={11} label="40%"   sublabel="UK men who have never spoken to anyone about their mental health (Priory Group)" isVisible={visible} delay={700} />
           </div>
           <p style={{ color: 'var(--text-ghost)', fontSize: '11px', textAlign: 'center', marginTop: '24px', marginBottom: 0 }}>
-            Sources: APA (2021), CALM (2019), WHO (2021)
+            Sources: NIMH (2022), CALM Masculinity Audit (2016), Priory Group survey of 1,000 men
           </p>
         </div>
 
@@ -490,10 +509,10 @@ export default function Statistics() {
           opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.7s',
         }}>
           {[
-            { num: 3, suffix: '–4×', label: 'Men more likely to die by suicide than women globally', color: '#c0504d', source: 'WHO, 2021' },
-            { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', source: 'NIMH, 2021' },
-            { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women', color: '#e8a87c', source: 'WHO, 2022' },
-            { num: 3, suffix: '×',   label: 'Higher male suicide rate in the Philippines vs females', color: '#e8a87c', source: 'DOH PH, 2020' },
+            { num: 3, suffix: '–4×', label: 'Men more likely to die by suicide than women globally', color: '#c0504d', source: 'WHO, 2021 [1]' },
+            { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', source: 'NIMH, 2022 [5]' },
+            { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women globally (68.4 vs 73.8 years in 2021)', color: '#e8a87c', source: 'WHO GHE 2021, via Our World in Data [6]' },
+            { num: 3, suffix: '×',   label: 'Nearly 3× higher male suicide rate in the Philippines vs females', color: '#e8a87c', source: 'WHO via Our World in Data, 2021 [6]' },
           ].map((item, i) => (
             <div
               key={i}

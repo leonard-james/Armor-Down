@@ -22,8 +22,8 @@ const links = [
 
 const hotlines = [
   { name: 'NCMH Crisis Line', num: '1553',           tel: 'tel:1553'         },
-  { name: 'Hopeline PH',      num: '8804-4673',      tel: 'tel:88044673'     },
-  { name: 'In Touch',         num: '(02) 8893-7603', tel: 'tel:0288937603'  },
+  { name: 'Hopeline PH',      num: '(02) 804-4673',  tel: 'tel:028044673'    },
+  { name: 'Hopeline (Globe)', num: '2919',            tel: 'tel:2919'         },
 ];
 
 const currentYear = new Date().getFullYear();
