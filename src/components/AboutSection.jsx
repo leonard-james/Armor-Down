@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import leoPhoto from '../assets/Leo.jpg';
+import folaPhoto from '../assets/fola.jpg';
+import lloydPhoto from '../assets/lloyd.jpg';
+
 
 const AMBER    = '#c47a3a';
 const AMBER_LT = '#e8a87c';
@@ -13,18 +16,18 @@ const AVATAR_SIZE = 'clamp(64px, 8vw, 78px)';
 const members = [
   {
     name: 'Fola Faustine L. Gersalia',
-    photo: null,
+    photo: folaPhoto,
     role: 'Research & Content',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
   {
     name: 'Lloyd Allan B. Gimena',
-    photo: null,
+    photo: lloydPhoto,
     role: 'Design & Layout',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
   {
@@ -32,7 +35,7 @@ const members = [
     photo: leoPhoto,
     role: 'Development',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
   {
@@ -40,7 +43,7 @@ const members = [
     photo: null,
     role: 'Data & Statistics',
     course: 'BSIT NAS 4-2',
-    university: 'Sorsogon State University Bulan Campus',
+    university: 'Sorsogon State University - Bulan Campus',
     year: '2026',
   },
 ];
