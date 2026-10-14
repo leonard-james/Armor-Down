@@ -185,6 +185,8 @@ export default function References() {
           {references.map((item, i) => (
             <div
               key={i}
+              id={`reference-${i + 1}`}
+              tabIndex={-1}
               style={{
                 background: 'var(--ref-bg)',
                 border: '1px solid var(--ref-border)',
@@ -234,6 +236,7 @@ export default function References() {
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Open reference ${i + 1}: ${item.type} in a new tab`}
                       style={{
                         color: item.textColor,
                         fontSize: '11px',
@@ -249,7 +252,7 @@ export default function References() {
                       onMouseEnter={(e) => { e.target.style.background = `${item.color}12`; }}
                       onMouseLeave={(e) => { e.target.style.background = 'transparent'; }}
                     >
-                      Visit ↗
+                      Open source ↗
                     </a>
                   )}
                 </div>

@@ -1,63 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-
-const hotlines = [
-  {
-    name: 'National Center for Mental Health',
-    number: '1553',
-    tel: 'tel:1553',
-    desc: 'Philippines 24/7 crisis hotline',
-    color: '#c47a3a',
-  },
-  {
-    name: 'NCMH (mobile)',
-    number: '0917-899-8727',
-    tel: 'tel:09178998727',
-    desc: 'NCMH mobile crisis line',
-    color: '#c47a3a',
-  },
-  {
-    name: 'NCMH (mobile)',
-    number: '0966-351-4518',
-    tel: 'tel:09663514518',
-    desc: 'NCMH mobile crisis line',
-    color: '#c47a3a',
-  },
-  {
-    name: 'NCMH (mobile)',
-    number: '0908-639-2672',
-    tel: 'tel:09086392672',
-    desc: 'NCMH mobile crisis line',
-    color: '#c47a3a',
-  },
-  {
-    name: 'Hopeline Philippines',
-    number: '(02) 804-4673',
-    tel: 'tel:028044673',
-    desc: 'Free emotional support & counseling',
-    color: '#e8a87c',
-  },
-  {
-    name: 'Hopeline (mobile)',
-    number: '0917-558-4673',
-    tel: 'tel:09175584673',
-    desc: 'Hopeline mobile line',
-    color: '#e8a87c',
-  },
-  {
-    name: 'Hopeline (mobile)',
-    number: '0918-873-4673',
-    tel: 'tel:09188734673',
-    desc: 'Hopeline mobile line',
-    color: '#e8a87c',
-  },
-  {
-    name: 'Hopeline (Globe/TM toll-free)',
-    number: '2919',
-    tel: 'tel:2919',
-    desc: 'Toll-free for Globe and TM subscribers',
-    color: '#e8a87c',
-  },
-];
+import { useReducedMotion } from 'framer-motion';
+import { crisisHotline, emergencyNumber } from '../data/crisisResources';
 
 const affirmations = [
   'You are worthy of care.',
@@ -78,6 +21,8 @@ export default function BreakSilence() {
   const [visible, setVisible] = useState(false);
   const [affIdx, setAffIdx] = useState(0);
   const [affFade, setAffFade] = useState(true);
+  const [rotationPaused, setRotationPaused] = useState(false);
+  const reducedMotion = useReducedMotion();
   const [hoveredCard, setHoveredCard] = useState(null);
   const ref = useRef(null);
 
@@ -91,15 +36,20 @@ export default function BreakSilence() {
   }, []);
 
   useEffect(() => {
+    if (rotationPaused || reducedMotion) return undefined;
+    let fadeTimeout;
     const interval = setInterval(() => {
       setAffFade(false);
-      setTimeout(() => {
+      fadeTimeout = setTimeout(() => {
         setAffIdx((prev) => (prev + 1) % affirmations.length);
         setAffFade(true);
       }, 400);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
+    }, 7000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fadeTimeout);
+    };
+  }, [reducedMotion, rotationPaused]);
 
   return (
     <section
@@ -176,7 +126,7 @@ export default function BreakSilence() {
           minHeight: '40px', marginBottom: '24px',
           opacity: visible ? 1 : 0, transition: 'all 0.7s ease 0.2s',
         }}>
-          <p style={{
+          <p aria-live="off" style={{
             fontSize: 'clamp(18px, 3vw, 24px)',
             color: 'var(--text-muted)',
             fontStyle: 'italic',
@@ -187,6 +137,15 @@ export default function BreakSilence() {
           }}>
             "{affirmations[affIdx]}"
           </p>
+          {!reducedMotion && (
+            <button
+              type="button"
+              className="motion-toggle"
+              onClick={() => setRotationPaused((paused) => !paused)}
+            >
+              {rotationPaused ? 'Resume rotating message' : 'Pause rotating message'}
+            </button>
+          )}
         </div>
 
         {/* Main paragraph */}
@@ -203,10 +162,11 @@ export default function BreakSilence() {
           Whether it's talking to a friend, a family member, a counselor, or a crisis hotline —
           taking that first step is an act of extraordinary courage.
           <br /><br />
-          If you or someone you know is struggling, these resources are available, free, and confidential.
+          If you or someone you know is struggling, consider contacting the National Center for Mental Health.
+          Current operating hours and mobile alternatives could not be independently confirmed during this audit.
         </p>
 
-        {/* Hotline cards */}
+        {/* Hotline card */}
         <div
           className="hotline-grid"
           style={{
@@ -219,10 +179,11 @@ export default function BreakSilence() {
             transition: 'all 0.8s ease 0.4s',
           }}
         >
-          {hotlines.map((h, i) => (
+          {[crisisHotline].map((h, i) => (
             <a
               key={i}
               href={h.tel}
+              aria-label={`${h.name}, ${h.number}, ${h.region}. Call`}
               style={{
                 background: hoveredCard === i ? 'var(--bg-card-hover)' : 'var(--bg-panel)',
                 border: `1px solid ${hoveredCard === i ? h.color + '50' : h.color + '20'}`,
@@ -245,14 +206,14 @@ export default function BreakSilence() {
               <div style={{
                 fontFamily: 'Sora, sans-serif',
                 fontSize: '22px', fontWeight: '800',
-                color: h.color === '#c47a3a' ? 'var(--highlight-amber)' : 'var(--highlight-amber-lt)',
+                color: 'var(--highlight-amber-lt)',
                 marginBottom: '6px',
                 letterSpacing: '-0.5px',
               }}>
                 {h.number}
               </div>
               <div style={{ color: 'var(--text-secondary)', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
-                {h.name}
+                {h.name} · {h.region}
               </div>
               <div style={{ color: 'var(--text-dimmer)', fontSize: '12px' }}>
                 {h.desc}
@@ -306,7 +267,9 @@ export default function BreakSilence() {
         {/* Final message */}
         <div style={{ opacity: visible ? 1 : 0, transition: 'all 0.8s ease 0.8s' }}>
           <p style={{ color: 'var(--text-faint)', fontSize: '15px', lineHeight: '1.8', margin: '0 0 8px' }}>
-            Remember: seeking help is not a sign of weakness.
+            The 1553 number is listed in the NCMH reference below. If you cannot connect and there is immediate danger, call{' '}
+            <a href={emergencyNumber.tel} style={{ color: 'var(--highlight-red)' }}>{emergencyNumber.number}</a> or go to the nearest emergency room. See{' '}
+            <a href={`#${crisisHotline.reference}`} style={{ color: 'var(--amber-text)' }}>NCMH source details</a>.
           </p>
           <p style={{
             fontFamily: 'Sora, sans-serif',

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import windowImg  from '../assets/window.jpg';
 import benchImg   from '../assets/bench.jpg';
 import aloneImg   from '../assets/alone.jpg';
@@ -68,10 +68,7 @@ const stories = [
 /* ─── Story panel ─── */
 function StoryPanel({ story }) {
   return (
-    <div
-      role="tabpanel"
-      aria-label={story.tag}
-      style={{
+    <div style={{
         background: 'var(--story-panel-bg)',
         border: `1px solid ${story.color}20`,
         borderRadius: '18px',
@@ -162,8 +159,8 @@ export default function Voices() {
   const [active, setActive]       = useState(0);
   const [direction, setDirection] = useState(1);
   const sectionRef = useRef(null);
-  const tabListRef = useRef(null);
   const tabRefs    = useRef([]);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -180,7 +177,7 @@ export default function Voices() {
   }, [active]);
 
   const handleKeyDown = useCallback((e, idx) => {
-    let next = idx;
+    let next;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault(); next = (idx + 1) % stories.length;
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -188,17 +185,18 @@ export default function Voices() {
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault(); selectTab(idx); return;
     } else { return; }
+    selectTab(next);
     tabRefs.current[next]?.focus();
   }, [selectTab]);
 
   useEffect(() => {
-    tabRefs.current[active]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  }, [active]);
+    tabRefs.current[active]?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'nearest', inline: 'center' });
+  }, [active, reducedMotion]);
 
   const variants = {
-    enter:  (dir) => ({ opacity: 0, x: dir * 40 }),
+    enter:  (dir) => ({ opacity: 0, x: reducedMotion ? 0 : dir * 40 }),
     center: { opacity: 1, x: 0 },
-    exit:   (dir) => ({ opacity: 0, x: dir * -40 }),
+    exit:   (dir) => ({ opacity: 0, x: reducedMotion ? 0 : dir * -40 }),
   };
 
   return (
@@ -261,7 +259,6 @@ export default function Voices() {
         <div
           role="tablist"
           aria-label="Story categories"
-          ref={tabListRef}
           style={{
             display: 'flex', gap: '8px',
             overflowX: 'auto', paddingBottom: '4px', marginBottom: '28px',
@@ -293,12 +290,8 @@ export default function Voices() {
                   fontFamily: 'Inter, system-ui, sans-serif',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  outline: 'none',
                   letterSpacing: '0.2px',
-                  boxShadow: 'none',
                 }}
-                onFocus={(e) => { e.currentTarget.style.boxShadow = `0 0 0 2px ${story.color}50`; }}
-                onBlur={(e)  => { e.currentTarget.style.boxShadow = 'none'; }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.borderColor = `${story.color}40`;
@@ -319,7 +312,13 @@ export default function Voices() {
         </div>
 
         {/* Tab panel */}
-        <div id="voices-panel" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div
+          id="voices-panel"
+          role="tabpanel"
+          aria-labelledby={`voices-tab-${active}`}
+          tabIndex={0}
+          style={{ position: 'relative', overflow: 'hidden' }}
+        >
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={active}
@@ -328,7 +327,7 @@ export default function Voices() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.35, ease: 'easeInOut' }}
+              transition={{ duration: reducedMotion ? 0 : 0.35, ease: 'easeInOut' }}
             >
               <StoryPanel story={stories[active]} />
             </motion.div>

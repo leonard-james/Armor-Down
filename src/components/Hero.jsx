@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
+import { scrollToSection } from '../utils/sectionNavigation';
 
 const subtitles = [
   'Men deserve to heal.',
@@ -10,26 +12,27 @@ const subtitles = [
 export default function Hero() {
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const [rotationPaused, setRotationPaused] = useState(false);
+  const reducedMotion = useReducedMotion();
   const heroRef = useRef(null);
 
+  const handleScroll = () => scrollToSection('#whatis', reducedMotion);
+
   useEffect(() => {
+    if (rotationPaused || reducedMotion) return undefined;
+    let fadeTimeout;
     const interval = setInterval(() => {
       setFade(false);
-      setTimeout(() => {
+      fadeTimeout = setTimeout(() => {
         setSubtitleIndex((prev) => (prev + 1) % subtitles.length);
         setFade(true);
       }, 500);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleScroll = () => {
-    const target = document.querySelector('#whatis');
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  };
+    }, 6000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fadeTimeout);
+    };
+  }, [reducedMotion, rotationPaused]);
 
   return (
     <section
@@ -101,6 +104,7 @@ export default function Hero() {
         </h1>
 
         <p
+          aria-live="off"
           style={{
             fontSize: 'clamp(18px, 3vw, 26px)',
             margin: '0 0 12px',
@@ -116,6 +120,15 @@ export default function Hero() {
         >
           {subtitles[subtitleIndex]}
         </p>
+        {!reducedMotion && (
+          <button
+            type="button"
+            className="motion-toggle"
+            onClick={() => setRotationPaused((paused) => !paused)}
+          >
+            {rotationPaused ? 'Resume rotating message' : 'Pause rotating message'}
+          </button>
+        )}
 
         <p
           style={{
@@ -171,8 +184,7 @@ export default function Hero() {
 
           <button
             onClick={() => {
-              const t = document.querySelector('#silence');
-              if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+              scrollToSection('#silence', reducedMotion);
             }}
             style={{
               background: 'transparent',

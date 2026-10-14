@@ -1,13 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useReducedMotion } from 'framer-motion';
 import LogoIcon from './Logo';
-
-const scrollTo = (href) => {
-  const target = document.querySelector(href);
-  if (target) {
-    const top = target.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-};
+import { crisisHotline, emergencyNumber } from '../data/crisisResources';
+import { scrollToSection } from '../utils/sectionNavigation';
 
 const links = [
   { label: 'What Is It',        href: '#whatis'     },
@@ -20,15 +15,22 @@ const links = [
   { label: 'References',        href: '#references'  },
 ];
 
-const hotlines = [
-  { name: 'NCMH Crisis Line', num: '1553',           tel: 'tel:1553'         },
-  { name: 'Hopeline PH',      num: '(02) 804-4673',  tel: 'tel:028044673'    },
-  { name: 'Hopeline (Globe)', num: '2919',            tel: 'tel:2919'         },
-];
-
 const currentYear = new Date().getFullYear();
 
 export default function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const reducedMotion = useReducedMotion();
+
+  const scrollTo = (event, href) => {
+    event.preventDefault();
+    if (location.pathname !== '/') {
+      navigate(`/${href}`);
+      return;
+    }
+    scrollToSection(href, reducedMotion);
+  };
+
   return (
     <footer style={{
       background: 'var(--bg-footer)',
@@ -58,7 +60,7 @@ export default function Footer() {
           <div>
             <Link
               to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })}
               style={{
                 display: 'flex', alignItems: 'center', gap: '10px',
                 textDecoration: 'none', marginBottom: '18px',
@@ -81,20 +83,21 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <div>
-            <h4 style={{
+          <nav aria-label="Footer sections">
+            <h3 style={{
               color: 'var(--footer-heading)', fontSize: '11px', fontWeight: '700',
               letterSpacing: '2px', textTransform: 'uppercase', margin: '0 0 20px',
             }}>
               Navigate
-            </h4>
+            </h3>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {links.map((l) => (
                 <li key={l.href}>
-                  <button
-                    onClick={() => scrollTo(l.href)}
+                  <a
+                    href={l.href}
+                    onClick={(event) => scrollTo(event, l.href)}
                     style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
+                      cursor: 'pointer', textDecoration: 'none',
                       color: 'var(--footer-link)', fontSize: '14px', padding: 0,
                       transition: 'color 0.2s', textAlign: 'left',
                       fontFamily: 'Inter, system-ui, sans-serif',
@@ -103,26 +106,27 @@ export default function Footer() {
                     onMouseLeave={(e) => e.currentTarget.style.color = 'var(--footer-link)'}
                   >
                     {l.label}
-                  </button>
+                  </a>
                 </li>
               ))}
 
             </ul>
-          </div>
+          </nav>
 
-          {/* Crisis hotlines */}
-          <div>
-            <h4 style={{
+          {/* Crisis hotline */}
+          <section aria-labelledby="footer-crisis-heading">
+            <h3 style={{
               color: 'var(--footer-heading)', fontSize: '11px', fontWeight: '700',
               letterSpacing: '2px', textTransform: 'uppercase', margin: '0 0 20px',
-            }}>
-              Crisis Hotlines
-            </h4>
+            }} id="footer-crisis-heading">
+              Crisis hotline
+            </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
-              {hotlines.map((h) => (
+              {[crisisHotline].map((h) => (
                 <a
-                  key={h.name}
+                  key={h.tel}
                   href={h.tel}
+                  aria-label={`${h.name}, ${h.number}, ${h.region}. Call`}
                   style={{
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                     textDecoration: 'none',
@@ -141,14 +145,24 @@ export default function Footer() {
                     e.currentTarget.style.background = 'transparent';
                   }}
                 >
-                  <span style={{ color: 'var(--footer-hotline)', fontSize: '13px' }}>{h.name}</span>
+                  <span style={{ color: 'var(--footer-hotline)', fontSize: '13px' }}>{h.name} · {h.region}</span>
                   <span style={{
                     color: 'var(--amber-text)', fontWeight: '700', fontSize: '13px',
                     fontFamily: 'Sora, sans-serif', letterSpacing: '-0.3px',
-                  }}>{h.num}</span>
+                  }}>{h.number}</span>
                 </a>
               ))}
             </div>
+            <p style={{ color: 'var(--footer-copy)', fontSize: '12px', lineHeight: '1.6', margin: '0 0 16px' }}>
+              The official NCMH site was not accessible during this audit; the current number, hours, and mobile alternatives could not be independently confirmed.{' '}
+              <a
+                href={`#${crisisHotline.reference}`}
+                onClick={(event) => scrollTo(event, `#${crisisHotline.reference}`)}
+                style={{ color: 'var(--amber-text)', textDecoration: 'underline', textUnderlineOffset: '2px' }}
+              >
+                NCMH source details
+              </a>
+            </p>
 
             {/* Emergency callout */}
             <div style={{
@@ -158,12 +172,12 @@ export default function Footer() {
               padding: '14px 16px',
             }}>
               <p style={{ color: 'var(--footer-emergency)', fontSize: '12px', lineHeight: '1.65', margin: 0 }}>
-                If you are in immediate danger, please call{' '}
-                <strong style={{ color: 'var(--highlight-red)' }}>911</strong>{' '}
+                If you are in immediate danger, call{' '}
+                <a href={emergencyNumber.tel} style={{ color: 'var(--highlight-red)', fontWeight: '700' }}>{emergencyNumber.number}</a>{' '}
                 or go to your nearest emergency room.
               </p>
             </div>
-          </div>
+          </section>
         </div>
 
         {/* Divider */}

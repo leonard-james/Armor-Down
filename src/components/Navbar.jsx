@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, useAnimationControls } from 'framer-motion';
+import { motion, useAnimationControls, useReducedMotion } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { scrollToSection } from '../utils/sectionNavigation';
 
 const SHIELD_PATH = `M 130 72 L 96 86 L 96 132 C 96 162 112 180 130 190 C 148 180 164 162 164 132 L 164 86 L 148 79.5`;
 
@@ -27,10 +28,7 @@ const NAV_LINKS = [
 function NavShieldLogo({ animKey, theme }) {
   const lenRef     = useRef(null);
   const controls   = useAnimationControls();
-  const reduced    = useRef(
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
+  const reduced = useReducedMotion();
 
   /* Callback ref — measures synchronously on first DOM attach */
   const measureCb = (el) => {
@@ -42,7 +40,7 @@ function NavShieldLogo({ animKey, theme }) {
   /* Fire when the user manually toggles — animKey=0 is skipped */
   useEffect(() => {
     const len = lenRef.current;
-    if (!len || animKey === 0 || reduced.current) return;
+    if (!len || animKey === 0 || reduced) return;
     controls.set({ strokeDashoffset: len, strokeDasharray: len });
     controls.start({
       strokeDashoffset: 0,
@@ -50,19 +48,19 @@ function NavShieldLogo({ animKey, theme }) {
     });
   // controls identity is stable; animKey is the only real dep.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animKey]);
+  }, [animKey, reduced]);
 
   const isDark      = theme === 'dark';
   const circleFill  = isDark ? '#1c140d' : '#ede3d6';
   const strokeColor = isDark ? '#c47a3a' : '#7c3a0a';
   const ghostStroke = isDark ? 'rgba(196,122,58,0.13)' : 'rgba(100,48,12,0.15)';
-  const glowFilter  = isDark && animKey > 0 && !reduced.current
+  const glowFilter  = isDark && animKey > 0 && !reduced
     ? 'drop-shadow(0 0 8px rgba(196,122,58,0.55))'
     : 'none';
   /* Path length used for static render. We need it available before
      the callback ref fires on hydration. Fallback 400 is replaced by
      the real length on first paint via strokeDasharray on the motion.path. */
-  const dash = lenRef.current ?? 400;
+  const dash = 400;
 
   return (
     <svg
@@ -125,8 +123,7 @@ function NavShieldLogo({ animKey, theme }) {
    ───────────────────────────────────────────────────────────── */
 function ThemeToggleButton({ theme, onToggle }) {
   const isDark   = theme === 'dark';
-  const reduced  = typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = useReducedMotion();
 
   return (
     <button
@@ -156,7 +153,7 @@ function ThemeToggleButton({ theme, onToggle }) {
    Mobile:  Brand |             [Toggle] [Hamburger]
    One ThemeToggleButton per viewport — no duplicates.
    ───────────────────────────────────────────────────────────── */
-export default function Navbar({ introActive = false }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -165,6 +162,8 @@ export default function Navbar({ introActive = false }) {
 
   const { theme, toggle, animKey } = useTheme();
   const isDark = theme === 'dark';
+  const reducedMotion = useReducedMotion();
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -172,14 +171,23 @@ export default function Navbar({ introActive = false }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [menuOpen]);
+
   const scrollTo = (e, href) => {
     e.preventDefault();
     setMenuOpen(false);
     if (onHome) {
-      const el = document.querySelector(href);
-      if (el) {
-        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-      }
+      scrollToSection(href, reducedMotion);
     } else {
       navigate('/' + href);
     }
@@ -194,6 +202,7 @@ export default function Navbar({ introActive = false }) {
   return (
     <>
       <nav
+        aria-label="Primary"
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
           transition: 'background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease',
@@ -217,7 +226,7 @@ export default function Navbar({ introActive = false }) {
           <Link
             to="/"
             aria-label="Go to homepage"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })}
             style={{
               textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px',
               flexShrink: 0, transition: 'opacity 0.2s ease, transform 0.2s ease',
@@ -294,10 +303,12 @@ export default function Navbar({ introActive = false }) {
           <div className="nm-controls" style={{ display: 'none', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             <ThemeToggleButton theme={theme} onToggle={toggle} />
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
               style={{
                 background: 'none', border: 'none', cursor: 'pointer',
                 padding: '6px', display: 'flex', flexDirection: 'column', gap: '5px',
@@ -321,8 +332,10 @@ export default function Navbar({ introActive = false }) {
         </div>
 
         {/* ── Mobile dropdown menu ── */}
-        {menuOpen && (
-          <div style={{
+        <div
+          id="mobile-navigation"
+          hidden={!menuOpen}
+          style={{
             background: menuBg, borderTop: '1px solid var(--border-nav)',
             padding: '16px 24px 24px',
           }}>
@@ -356,7 +369,6 @@ export default function Navbar({ introActive = false }) {
               Get Help Now
             </a>
           </div>
-        )}
       </nav>
 
       {/* Scoped CSS — no global side effects */}

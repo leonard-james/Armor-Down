@@ -63,12 +63,7 @@ function EffectCard({ effect, i, visible }) {
   const toggle = () => setExpanded(e => !e);
 
   return (
-    <div
-      onClick={toggle}
-      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle()}
-      role="button"
-      tabIndex={0}
-      aria-expanded={expanded}
+    <article
       style={{
         background: expanded ? 'var(--effect-card-open-bg)' : 'var(--effect-card-bg)',
         border: `1px solid ${expanded ? effect.color + '55' : effect.color + '20'}`,
@@ -76,15 +71,12 @@ function EffectCard({ effect, i, visible }) {
         padding: '28px',
         position: 'relative',
         overflow: 'hidden',
-        cursor: 'pointer',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(36px)',
         boxShadow: expanded ? `0 20px 48px ${effect.color}18` : 'none',
         transition: visible
           ? 'border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, opacity 0.6s ease'
           : `opacity 0.6s ease ${0.15 + i * 0.08}s, transform 0.6s ease ${0.15 + i * 0.08}s`,
-        outline: 'none',
-        userSelect: 'none',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = `${effect.color}50`;
@@ -117,7 +109,19 @@ function EffectCard({ effect, i, visible }) {
         color: 'var(--text-secondary)', fontSize: '17px', fontWeight: '700',
         margin: '0 0 10px', letterSpacing: '-0.2px',
       }}>
-        {effect.title}
+        <button
+          type="button"
+          aria-expanded={expanded}
+          aria-controls={`effect-details-${i}`}
+          onClick={toggle}
+          style={{
+            display: 'block', width: '100%', padding: 0, border: 0,
+            background: 'transparent', color: 'inherit', textAlign: 'left',
+            font: 'inherit', cursor: 'pointer',
+          }}
+        >
+          {effect.title}
+        </button>
       </h3>
 
       <p style={{ color: 'var(--text-dim)', fontSize: '13px', lineHeight: '1.8', margin: '0 0 18px' }}>
@@ -141,11 +145,18 @@ function EffectCard({ effect, i, visible }) {
       )}
 
       {/* Expanded detail — slides open inline */}
-      <div style={{
+      <div
+        id={`effect-details-${i}`}
+        role="region"
+        aria-label={`${effect.title} details`}
+        aria-hidden={!expanded}
+        inert={!expanded}
+        style={{
         overflow: 'hidden',
         maxHeight: expanded ? '300px' : '0',
         opacity: expanded ? 1 : 0,
-        transition: 'max-height 0.35s ease, opacity 0.25s ease',
+        visibility: expanded ? 'visible' : 'hidden',
+        transition: 'max-height 0.35s ease, opacity 0.25s ease, visibility 0.25s',
       }}>
         <div style={{
           height: '1px',
@@ -164,14 +175,14 @@ function EffectCard({ effect, i, visible }) {
       </div>
 
       {/* Tap hint */}
-      <div style={{
+      <span style={{
         position: 'absolute', bottom: '10px', right: '14px',
         color: 'var(--text-faint)', fontSize: '11px', fontWeight: '500',
         transition: 'color 0.2s',
       }}>
-        {expanded ? 'collapse' : 'read more'}
-      </div>
-    </div>
+        {expanded ? 'Use the title button to collapse' : 'Select the title to read more'}
+      </span>
+    </article>
   );
 }
 

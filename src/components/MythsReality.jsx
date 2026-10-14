@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 // Myth colors: muted warm tones for the "false" side
 // Reality colors: sage green / amber for the "truth" side
@@ -56,26 +57,43 @@ const cards = [
 function FlipCard({ card, index, isVisible }) {
   const [flipped, setFlipped] = useState(false);
   const [animating, setAnimating] = useState(false);
+  const reducedMotion = useReducedMotion();
+  const flipTimeout = useRef(null);
 
   const handleFlip = () => {
     if (animating) return;
+    if (reducedMotion) {
+      setFlipped((current) => !current);
+      return;
+    }
     setAnimating(true);
-    setTimeout(() => {
+    flipTimeout.current = setTimeout(() => {
       setFlipped((f) => !f);
       setAnimating(false);
     }, 180);
   };
+
+  useEffect(() => () => clearTimeout(flipTimeout.current), []);
 
   const color = flipped ? card.realityColor : card.mythColor;
   const textColor = flipped ? card.realityTextColor : card.mythTextColor;
 
   return (
     <div
+      id={`myth-reality-${index}`}
       onClick={handleFlip}
       role="button"
       tabIndex={0}
-      aria-label={flipped ? 'Show myth' : 'Reveal reality'}
-      onKeyDown={(e) => e.key === 'Enter' && handleFlip()}
+      aria-expanded={flipped}
+      aria-controls={`myth-reality-content-${index}`}
+      aria-label={`${flipped ? 'Return to the myth' : 'Reveal the reality for'}: ${flipped ? card.reality : card.myth}`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' && !e.repeat) handleFlip();
+        if (e.key === ' ') e.preventDefault();
+      }}
+      onKeyUp={(e) => {
+        if (e.key === ' ') handleFlip();
+      }}
       style={{
         minHeight: 'clamp(200px, 40vw, 280px)',
         cursor: 'pointer',
@@ -118,7 +136,7 @@ function FlipCard({ card, index, isVisible }) {
       }} />
 
       {/* Content */}
-      <div style={{
+      <div id={`myth-reality-content-${index}`} aria-live="polite" aria-atomic="true" style={{
         opacity: animating ? 0 : 1,
         transform: animating ? 'scale(0.95)' : 'scale(1)',
         transition: 'opacity 0.18s ease, transform 0.18s ease',
@@ -157,7 +175,7 @@ function FlipCard({ card, index, isVisible }) {
         textAlign: 'center', color: 'var(--text-faint)', fontSize: '11px', fontWeight: '500',
         opacity: animating ? 0 : 1, transition: 'opacity 0.18s ease',
       }}>
-        {flipped ? '↩ Click to go back' : '↩ Click to reveal the truth'}
+        {flipped ? '↩ Activate to go back' : '↩ Activate to reveal the truth'}
       </div>
     </div>
   );
@@ -238,7 +256,7 @@ export default function MythsReality() {
             opacity: visible ? 1 : 0,
             transition: 'all 0.7s ease 0.2s',
           }}>
-            Click each card to uncover the truth behind common myths about men and mental health.
+            Select a card or activate it with Enter or Space to uncover the truth behind common myths about men and mental health.
           </p>
         </div>
 
@@ -258,7 +276,7 @@ export default function MythsReality() {
           opacity: visible ? 1 : 0, transition: 'opacity 0.7s ease 0.8s',
         }}>
           <p style={{ color: 'var(--text-faint)', fontSize: '13px', margin: 0 }}>
-            Tap or click any card to reveal the reality
+            Select a card, or use Enter or Space while it is focused.
           </p>
         </div>
       </div>

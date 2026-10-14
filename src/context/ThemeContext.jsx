@@ -7,14 +7,14 @@ function readStoredTheme() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'light' || saved === 'dark') return saved;
-  } catch (_) { /* storage unavailable */ }
+  } catch { /* storage unavailable */ }
   return 'dark';
 }
 
 function writeStoredTheme(theme) {
   try {
     localStorage.setItem(STORAGE_KEY, theme);
-  } catch (_) { /* storage unavailable */ }
+  } catch { /* storage unavailable */ }
 }
 
 export function ThemeProvider({ children }) {
@@ -50,6 +50,8 @@ export function ThemeProvider({ children }) {
   );
 }
 
+// This hook is intentionally exported alongside the provider.
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
   const ctx = useContext(ThemeContext);
   if (!ctx) throw new Error('useTheme must be used inside ThemeProvider');

@@ -67,6 +67,7 @@
   --headline-base:    #e8e0d5;
   --quote-text:       #a89080;   /* italic quote text in Voices */
   --text-strong:      #c4b5a8;   /* bold emphasis in body copy */
+  --focus-ring:       #fff4e8;
 
   /* Borders */
   --border-card:      rgba(196,122,58,0.18);
@@ -210,6 +211,7 @@
   --headline-base:    #1e1008;
   --quote-text:       #4a2810;   /* AA body italic */
   --text-strong:      #321806;   /* emphasis in body copy */
+  --focus-ring:       #1e1008;   /* emphasis in body copy */
 
   /* Borders */
   --border-card:      rgba(100,54,18,0.28);
@@ -303,6 +305,33 @@
    ══════════════════════════════════════════════════════════════ */
 html { scroll-behavior: smooth; }
 
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: var(--bg-page);
+  background: var(--text-primary);
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring) !important;
+  outline-offset: 3px !important;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+  }
+}
+
 body {
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
@@ -384,6 +413,23 @@ body {
   outline: none;
 }
 
+.motion-toggle {
+  margin: 4px 0 0;
+  padding: 6px 10px;
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.motion-toggle:hover {
+  border-color: var(--amber);
+  background: var(--badge-bg);
+}
+
 .theme-toggle-btn:hover {
   border-color: var(--amber);
   color: var(--amber);
@@ -441,6 +487,8 @@ body {
    REDUCED MOTION
    ══════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+
   *,
   *::before,
   *::after {
@@ -462,6 +510,11 @@ body {
   section { padding-left: 16px !important; padding-right: 16px !important; }
   h1 { letter-spacing: -1px !important; }
   h2 { letter-spacing: -0.5px !important; }
+}
+
+@media (max-width: 380px) {
+  .hotline-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .scroll-top-btn { right: 16px !important; bottom: 16px !important; }
 }
 
 @media (max-width: 480px) {

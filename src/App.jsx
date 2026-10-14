@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { MotionConfig, useReducedMotion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AnimationLayer from './components/AnimationLayer';
 import IntroSplash from './components/IntroSplash';
 import { ThemeProvider } from './context/ThemeContext';
+import { scrollToSection } from './utils/sectionNavigation';
 
 /* ── Pages ── */
 import Home from './pages/Home';
@@ -12,20 +14,27 @@ import About from './pages/About';
 
 /* ─────────────────────────────────────────────────────────
    ScrollToTop
-   Scrolls to (0,0) on every client-side route change.
-   Strips any hash so anchors don't auto-scroll on navigation.
+   Scrolls to (0,0) on route changes, or to the requested section
+   when navigation includes a hash.
    Does NOT run on first mount when the intro is active —
    the intro overlay covers everything, so the reset happens
    via a separate post-intro callback instead.
    ───────────────────────────────────────────────────────── */
 function ScrollToTop({ introActive }) {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (introActive) return; // intro handles its own scroll reset
-    window.history.replaceState(null, '', pathname); // strip hash
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [pathname, introActive]);
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return undefined;
+    }
+    const frame = requestAnimationFrame(() => {
+      scrollToSection(hash, reducedMotion);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, hash, introActive, reducedMotion]);
 
   return null;
 }
@@ -48,7 +57,7 @@ function shouldShowIntro() {
     sessionStorage.setItem('hasSeenIntro', '1');
   }
 
-  return !alreadySeen && !prefersReduced && onHomepage;
+  return !alreadySeen && !prefersReduced && onHomepage && !window.location.hash;
 }
 
 export default function App() {
@@ -64,10 +73,11 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        {/* AppShell reads theme from context, so it must be inside ThemeProvider */}
-        <AppShell showIntro={showIntro} onIntroComplete={handleIntroComplete} />
-      </BrowserRouter>
+      <MotionConfig reducedMotion="user">
+        <BrowserRouter>
+          <AppShell showIntro={showIntro} onIntroComplete={handleIntroComplete} />
+        </BrowserRouter>
+      </MotionConfig>
     </ThemeProvider>
   );
 }
@@ -75,13 +85,15 @@ export default function App() {
 function AppShell({ showIntro, onIntroComplete }) {
   return (
     <div style={{ background: 'var(--bg-page)', minHeight: '100vh', position: 'relative' }}>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
+
       {/* Scroll-to-top on every client-side navigation */}
       <ScrollToTop introActive={showIntro} />
 
       <AnimationLayer />
-      <Navbar introActive={showIntro} />
+      <Navbar />
 
-      <main style={{ position: 'relative', zIndex: 1 }}>
+      <main id="main-content" tabIndex={-1} style={{ position: 'relative', zIndex: 1 }}>
         <Routes>
           <Route path="/"      element={<Home />} />
           <Route path="/about" element={<About />} />

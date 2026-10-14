@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell,
@@ -37,6 +37,7 @@ function useCountUp(target, trigger, duration = 900, decimals = 0) {
   const [value, setValue] = useState(0);
   const rafRef  = useRef(null);
   const startTs = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   const cancel = useCallback(() => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -45,7 +46,7 @@ function useCountUp(target, trigger, duration = 900, decimals = 0) {
   }, []);
 
   useEffect(() => {
-    if (!trigger) { cancel(); setValue(0); return; }
+    if (!trigger || reducedMotion) { cancel(); return; }
     cancel();
     const tick = (ts) => {
       if (!startTs.current) startTs.current = ts;
@@ -57,9 +58,9 @@ function useCountUp(target, trigger, duration = 900, decimals = 0) {
     };
     rafRef.current = requestAnimationFrame(tick);
     return cancel;
-  }, [trigger, target, duration, decimals, cancel]);
+  }, [trigger, target, duration, decimals, cancel, reducedMotion]);
 
-  return value;
+  return reducedMotion ? (trigger ? target : 0) : trigger ? value : 0;
 }
 
 /* ════════════════════════════════════════════════
@@ -69,22 +70,20 @@ function RadialRing({ percent, color, textColor, size = 120, stroke = 10, label,
   const [prog, setProg] = useState(0);
   const r    = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
-  const offset = circ - (prog / 100) * circ;
   const rafRef  = useRef(null);
   const timerRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     // always cancel any running animation first
     if (rafRef.current)  cancelAnimationFrame(rafRef.current);
     if (timerRef.current) clearTimeout(timerRef.current);
 
-    if (!isVisible) {
-      setProg(0);   // reset so it's ready to replay
-      return;
-    }
+    if (!isVisible || reducedMotion) return undefined;
 
     const duration = 1600;
     timerRef.current = setTimeout(() => {
+      setProg(0);
       let start = null;
       const animate = (ts) => {
         if (!start) start = ts;
@@ -100,7 +99,9 @@ function RadialRing({ percent, color, textColor, size = 120, stroke = 10, label,
       if (rafRef.current)  cancelAnimationFrame(rafRef.current);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [isVisible, percent, delay]);
+  }, [isVisible, percent, delay, reducedMotion]);
+  const displayedProgress = reducedMotion ? percent : isVisible ? prog : 0;
+  const offset = circ - (displayedProgress / 100) * circ;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
@@ -134,18 +135,17 @@ function Counter({ target, suffix = '', isVisible, delay = 0 }) {
   const [val, setVal] = useState(0);
   const rafRef   = useRef(null);
   const timerRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (rafRef.current)   cancelAnimationFrame(rafRef.current);
     if (timerRef.current) clearTimeout(timerRef.current);
 
-    if (!isVisible) {
-      setVal(0);   // reset for next replay
-      return;
-    }
+    if (!isVisible || reducedMotion) return undefined;
 
     const duration = 1800;
     timerRef.current = setTimeout(() => {
+      setVal(0);
       let start = null;
       const animate = (ts) => {
         if (!start) start = ts;
@@ -161,9 +161,9 @@ function Counter({ target, suffix = '', isVisible, delay = 0 }) {
       if (rafRef.current)   cancelAnimationFrame(rafRef.current);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [isVisible, target, delay]);
+  }, [isVisible, target, delay, reducedMotion]);
 
-  return <>{val}{suffix}</>;
+  return <>{reducedMotion ? target : isVisible ? val : 0}{suffix}</>;
 }
 
 /* ════════════════════════════════════════════════
@@ -471,6 +471,67 @@ export default function Statistics() {
           </p>
         </div>
 
+        <div style={{
+          marginBottom: '24px',
+          padding: 'clamp(16px, 3vw, 24px)',
+          background: 'var(--bg-panel)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: '16px',
+          overflowX: 'auto',
+        }}>
+          <h3 id="statistics-data-heading" style={{
+            color: 'var(--text-secondary)', fontFamily: 'Sora, sans-serif',
+            fontSize: '18px', margin: '0 0 14px',
+          }}>
+            Statistics in text
+          </h3>
+          <table aria-labelledby="statistics-data-heading" style={{
+            width: '100%', borderCollapse: 'collapse', color: 'var(--text-muted)',
+            fontSize: '13px', lineHeight: '1.5', textAlign: 'left',
+          }}>
+            <thead>
+              <tr>
+                {['Measure', 'Men', 'Women', 'Source'].map((heading) => (
+                  <th key={heading} scope="col" style={{
+                    padding: '10px 8px', color: 'var(--text-secondary)',
+                    borderBottom: '1px solid var(--border-divider)',
+                  }}>{heading}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['U.S. adults with mental illness who received treatment (2022)', '41.6%', '56.9%', [['Reference [5]: NIMH statistics', 'reference-5']]],
+                ['UK men who felt depressed and told someone (2016)', '50%', '67%', [['Reference [3]: CALM Masculinity Audit', 'reference-3']]],
+                ['UK men who had never discussed their mental health', '40%', '—', [['Reference [4]: Priory Group survey', 'reference-4']]],
+                ['Suicide deaths per 100,000 worldwide (2021)', '12.3', '5.6', [['Reference [1]: WHO estimates', 'reference-1'], ['Reference [6]: Our World in Data', 'reference-6']]],
+                ['Suicide deaths per 100,000 in the Philippines (2021)', '6.1', '2.1', [['Reference [6]: Our World in Data', 'reference-6']]],
+                ['Male-to-female suicide-rate ratio worldwide (2021)', '2.2×', '—', [['Reference [1]: WHO estimates', 'reference-1'], ['Reference [6]: Our World in Data', 'reference-6']]],
+                ['U.S. men affected by depression annually', '6 million', '—', [['Reference [5]: NIMH statistics', 'reference-5']]],
+                ['Global life-expectancy difference (2021)', '5 years shorter', '—', [['Reference [6]: Our World in Data', 'reference-6']]],
+                ['Male-to-female suicide-rate ratio in the Philippines (2021)', '2.9×', '—', [['Reference [6]: Our World in Data', 'reference-6']]],
+              ].map(([measure, men, women, sources]) => (
+                <tr key={measure}>
+                  <th scope="row" style={{ padding: '10px 8px', fontWeight: '500', borderBottom: '1px solid var(--border-divider)' }}>{measure}</th>
+                  <td style={{ padding: '10px 8px', borderBottom: '1px solid var(--border-divider)' }}>{men}</td>
+                  <td style={{ padding: '10px 8px', borderBottom: '1px solid var(--border-divider)' }}>{women}</td>
+                  <td style={{ padding: '10px 8px', borderBottom: '1px solid var(--border-divider)' }}>
+                    {sources.map(([label, id], index) => (
+                      <span key={id}>
+                        {index > 0 ? ' · ' : ''}
+                        <a href={`#${id}`} style={{ color: 'var(--amber-text)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>{label}</a>
+                      </span>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p style={{ color: 'var(--text-faint)', fontSize: '12px', lineHeight: '1.5', margin: '14px 0 0' }}>
+            Years and populations differ by source. Rates are per 100,000 where stated; “—” means the cited statistic is not presented as a sex comparison.
+          </p>
+        </div>
+
         {/* ── ROW 1: Radial rings ── */}
         <div style={{
           background: 'var(--bg-panel)', border: '1px solid var(--border-subtle)',
@@ -509,7 +570,7 @@ export default function Statistics() {
           opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.7s',
         }}>
           {[
-            { num: 3, suffix: '–4×', label: 'Men more likely to die by suicide than women globally', color: '#c0504d', textColor: 'var(--highlight-red)', source: 'WHO, 2021 [1]' },
+            { num: 2, suffix: '.2×', label: 'Higher male suicide death rate worldwide (2021)', color: '#c0504d', textColor: 'var(--highlight-red)', source: 'WHO, 2021 [1]' },
             { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', textColor: 'var(--highlight-amber)', source: 'NIMH, 2022 [5]' },
             { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women globally (68.4 vs 73.8 years in 2021)', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)', source: 'WHO GHE 2021, via Our World in Data [6]' },
             { num: 3, suffix: '×',   label: 'Nearly 3× higher male suicide rate in the Philippines vs females', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)', source: 'WHO via Our World in Data, 2021 [6]' },

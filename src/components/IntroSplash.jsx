@@ -93,7 +93,7 @@ function DrawingShield({ size = SPLASH_SIZE }) {
 export default function IntroSplash({ onComplete }) {
   const [phase,   setPhase]   = useState('draw');  // 'draw' | 'fly' | 'done'
   const [visible, setVisible] = useState(true);
-  const navTarget = useRef({ x: 0, y: 0, scale: 1 });
+  const [navTarget] = useState(getNavTarget);
 
   useEffect(() => {
     // Lock body scroll + snap to top so the fixed overlay is
@@ -104,8 +104,6 @@ export default function IntroSplash({ onComplete }) {
     document.body.style.width    = '100%';
 
     // Measure navbar target now that scroll = 0
-    navTarget.current = getNavTarget();
-
     const t1 = setTimeout(() => setPhase('fly'), TS_FLY);
     const t2 = setTimeout(() => {
       sessionStorage.setItem('hasSeenIntro', '1');
@@ -126,7 +124,7 @@ export default function IntroSplash({ onComplete }) {
     };
   }, [onComplete]);
 
-  const nt = navTarget.current;
+  const nt = navTarget;
   const flying = phase === 'fly';
 
   return (

@@ -147,15 +147,13 @@ export default function LawsPolicies() {
         {/* Laws list */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {laws.map((law, i) => (
-            <div
+            <article
               key={i}
-              onClick={() => setActiveIndex(activeIndex === i ? null : i)}
               style={{
                 background: activeIndex === i ? 'var(--law-card-open-bg)' : 'var(--law-card-bg)',
                 border: `1px solid ${activeIndex === i ? law.color + '45' : law.color + '18'}`,
                 borderRadius: '18px',
                 padding: '26px 30px',
-                cursor: 'pointer',
                 transition: 'all 0.4s ease',
                 opacity: visible ? 1 : 0,
                 transform: visible ? 'translateX(0)' : 'translateX(-30px)',
@@ -197,27 +195,39 @@ export default function LawsPolicies() {
                       </span>
                       <span style={{ color: 'var(--text-faint)', fontSize: '12px' }}>{law.year}</span>
                     </div>
-                    <h3 style={{ color: 'var(--text-secondary)', fontSize: '15px', fontWeight: '700', margin: 0, letterSpacing: '-0.2px' }}>
+                    <h3 id={`law-title-${i}`} style={{ color: 'var(--text-secondary)', fontSize: '15px', fontWeight: '700', margin: 0, letterSpacing: '-0.2px' }}>
                       {law.title}
                     </h3>
                   </div>
                 </div>
-                <div style={{
-                  width: '28px', height: '28px',
+                <button
+                  type="button"
+                  aria-expanded={activeIndex === i}
+                  aria-controls={`law-details-${i}`}
+                  aria-label={`${activeIndex === i ? 'Collapse' : 'Expand'} details for ${law.title}`}
+                  onClick={() => setActiveIndex(activeIndex === i ? null : i)}
+                  style={{
+                  width: '44px', height: '44px',
                   border: `1px solid ${law.color}28`,
                   borderRadius: '50%',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: 'transparent', cursor: 'pointer',
                   color: law.textColor, fontSize: '14px', flexShrink: 0,
                   transition: 'transform 0.3s ease',
                   transform: activeIndex === i ? 'rotate(45deg)' : 'rotate(0deg)',
                 }}>
                   +
-                </div>
+                </button>
               </div>
 
               {/* Expanded content */}
-              {activeIndex === i && (
-                <div style={{ marginTop: '22px', paddingTop: '22px', borderTop: `1px solid ${law.color}12` }}>
+              <div
+                id={`law-details-${i}`}
+                role="region"
+                aria-labelledby={`law-title-${i}`}
+                hidden={activeIndex !== i}
+                style={{ marginTop: '22px', paddingTop: '22px', borderTop: `1px solid ${law.color}12` }}
+              >
                   <p style={{ color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.8', margin: '0 0 20px' }}>
                     {law.description}
                   </p>
@@ -235,9 +245,8 @@ export default function LawsPolicies() {
                       </div>
                     ))}
                   </div>
-                </div>
-              )}
-            </div>
+              </div>
+            </article>
           ))}
         </div>
 

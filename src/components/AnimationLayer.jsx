@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 /* ─── 1. FLOATING AMBIENT ORBS (canvas-based) ─── */
 function AmbientOrbs() {
   const canvasRef = useRef(null);
   const orbsRef = useRef([]);
   const rafRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return undefined;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -62,11 +65,12 @@ function AmbientOrbs() {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
         position: 'fixed',
         inset: 0,
@@ -81,6 +85,7 @@ function AmbientOrbs() {
 /* ─── 2. SCROLL-TO-TOP BUTTON ─── */
 function ScrollToTop() {
   const [visible, setVisible] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -90,8 +95,13 @@ function ScrollToTop() {
 
   return (
     <button
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      onClick={() => {
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' });
+        document.getElementById('main-content')?.focus({ preventScroll: true });
+      }}
       aria-label="Scroll to top"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
       className="scroll-top-btn"
       style={{
         position: 'fixed',
@@ -160,11 +170,9 @@ function SectionReveal() {
 
 /* ─── MASTER EXPORT ─── */
 export default function AnimationLayer() {
-  const [isTouch, setIsTouch] = useState(false);
-
-  useEffect(() => {
-    setIsTouch(window.matchMedia('(hover: none)').matches);
-  }, []);
+  const [isTouch] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+  );
 
   return (
     <>
