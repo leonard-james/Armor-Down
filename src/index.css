@@ -1,243 +1,480 @@
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
+/* ══════════════════════════════════════════════════════════════
+   THEME SYSTEM
+   data-theme="dark" (default) / data-theme="light" on <html>
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Dark theme ─────────────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-page:          #0f0d0b;
+  --bg-page-alt:      #0d0b09;
+  --bg-footer:        #0a0805;
+  --bg-card:          rgba(24,19,15,0.75);
+  --bg-card-hover:    rgba(30,24,18,0.96);
+  --bg-panel:         rgba(22,17,13,0.82);
+  --bg-panel-alt:     rgba(22,17,13,0.62);
+  --bg-overlay:       rgba(15,13,11,0.92);
+  --bg-hero:          linear-gradient(160deg,#1a1008 0%,#120e08 40%,#0f0d0b 100%);
+
+  /* Logo */
+  --logo-circle:      #1c140d;
+  --logo-stroke:      #c47a3a;
+
+  /* Text */
+  --text-primary:     #e8e0d5;   /* headings, primary body */
+  --text-secondary:   #c4b5a8;   /* subheadings, card titles */
+  --text-dim:         #a89080;   /* body paragraphs — lifted from #9e8a78 */
+  --text-dimmer:      #998779;   /* captions and secondary copy — AA on cards */
+  --text-muted:       #998779;   /* tertiary text — AA on dark surfaces */
+  --text-faint:       #9b897d;   /* footnotes — AA on dark surfaces */
+  --text-ghost:       #998779;   /* supporting copy — AA on dark surfaces */
+  --text-whisper:     #3a3028;   /* barely visible decorative only */
+
+  /* Nav links get their own token — more readable than --text-dimmer */
+  --nav-link:         #a89080;   /* ~4.5:1 on transparent/dark bg */
+
+  /* Amber */
+  --amber:            #c47a3a;
+  --amber-lt:         #e8a87c;
+  --amber-dk:         #a0522d;
+  --amber-text:       #c47a3a;
+
+  /* Text highlights */
+  --highlight-gradient: linear-gradient(135deg, #c47a3a, #e8a87c);
+  --highlight-damage-gradient: linear-gradient(135deg, #c0504d, #a0522d);
+  --highlight-amber:    #c47a3a;
+  --highlight-amber-lt: #e8a87c;
+  --highlight-rust:     #c9784e;
+  --highlight-red:      #e17a76;
+  --highlight-muted:    #b69b7c;
+  --highlight-peach:    #d4956a;
+  --highlight-hover-amber:    #c47a3a;
+  --highlight-hover-amber-lt: #e8a87c;
+  --highlight-hover-rust:     #c9784e;
+  --highlight-hover-red:      #e17a76;
+  --highlight-hover-muted:    #b69b7c;
+  --highlight-emphasis:       #a89080;
+  --highlight-emphasis-strong: #c4b5a8;
+  --highlight-emphasis-subtle: #948478;
+  --highlight-step-amber:     #c47a3a;
+  --highlight-step-amber-lt:  #e8a87c;
+  --highlight-step-muted:     #b69b7c;
+
+  /* Semantic aliases */
+  --headline-base:    #e8e0d5;
+  --quote-text:       #a89080;   /* italic quote text in Voices */
+  --text-strong:      #c4b5a8;   /* bold emphasis in body copy */
+
+  /* Borders */
+  --border-card:      rgba(196,122,58,0.18);
+  --border-card-hover:rgba(196,122,58,0.50);
+  --border-subtle:    rgba(196,122,58,0.12);
+  --border-divider:   rgba(255,255,255,0.05);
+  --border-nav:       rgba(196,122,58,0.15);
+
+  /* Charts */
+  --chart-grid:       rgba(255,255,255,0.05);
+  --tooltip-bg:       #0d0a07;
+  --tooltip-border:   rgba(196,122,58,0.32);
+
+  /* Scrollbar */
+  --scrollbar-track:  #0f0d0b;
+  --scrollbar-thumb:  #c47a3a;
+  --scrollbar-hover:  #e8a87c;
+
+  /* Watermarks */
+  --watermark-color:  rgba(196,122,58,0.025);
+  --watermark-numeral:rgba(196,122,58,0.07);
+
+  /* Scroll-to-top */
+  --scroll-top-shadow:    rgba(196,122,58,0.35);
+  --scroll-top-shadow-hv: rgba(196,122,58,0.55);
+
+  /* Voices */
+  --tab-border-inactive: rgba(255,255,255,0.06);
+  --story-panel-bg:      #130f0b;
+  --story-gradient-mid:  rgba(19,15,11,0.20);
+
+  /* References */
+  --ref-bg:           rgba(22,17,13,0.62);
+  --ref-bg-hover:     rgba(30,24,18,0.92);
+  --ref-border:       rgba(255,255,255,0.05);
+
+  /* Component-specific cards */
+  --myth-card-bg:         rgba(24,19,15,0.92);
+  --myth-card-flipped-bg: rgba(20,16,12,0.97);
+  --effect-card-bg:       rgba(24,19,15,0.75);
+  --effect-card-open-bg:  rgba(30,24,18,0.96);
+  --law-card-bg:          rgba(22,17,13,0.62);
+  --law-card-open-bg:     rgba(30,24,18,0.96);
+  --rationale-bg:         rgba(24,19,15,0.62);
+  --rationale-border:     rgba(196,122,58,0.15);
+
+  /* Badges */
+  --badge-bg:     rgba(196,122,58,0.10);
+  --badge-border: rgba(196,122,58,0.26);
+  --badge-text:   #c47a3a;
+
+  /* About card metadata */
+  --meta-label:   #998779;
+  --meta-value:   #9b897d;
+
+  /* Footer text colors preserve their existing dark-theme appearance. */
+  --footer-copy:     var(--text-ghost);
+  --footer-heading:  var(--text-ghost);
+  --footer-link:     var(--text-ghost);
+  --footer-hotline:  var(--text-ghost);
+  --footer-emergency: var(--text-faint);
+  --footer-note:     var(--text-ghost);
+
+  /* Transition token */
+  --theme-transition: 0.3s ease;
 }
+
+/* ── Light theme ─────────────────────────────────────────────
+   Warm cream surfaces + deep espresso text.
+   Palette principle:
+     • Page bg   #f5ece0  (warm parchment)
+     • Cards     #ede0d0  (toasted linen — clearly distinct)
+     • Deep amber #7c3a0a  (AA on all bg surfaces)
+     • Highlight gradient #843d0c → #8b4210 (AA on all bg surfaces)
+     • All body text ≥ 4.5:1 on their surface color
+   ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-page:          #f5ece0;   /* warm parchment */
+  --bg-page-alt:      #eee0ce;   /* slightly deeper cream */
+  --bg-footer:        #e5d4bf;   /* toasted parchment — clearly different */
+  --bg-card:          #ede0d0;   /* linen card surface */
+  --bg-card-hover:    #e5d5c0;   /* deeper on hover */
+  --bg-panel:         #e8d8c4;   /* stat/chart panel */
+  --bg-panel-alt:     #e0ceba;   /* law accordion, alt panels */
+  --bg-overlay:       rgba(237,224,208,0.95);  /* tag backdrop on photos */
+  --bg-hero:          linear-gradient(160deg,#ecddd0 0%,#e8d8c8 40%,#f0e8dc 100%);
+
+  /* Logo */
+  --logo-circle:      #ede3d6;
+  --logo-stroke:      #7c3a0a;   /* deep burnt sienna */
+
+  /* Text — all verified ≥ 4.5:1 on their surface */
+  --text-primary:     #1e1008;   /* 16:1 on #f5ece0  — headings, body */
+  --text-secondary:   #321806;   /* 12:1 on #f5ece0  — subheadings */
+  --text-dim:         #4a2810;   /* 7.8:1 on #f5ece0 — body paragraphs */
+  --text-dimmer:      #5a3618;   /* 6.2:1 on #f5ece0 — secondary labels */
+  --text-muted:       #6a4422;   /* 5.1:1 on #f5ece0 — captions (AA) */
+  --text-faint:       #6a4422;   /* 4.5:1+ on page and card surfaces */
+  --text-ghost:       #6a4422;   /* readable labels and supporting text */
+  --text-whisper:     #9a6e50;   /* 2.8:1 — decorative only */
+
+  /* Nav links */
+  --nav-link:         #5a3618;   /* 6.2:1 on cream — clearly readable */
+
+  /* Amber — deep enough to read on cream */
+  --amber:            #7c3a0a;   /* 7.5:1 on #f5ece0 — labels, links */
+  --amber-lt:         #a04e18;   /* decorative accent */
+  --amber-dk:         #5c2a06;   /* 10:1  on #f5ece0 — strong accent */
+  --amber-text:       #843d0c;   /* 5.16:1 on darkest light surface */
+
+  /* Highlight text stays AA against the lightest cream surface.
+     The original brighter amber endpoints are retained in dark mode. */
+  --highlight-gradient: linear-gradient(135deg, #7c3a0a, #8b4210);
+  --highlight-damage-gradient: var(--highlight-gradient);
+  --highlight-amber:    #7c3a0a;
+  --highlight-amber-lt: #8b4210;
+  --highlight-rust:     #7c3a0a;
+  --highlight-red:      #8d2924;
+  --highlight-muted:    #70401d;
+  --highlight-peach:    #8b4210;
+  --highlight-hover-amber:    #7c3a0a;
+  --highlight-hover-amber-lt: #8b4210;
+  --highlight-hover-rust:     #7c3a0a;
+  --highlight-hover-red:      #8d2924;
+  --highlight-hover-muted:    #70401d;
+  --highlight-emphasis:       #843d0c;
+  --highlight-emphasis-strong: #843d0c;
+  --highlight-emphasis-subtle: #843d0c;
+  --highlight-step-amber:     #7c3a0a;
+  --highlight-step-amber-lt:  #8b4210;
+  --highlight-step-muted:     #70401d;
+  --footer-copy:     var(--text-dim);
+  --footer-heading:  var(--text-muted);
+  --footer-link:     var(--text-dimmer);
+  --footer-hotline:  var(--text-dimmer);
+  --footer-emergency: var(--text-muted);
+  --footer-note:     var(--text-muted);
+
+  /* Semantic aliases */
+  --headline-base:    #1e1008;
+  --quote-text:       #4a2810;   /* AA body italic */
+  --text-strong:      #321806;   /* emphasis in body copy */
+
+  /* Borders */
+  --border-card:      rgba(100,54,18,0.28);
+  --border-card-hover:rgba(100,54,18,0.56);
+  --border-subtle:    rgba(100,54,18,0.18);
+  --border-divider:   rgba(80,44,14,0.14);
+  --border-nav:       rgba(100,54,18,0.24);
+
+  /* Charts — visible on cream panels */
+  --chart-grid:       rgba(80,44,14,0.10);
+  --tooltip-bg:       #ede0d0;   /* solid card surface */
+  --tooltip-border:   rgba(100,54,18,0.32);
+
+  /* Scrollbar */
+  --scrollbar-track:  #ede0d0;
+  --scrollbar-thumb:  #7c3a0a;
+  --scrollbar-hover:  #a04e18;
+
+  /* Watermarks — faint warm-brown tint */
+  --watermark-color:   rgba(80,40,12,0.06);
+  --watermark-numeral: rgba(80,40,12,0.09);
+
+  /* Scroll-to-top */
+  --scroll-top-shadow:    rgba(124,58,10,0.22);
+  --scroll-top-shadow-hv: rgba(124,58,10,0.38);
+
+  /* Voices */
+  --tab-border-inactive: rgba(80,44,14,0.20);
+  --story-panel-bg:      #e8d8c4;
+  --story-gradient-mid:  rgba(232,216,196,0.40);
+
+  /* References */
+  --ref-bg:           #ede0d0;
+  --ref-bg-hover:     #e5d5c0;
+  --ref-border:       rgba(80,44,14,0.16);
+
+  /* Component cards */
+  --myth-card-bg:         #ede0d0;
+  --myth-card-flipped-bg: #e8d8c4;
+  --effect-card-bg:       #ede0d0;
+  --effect-card-open-bg:  #e5d5c0;
+  --law-card-bg:          #ede0d0;
+  --law-card-open-bg:     #e5d5c0;
+  --rationale-bg:         #e8d8c4;
+  --rationale-border:     rgba(100,54,18,0.24);
+
+  /* Badges — amber-tinted pill on cream */
+  --badge-bg:     rgba(124,58,10,0.12);
+  --badge-border: rgba(124,58,10,0.30);
+  --badge-text:   #7c3a0a;
+
+  /* About card metadata */
+  --meta-label:   #6a4422;   /* AA uppercase small */
+  --meta-value:   #4a2810;   /* AA body */
+
+  --theme-transition: 0.3s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GLOBAL COLOR TRANSITIONS
+   Scope: only theme-sensitive color properties.
+   Deliberately excludes transform, opacity, layout — those belong
+   to component-level Framer Motion or CSS animations.
+   ══════════════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  transition:
+    background-color var(--theme-transition),
+    border-color     var(--theme-transition),
+    color            var(--theme-transition),
+    fill             var(--theme-transition),
+    stroke           var(--theme-transition),
+    box-shadow       var(--theme-transition);
+}
+
+/* Intro splash must never shift colors */
+.intro-splash,
+.intro-splash * {
+  transition: none !important;
+}
+
+/* SVG paths driven by Framer Motion — no CSS stroke transition */
+.shield-path-animated {
+  transition: stroke var(--theme-transition) !important;
+  /* Framer Motion controls strokeDashoffset; CSS handles stroke color */
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BASE
+   ══════════════════════════════════════════════════════════════ */
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
-  background-color: #0f0d0b;
-  color: #e8e0d5;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
-#root {
-  width: 100%;
-  min-height: 100vh;
-}
+#root { width: 100%; min-height: 100vh; }
 
-/* Flip card styles */
-.flip-card-inner {
-  width: 100%;
-  height: 100%;
-}
-
-/* Gradient text */
+/* ── Gradient text helper ── */
 .gradient-text {
-  background: linear-gradient(135deg, #c47a3a, #e8a87c);
+  background: var(--highlight-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glow effects — warm tones */
-.glow-amber {
-  box-shadow: 0 0 30px rgba(196, 122, 58, 0.3);
-}
-
-.glow-sage {
-  box-shadow: 0 0 30px rgba(122, 158, 126, 0.3);
-}
-
-/* Animated underline */
-.animated-underline {
-  position: relative;
-}
-
+/* ── Animated underline ── */
+.animated-underline { position: relative; }
 .animated-underline::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px;
   background: linear-gradient(90deg, #c47a3a, #e8a87c);
   transition: width 0.4s ease;
 }
+.animated-underline:hover::after { width: 100%; }
 
-.animated-underline:hover::after {
-  width: 100%;
-}
-
-/* Scroll animations */
+/* ══════════════════════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulse-slow { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes float     { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes shimmer   { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes blink     { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes slideInLeft  { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(50px);  } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn      { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+/* Theme toggle icon: rotate-in from 90° */
+@keyframes iconSwapIn {
+  from { opacity: 0; transform: rotate(-80deg) scale(0.6); }
+  to   { opacity: 1; transform: rotate(0deg)   scale(1); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+.animate-fade-in-up { animation: fadeInUp 0.8s ease forwards; }
+.animate-float      { animation: float 4s ease-in-out infinite; }
+.animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
 
-@keyframes pulse-slow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 3s ease-in-out infinite;
-}
-
-/* Custom scrollbar — warm tones */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f0d0b;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c47a3a;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #e8a87c;
-}
-
-/* Section fade-in on scroll */
-.section-hidden {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
-
-.section-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Typewriter cursor */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.typewriter-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: #c47a3a;
-  margin-left: 3px;
-  vertical-align: text-bottom;
-  animation: blink 1s step-end infinite;
-}
-
-/* Slide in from left */
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* Slide in from right */
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(50px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-/* Scale in */
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.85); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-/* Stagger helpers */
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
 
-/* ─── MOBILE RESPONSIVENESS ─── */
-
-/* Navbar mobile */
-@media (max-width: 768px) {
-  .nav-desktop-links { display: none !important; }
-  .nav-cta { display: none !important; }
-  .nav-hamburger { display: flex !important; }
+/* ══════════════════════════════════════════════════════════════
+   THEME TOGGLE BUTTON
+   ══════════════════════════════════════════════════════════════ */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-card);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-dimmer);
+  flex-shrink: 0;
+  padding: 0;
+  font-family: inherit;
+  /* No outline — we provide a focus ring below */
+  outline: none;
 }
 
-/* General section padding */
-@media (max-width: 640px) {
-  section {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
+.theme-toggle-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: var(--badge-bg);
+}
 
+.theme-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--amber);
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: iconSwapIn 0.28s cubic-bezier(0.34,1.4,0.64,1) both;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TYPEWRITER CURSOR
+   ══════════════════════════════════════════════════════════════ */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: #c47a3a;
+  margin-left: 3px; vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* ══════════════════════════════════════════════════════════════
+   SECTION REVEAL (IntersectionObserver classes)
+   ══════════════════════════════════════════════════════════════ */
+.section-hidden {
+  opacity: 0;
+  transform: translateY(40px);
+  /* These transitions are layout/opacity — NOT in the global * rule */
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-desktop-links { display: none !important; }
+  .nav-cta           { display: none !important; }
+}
+
+@media (max-width: 640px) {
+  section { padding-left: 16px !important; padding-right: 16px !important; }
   h1 { letter-spacing: -1px !important; }
   h2 { letter-spacing: -0.5px !important; }
 }
 
-/* Stats grid — single column on small screens */
 @media (max-width: 480px) {
-  #statistics .stats-grid {
-    grid-template-columns: 1fr !important;
-  }
+  #statistics .stats-grid  { grid-template-columns: 1fr !important; }
+  #silence .hotline-grid   { grid-template-columns: 1fr 1fr !important; }
 }
 
-/* Effects grid */
 @media (max-width: 640px) {
-  #effects .effects-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* Scroll to top button — smaller on mobile */
-@media (max-width: 640px) {
+  #effects .effects-grid { grid-template-columns: 1fr !important; }
+  #laws .law-header      { flex-direction: column; align-items: flex-start !important; }
+  #footer-grid           { grid-template-columns: 1fr !important; }
   .scroll-top-btn {
-    width: 40px !important;
-    height: 40px !important;
-    bottom: 20px !important;
-    right: 16px !important;
-    font-size: 16px !important;
-  }
-}
-
-/* Laws accordion */
-@media (max-width: 640px) {
-  #laws .law-header {
-    flex-direction: column;
-    align-items: flex-start !important;
-  }
-}
-
-/* Hotline cards — 2 cols on mobile */
-@media (max-width: 480px) {
-  #silence .hotline-grid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-}
-
-/* Footer grid */
-@media (max-width: 640px) {
-  #footer-grid {
-    grid-template-columns: 1fr !important;
+    width: 40px !important; height: 40px !important;
+    bottom: 20px !important; right: 16px !important; font-size: 16px !important;
   }
 }

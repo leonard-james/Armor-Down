@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AnimationLayer from './components/AnimationLayer';
 import IntroSplash from './components/IntroSplash';
+import { ThemeProvider } from './context/ThemeContext';
 
 /* ── Pages ── */
 import Home from './pages/Home';
@@ -62,32 +63,39 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-        <div style={{ background: '#0f0d0b', minHeight: '100vh', position: 'relative' }}>
+    <ThemeProvider>
+      <BrowserRouter>
+        {/* AppShell reads theme from context, so it must be inside ThemeProvider */}
+        <AppShell showIntro={showIntro} onIntroComplete={handleIntroComplete} />
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+}
 
-          {/* Scroll-to-top on every client-side navigation */}
-          <ScrollToTop introActive={showIntro} />
+function AppShell({ showIntro, onIntroComplete }) {
+  return (
+    <div style={{ background: 'var(--bg-page)', minHeight: '100vh', position: 'relative' }}>
+      {/* Scroll-to-top on every client-side navigation */}
+      <ScrollToTop introActive={showIntro} />
 
-          <AnimationLayer />
-          <Navbar introActive={showIntro} />
+      <AnimationLayer />
+      <Navbar introActive={showIntro} />
 
-          <main style={{ position: 'relative', zIndex: 1 }}>
-            <Routes>
-              <Route path="/"      element={<Home />} />
-              <Route path="/about" element={<About />} />
-              {/* Any unknown path (including sub-routes after a hard refresh)
-                  redirects to the homepage without resetting sessionStorage */}
-              <Route path="*"      element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
+      <main style={{ position: 'relative', zIndex: 1 }}>
+        <Routes>
+          <Route path="/"      element={<Home />} />
+          <Route path="/about" element={<About />} />
+          {/* Any unknown path (including sub-routes after a hard refresh)
+              redirects to the homepage without resetting sessionStorage */}
+          <Route path="*"      element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
 
-          <Footer />
+      <Footer />
 
-          {showIntro && (
-            <IntroSplash onComplete={handleIntroComplete} />
-          )}
-
-        </div>
-    </BrowserRouter>
+      {showIntro && (
+        <IntroSplash onComplete={onIntroComplete} />
+      )}
+    </div>
   );
 }

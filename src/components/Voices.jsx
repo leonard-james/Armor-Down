@@ -15,6 +15,8 @@ const stories = [
     quote: 'I spent years telling myself I was fine. Getting out of bed felt impossible, but admitting that to anyone felt worse.',
     tag: 'Depression & Silence',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
+    hoverTextColor: 'var(--highlight-hover-amber)',
   },
   {
     img: benchImg,
@@ -22,6 +24,8 @@ const stories = [
     quote: 'I sat on that bench for an hour before I finally called the hotline. That one call changed everything.',
     tag: 'Reaching Out',
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
+    hoverTextColor: 'var(--highlight-hover-amber-lt)',
   },
   {
     img: aloneImg,
@@ -29,6 +33,8 @@ const stories = [
     quote: 'Nobody ever told me it was okay to struggle. I thought being a man meant carrying it all without saying a word.',
     tag: 'Toxic Expectations',
     color: '#8b6b4e',
+    textColor: 'var(--highlight-muted)',
+    hoverTextColor: 'var(--highlight-hover-muted)',
   },
   {
     img: dontImg,
@@ -36,6 +42,8 @@ const stories = [
     quote: 'Every time someone said "just don\'t think about it," I felt more invisible. My feelings weren\'t something I could switch off.',
     tag: 'Invalidation',
     color: '#a0522d',
+    textColor: 'var(--highlight-rust)',
+    hoverTextColor: 'var(--highlight-hover-rust)',
   },
   {
     img: depressImg,
@@ -43,6 +51,8 @@ const stories = [
     quote: 'Depression didn\'t look like sadness for me. It looked like numbness — going through the motions while feeling nothing at all.',
     tag: 'Hidden Struggles',
     color: '#c0504d',
+    textColor: 'var(--highlight-red)',
+    hoverTextColor: 'var(--highlight-hover-red)',
   },
   {
     img: standImg,
@@ -50,6 +60,8 @@ const stories = [
     quote: 'I used to think healing meant never struggling again. Now I know it just means I keep standing back up.',
     tag: 'Moving Forward',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
+    hoverTextColor: 'var(--highlight-hover-amber)',
   },
 ];
 
@@ -60,7 +72,7 @@ function StoryPanel({ story }) {
       role="tabpanel"
       aria-label={story.tag}
       style={{
-        background: '#130f0b',
+        background: 'var(--story-panel-bg)',
         border: `1px solid ${story.color}20`,
         borderRadius: '18px',
         overflow: 'hidden',
@@ -83,19 +95,19 @@ function StoryPanel({ story }) {
         />
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(to top, #130f0b 0%, rgba(19,15,11,0.2) 50%, transparent 100%)',
+          background: `linear-gradient(to top, var(--story-panel-bg) 0%, var(--story-gradient-mid) 50%, transparent 100%)`,
           pointerEvents: 'none',
         }} />
         {/* Category tag */}
         <div style={{
           position: 'absolute', top: '20px', left: '20px',
-          background: `rgba(15,13,11,0.75)`,
+          background: `var(--bg-overlay)`,
           border: `1px solid ${story.color}50`,
           backdropFilter: 'blur(10px)',
           borderRadius: '8px',
           padding: '5px 14px',
         }}>
-          <span style={{ color: story.color, fontSize: '11px', fontWeight: '700', letterSpacing: '1.2px', textTransform: 'uppercase' }}>
+          <span style={{ color: story.textColor, fontSize: '11px', fontWeight: '700', letterSpacing: '1.2px', textTransform: 'uppercase' }}>
             {story.tag}
           </span>
         </div>
@@ -112,7 +124,7 @@ function StoryPanel({ story }) {
         }}>"</div>
         <p style={{
           fontFamily: 'Inter, system-ui, sans-serif',
-          color: '#9e8a78',
+          color: 'var(--quote-text)',
           fontSize: 'clamp(17px, 2.2vw, 22px)',
           lineHeight: '1.8',
           margin: '0 0 28px',
@@ -216,7 +228,7 @@ export default function Voices() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '14px' }}>
           <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
-          <span style={{ color: '#c47a3a', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+          <span style={{ color: 'var(--amber-text)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
             Shared Experiences
           </span>
           <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
@@ -229,7 +241,7 @@ export default function Voices() {
         }}>
           When Silence{' '}
           <span style={{
-            background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+            background: 'var(--highlight-gradient)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>Finally Breaks</span>
         </h2>
@@ -273,9 +285,9 @@ export default function Voices() {
                   flexShrink: 0,
                   padding: '8px 18px',
                   borderRadius: '8px',
-                  border: `1px solid ${isActive ? story.color : 'rgba(255,255,255,0.06)'}`,
+                  border: `1px solid ${isActive ? story.color : 'var(--tab-border-inactive)'}`,
                   background: isActive ? `${story.color}15` : 'transparent',
-                  color: isActive ? story.color : 'var(--text-dimmer)',
+                  color: isActive ? story.textColor : 'var(--text-dimmer)',
                   fontSize: '13px',
                   fontWeight: isActive ? '700' : '500',
                   fontFamily: 'Inter, system-ui, sans-serif',
@@ -290,12 +302,12 @@ export default function Voices() {
                 onMouseEnter={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.borderColor = `${story.color}40`;
-                    e.currentTarget.style.color = `${story.color}aa`;
+                    e.currentTarget.style.color = story.hoverTextColor;
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                    e.currentTarget.style.borderColor = 'var(--tab-border-inactive)';
                     e.currentTarget.style.color = 'var(--text-dimmer)';
                   }
                 }}
@@ -331,12 +343,12 @@ export default function Voices() {
         opacity: visible ? 1 : 0, transition: 'opacity 0.7s ease 0.8s',
       }}>
         <div style={{
-          background: 'rgba(196,122,58,0.04)', border: '1px solid rgba(196,122,58,0.1)',
+          background: 'var(--bg-card)', border: '1px solid var(--border-subtle)',
           borderRadius: '12px', padding: '14px 18px',
           display: 'flex', gap: '10px', alignItems: 'flex-start',
         }}>
           <p style={{ color: 'var(--text-faint)', fontSize: '12px', lineHeight: '1.7', margin: 0, fontStyle: 'italic' }}>
-            <strong style={{ color: 'var(--text-dimmer)', fontStyle: 'normal' }}>Disclaimer:</strong>{' '}
+            <strong style={{ color: 'var(--highlight-emphasis-subtle)', fontStyle: 'normal' }}>Disclaimer:</strong>{' '}
             Composite reflections based on common experiences described in mental health literature — not direct quotes from named individuals.
           </p>
         </div>

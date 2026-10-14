@@ -7,6 +7,7 @@ const references = [
     url: 'https://www.who.int/publications/i/item/9789240110069',
     type: 'International Organization',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
   },
   // [2] APA 2018 guidelines
   {
@@ -14,6 +15,7 @@ const references = [
     url: 'https://www.apa.org/about/policy/boys-men-practice-guidelines.pdf',
     type: 'Clinical Guidelines',
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
   },
   // [3] CALM / HuffPost 2016
   {
@@ -21,6 +23,7 @@ const references = [
     url: 'https://www.thecalmzone.net/masculinity-audit-2016-research-reveals-pressures-on-modern-men',
     type: 'Research Report',
     color: '#a0522d',
+    textColor: 'var(--highlight-rust)',
   },
   // [4] Priory Group
   {
@@ -28,6 +31,7 @@ const references = [
     url: 'https://www.priorygroup.com/blog/40-of-men-wont-talk-to-anyone-about-their-mental-health',
     type: 'Survey / Report',
     color: '#8b6b4e',
+    textColor: 'var(--highlight-muted)',
   },
   // [5] NIMH
   {
@@ -35,6 +39,7 @@ const references = [
     url: 'https://www.nimh.nih.gov/health/statistics/mental-illness',
     type: 'Government Statistics',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
   },
   // [6] Our World in Data / WHO
   {
@@ -42,6 +47,7 @@ const references = [
     url: 'https://ourworldindata.org/grapher/male-vs-female-suicide',
     type: 'Data Visualization',
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
   },
   // [7] WHO Special Initiative — Philippines 2020
   {
@@ -49,6 +55,7 @@ const references = [
     url: 'https://www.who.int/docs/default-source/mental-health/special-initiative/who-special-initiative-country-brief-report---philippines---2020-04-23-brief.pdf',
     type: 'WHO Country Brief',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
   },
   // [8] Connell
   {
@@ -56,6 +63,7 @@ const references = [
     url: 'https://ucpress.edu/books/masculinities/paper',
     type: 'Academic Book',
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
   },
   // [9] RA 11036
   {
@@ -63,6 +71,7 @@ const references = [
     url: 'https://ldr.senate.gov.ph/legislative-issuance/republic-act-no-11036',
     type: 'Philippine Law',
     color: '#a0522d',
+    textColor: 'var(--highlight-rust)',
   },
   // [10] RA 10533
   {
@@ -70,6 +79,7 @@ const references = [
     url: 'https://ldr.senate.gov.ph/bills/senate-bill-no-3286-15th-congress-republic',
     type: 'Philippine Law',
     color: '#8b6b4e',
+    textColor: 'var(--highlight-muted)',
   },
   // [11] DOH AO 2016-0039
   {
@@ -77,6 +87,7 @@ const references = [
     url: 'https://www.scribd.com/document/748744909/Administrative-Order-No-2016-0039-Revised-Operational-Framework-for-a-Comprehensive-National-Mental-Health-Program',
     type: 'Administrative Order',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
   },
   // [12] NCMH
   {
@@ -84,6 +95,7 @@ const references = [
     url: 'https://ncmh.gov.ph',
     type: 'Government Agency',
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
   },
   // [13] Addis & Mahalik
   {
@@ -91,6 +103,7 @@ const references = [
     url: 'https://doi.org/10.1037/0003-066X.58.1.5',
     type: 'Journal Article',
     color: '#a0522d',
+    textColor: 'var(--highlight-rust)',
   },
 ];
 
@@ -133,7 +146,7 @@ export default function References() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px',
           }}>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
-            <span style={{ color: '#c47a3a', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <span style={{ color: 'var(--amber-text)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
               Sources
             </span>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
@@ -152,7 +165,7 @@ export default function References() {
           }}>
             References &amp;{' '}
             <span style={{
-              background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+              background: 'var(--highlight-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -173,8 +186,8 @@ export default function References() {
             <div
               key={i}
               style={{
-                background: 'rgba(22,17,13,0.6)',
-                border: '1px solid rgba(255,255,255,0.04)',
+                background: 'var(--ref-bg)',
+                border: '1px solid var(--ref-border)',
                 borderRadius: '12px',
                 padding: '18px 22px',
                 display: 'flex',
@@ -187,18 +200,18 @@ export default function References() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = `${item.color}22`;
-                e.currentTarget.style.background = 'rgba(28,22,18,0.9)';
+                e.currentTarget.style.background = 'var(--ref-bg-hover)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.04)';
-                e.currentTarget.style.background = 'rgba(22,17,13,0.6)';
+                e.currentTarget.style.borderColor = 'var(--ref-border)';
+                e.currentTarget.style.background = 'var(--ref-bg)';
               }}
             >
               {/* Number */}
               <div style={{
                 fontFamily: 'Sora, sans-serif',
                 fontSize: '13px', fontWeight: '700',
-                color: item.color, minWidth: '28px', marginTop: '2px',
+                color: item.textColor, minWidth: '28px', marginTop: '2px',
               }}>
                 [{i + 1}]
               </div>
@@ -222,7 +235,7 @@ export default function References() {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        color: item.color,
+                        color: item.textColor,
                         fontSize: '11px',
                         fontWeight: '600',
                         textDecoration: 'none',
@@ -248,7 +261,7 @@ export default function References() {
                   borderRadius: '4px',
                   padding: '2px 8px',
                 }}>
-                  <span style={{ color: item.color, fontSize: '10px', fontWeight: '600', letterSpacing: '0.5px' }}>
+                  <span style={{ color: item.textColor, fontSize: '10px', fontWeight: '600', letterSpacing: '0.5px' }}>
                     {item.type}
                   </span>
                 </div>
@@ -262,7 +275,7 @@ export default function References() {
                     borderRadius: '4px',
                     padding: '2px 8px',
                   }}>
-                    <span style={{ color: '#c0504d', fontSize: '10px', fontWeight: '700', letterSpacing: '0.5px' }}>
+                    <span style={{ color: 'var(--highlight-red)', fontSize: '10px', fontWeight: '700', letterSpacing: '0.5px' }}>
                       ⚠ Needs verification
                     </span>
                   </div>

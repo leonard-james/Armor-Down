@@ -14,6 +14,7 @@ const laws = [
       'Establishes a National Mental Health Policy targeting stigma',
     ],
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
     tag: 'Primary Law',
   },
   {
@@ -29,6 +30,7 @@ const laws = [
       'Signals a legal shift away from toxic masculinity as the default',
     ],
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
     tag: 'Gender Norms',
   },
   {
@@ -44,6 +46,7 @@ const laws = [
       'Aligns with the WHO Mental Health Action Plan 2013–2030',
     ],
     color: '#8b6b4e',
+    textColor: 'var(--highlight-muted)',
     tag: 'Policy',
   },
   {
@@ -59,6 +62,7 @@ const laws = [
       'Supports gender-responsive and inclusive education standards',
     ],
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
     tag: 'Education',
   },
 ];
@@ -83,7 +87,7 @@ export default function LawsPolicies() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 24px)',
-        background: 'linear-gradient(180deg, #0d0b09 0%, #0f0d0b 100%)',
+        background: 'linear-gradient(180deg, var(--bg-page-alt) 0%, var(--bg-page) 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -103,7 +107,7 @@ export default function LawsPolicies() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px',
           }}>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
-            <span style={{ color: '#c47a3a', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <span style={{ color: 'var(--amber-text)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
               Philippine Context
             </span>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
@@ -122,7 +126,7 @@ export default function LawsPolicies() {
           }}>
             Laws &amp;{' '}
             <span style={{
-              background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+              background: 'var(--highlight-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -147,7 +151,7 @@ export default function LawsPolicies() {
               key={i}
               onClick={() => setActiveIndex(activeIndex === i ? null : i)}
               style={{
-                background: activeIndex === i ? 'rgba(28,22,18,0.95)' : 'rgba(22,17,13,0.6)',
+                background: activeIndex === i ? 'var(--law-card-open-bg)' : 'var(--law-card-bg)',
                 border: `1px solid ${activeIndex === i ? law.color + '45' : law.color + '18'}`,
                 borderRadius: '18px',
                 padding: '26px 30px',
@@ -161,13 +165,13 @@ export default function LawsPolicies() {
               onMouseEnter={(e) => {
                 if (activeIndex !== i) {
                   e.currentTarget.style.borderColor = `${law.color}30`;
-                  e.currentTarget.style.background = 'rgba(28,22,18,0.8)';
+                  e.currentTarget.style.background = 'var(--effect-card-open-bg)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (activeIndex !== i) {
                   e.currentTarget.style.borderColor = `${law.color}18`;
-                  e.currentTarget.style.background = 'rgba(22,17,13,0.6)';
+                  e.currentTarget.style.background = 'var(--law-card-bg)';
                 }
               }}
             >
@@ -179,14 +183,14 @@ export default function LawsPolicies() {
                       <span style={{
                         fontFamily: 'Sora, sans-serif',
                         fontWeight: '800', fontSize: '17px',
-                        color: law.color, letterSpacing: '-0.3px',
+                        color: law.textColor, letterSpacing: '-0.3px',
                       }}>
                         {law.number}
                       </span>
                       <span style={{
                         background: `${law.color}12`, border: `1px solid ${law.color}28`,
                         borderRadius: '6px', padding: '2px 8px',
-                        color: law.color, fontSize: '10px', fontWeight: '700',
+                        color: law.textColor, fontSize: '10px', fontWeight: '700',
                         letterSpacing: '0.8px', textTransform: 'uppercase',
                       }}>
                         {law.tag}
@@ -203,7 +207,7 @@ export default function LawsPolicies() {
                   border: `1px solid ${law.color}28`,
                   borderRadius: '50%',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: law.color, fontSize: '14px', flexShrink: 0,
+                  color: law.textColor, fontSize: '14px', flexShrink: 0,
                   transition: 'transform 0.3s ease',
                   transform: activeIndex === i ? 'rotate(45deg)' : 'rotate(0deg)',
                 }}>
@@ -225,7 +229,7 @@ export default function LawsPolicies() {
                           background: `${law.color}15`, border: `1px solid ${law.color}35`,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           flexShrink: 0, marginTop: '1px',
-                          color: law.color, fontSize: '10px',
+                          color: law.textColor, fontSize: '10px',
                         }}>✓</span>
                         <span style={{ color: 'var(--text-dim)', fontSize: '13px', lineHeight: '1.6' }}>{h}</span>
                       </div>
@@ -248,7 +252,7 @@ export default function LawsPolicies() {
           transition: 'opacity 0.7s ease 1s',
         }}>
           <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.8', margin: 0, textAlign: 'center' }}>
-            <span style={{ color: '#c47a3a', fontWeight: '600' }}>Note:</span> While laws exist, implementation remains uneven.
+            <span style={{ color: 'var(--amber-text)', fontWeight: '600' }}>Note:</span> While laws exist, implementation remains uneven.
             Many Filipino men are still unaware of the services they are entitled to.
             Awareness and destigmatization remain critical next steps.
           </p>

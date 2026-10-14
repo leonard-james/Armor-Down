@@ -8,36 +8,48 @@ const cards = [
     reality: 'Emotional expression is a hallmark of psychological health. Suppressing emotions leads to anxiety, depression, and physical health problems. Crying is a natural, healthy release.',
     mythColor: '#c0504d',
     realityColor: '#c47a3a',
+    mythTextColor: 'var(--highlight-red)',
+    realityTextColor: 'var(--highlight-amber)',
   },
   {
     myth: '"Asking for help is weakness."',
     reality: 'Recognizing a problem and seeking help takes extraordinary courage. It is one of the most intelligent and self-aware things a person can do. Strength is knowing your limits.',
     mythColor: '#a0522d',
     realityColor: '#c47a3a',
+    mythTextColor: 'var(--highlight-rust)',
+    realityTextColor: 'var(--highlight-amber)',
   },
   {
     myth: '"Men should always be strong."',
     reality: "Mental health struggles affect every human being equally regardless of gender. Pretending otherwise doesn't create strength — it creates silence, and silence can be deadly.",
     mythColor: '#8b6b4e',
     realityColor: '#e8a87c',
+    mythTextColor: 'var(--highlight-muted)',
+    realityTextColor: 'var(--highlight-amber-lt)',
   },
   {
     myth: '"Boys will be boys."',
     reality: 'This phrase normalizes harmful behavior and teaches boys to suppress emotions. Children deserve emotional guidance, not dismissal. Accountability and empathy must be taught.',
     mythColor: '#c0504d',
     realityColor: '#c47a3a',
+    mythTextColor: 'var(--highlight-red)',
+    realityTextColor: 'var(--highlight-amber)',
   },
   {
     myth: '"Men don\'t need therapy."',
     reality: "Therapy is a proven, effective tool for improving quality of life for anyone. Mental health care is healthcare. Refusing it doesn't demonstrate toughness — it perpetuates suffering.",
     mythColor: '#a0522d',
     realityColor: '#c47a3a',
+    mythTextColor: 'var(--highlight-rust)',
+    realityTextColor: 'var(--highlight-amber)',
   },
   {
     myth: '"Talking about problems makes you weak."',
     reality: 'Verbalizing struggles is one of the most effective ways to process them. Therapy, peer support, and honest conversations are scientifically validated paths to healing.',
     mythColor: '#8b6b4e',
     realityColor: '#c47a3a',
+    mythTextColor: 'var(--highlight-muted)',
+    realityTextColor: 'var(--highlight-amber)',
   },
 ];
 
@@ -55,6 +67,7 @@ function FlipCard({ card, index, isVisible }) {
   };
 
   const color = flipped ? card.realityColor : card.mythColor;
+  const textColor = flipped ? card.realityTextColor : card.mythTextColor;
 
   return (
     <div
@@ -69,8 +82,8 @@ function FlipCard({ card, index, isVisible }) {
         borderRadius: '14px',
         border: `1px solid ${color}40`,
         background: flipped
-          ? 'rgba(20,16,12,0.95)'
-          : 'rgba(24,19,15,0.9)',
+          ? 'var(--myth-card-flipped-bg)'
+          : 'var(--myth-card-bg)',
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
@@ -120,7 +133,7 @@ function FlipCard({ card, index, isVisible }) {
           marginBottom: '14px',
           display: 'inline-flex', alignItems: 'center',
         }}>
-          <span style={{ color, fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
+          <span style={{ color: textColor, fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
             {flipped ? 'Reality' : 'Myth'}
           </span>
         </div>
@@ -192,7 +205,7 @@ export default function MythsReality() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px',
           }}>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
-            <span style={{ color: '#c47a3a', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <span style={{ color: 'var(--amber-text)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
               Interactive
             </span>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
@@ -212,7 +225,7 @@ export default function MythsReality() {
             Myths{' '}
             <span style={{ color: 'var(--text-dimmer)' }}>vs</span>{' '}
             <span style={{
-              background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+              background: 'var(--highlight-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',

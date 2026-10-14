@@ -31,8 +31,8 @@ const currentYear = new Date().getFullYear();
 export default function Footer() {
   return (
     <footer style={{
-      background: '#0a0805',
-      borderTop: '1px solid rgba(196,122,58,0.1)',
+      background: 'var(--bg-footer)',
+      borderTop: '1px solid var(--border-subtle)',
       padding: 'clamp(48px, 7vw, 72px) clamp(16px, 4vw, 24px) clamp(24px, 4vw, 36px)',
       position: 'relative',
     }}>
@@ -68,12 +68,12 @@ export default function Footer() {
               <LogoIcon style={{ height: '36px', width: '36px' }} />
               <span style={{
                 fontFamily: 'Sora, sans-serif', fontWeight: '700',
-                fontSize: '16px', color: '#e8e0d5', letterSpacing: '-0.3px',
+                fontSize: '16px', color: 'var(--text-primary)', letterSpacing: '-0.3px',
               }}>
                 Armor Down
               </span>
             </Link>
-            <p style={{ color: '#4a3f38', fontSize: '14px', lineHeight: '1.85', maxWidth: '280px', margin: '0 0 20px' }}>
+            <p style={{ color: 'var(--footer-copy)', fontSize: '14px', lineHeight: '1.85', maxWidth: '280px', margin: '0 0 20px' }}>
               A gender awareness project on toxic masculinity and men's mental health.
               Created for Gender &amp; Society course, 4th Year.
             </p>
@@ -83,7 +83,7 @@ export default function Footer() {
           {/* Navigation */}
           <div>
             <h4 style={{
-              color: '#3a3028', fontSize: '11px', fontWeight: '700',
+              color: 'var(--footer-heading)', fontSize: '11px', fontWeight: '700',
               letterSpacing: '2px', textTransform: 'uppercase', margin: '0 0 20px',
             }}>
               Navigate
@@ -95,12 +95,12 @@ export default function Footer() {
                     onClick={() => scrollTo(l.href)}
                     style={{
                       background: 'none', border: 'none', cursor: 'pointer',
-                      color: '#4a3f38', fontSize: '14px', padding: 0,
+                      color: 'var(--footer-link)', fontSize: '14px', padding: 0,
                       transition: 'color 0.2s', textAlign: 'left',
                       fontFamily: 'Inter, system-ui, sans-serif',
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = '#e8a87c'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = '#4a3f38'}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--amber-text)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--footer-link)'}
                   >
                     {l.label}
                   </button>
@@ -113,7 +113,7 @@ export default function Footer() {
           {/* Crisis hotlines */}
           <div>
             <h4 style={{
-              color: '#3a3028', fontSize: '11px', fontWeight: '700',
+              color: 'var(--footer-heading)', fontSize: '11px', fontWeight: '700',
               letterSpacing: '2px', textTransform: 'uppercase', margin: '0 0 20px',
             }}>
               Crisis Hotlines
@@ -128,8 +128,8 @@ export default function Footer() {
                     textDecoration: 'none',
                     padding: '8px 12px',
                     borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.03)',
-                    background: 'rgba(255,255,255,0.01)',
+                    border: '1px solid var(--border-divider)',
+                    background: 'transparent',
                     transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => {
@@ -137,13 +137,13 @@ export default function Footer() {
                     e.currentTarget.style.background = 'rgba(196,122,58,0.04)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.03)';
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.01)';
+                    e.currentTarget.style.borderColor = 'var(--border-divider)';
+                    e.currentTarget.style.background = 'transparent';
                   }}
                 >
-                  <span style={{ color: '#4a3f38', fontSize: '13px' }}>{h.name}</span>
+                  <span style={{ color: 'var(--footer-hotline)', fontSize: '13px' }}>{h.name}</span>
                   <span style={{
-                    color: '#c47a3a', fontWeight: '700', fontSize: '13px',
+                    color: 'var(--amber-text)', fontWeight: '700', fontSize: '13px',
                     fontFamily: 'Sora, sans-serif', letterSpacing: '-0.3px',
                   }}>{h.num}</span>
                 </a>
@@ -157,9 +157,9 @@ export default function Footer() {
               borderRadius: '10px',
               padding: '14px 16px',
             }}>
-              <p style={{ color: '#5a4f48', fontSize: '12px', lineHeight: '1.65', margin: 0 }}>
+              <p style={{ color: 'var(--footer-emergency)', fontSize: '12px', lineHeight: '1.65', margin: 0 }}>
                 If you are in immediate danger, please call{' '}
-                <strong style={{ color: '#c0504d' }}>911</strong>{' '}
+                <strong style={{ color: 'var(--highlight-red)' }}>911</strong>{' '}
                 or go to your nearest emergency room.
               </p>
             </div>
@@ -169,13 +169,13 @@ export default function Footer() {
         {/* Divider */}
         <div style={{
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)',
+          background: 'linear-gradient(90deg, transparent, var(--border-divider), transparent)',
           marginBottom: 'clamp(18px, 3vw, 24px)',
         }} />
 
         {/* Bottom row */}
         <div style={{ textAlign: 'center' }}>
-          <p style={{ color: '#3a3028', fontSize: '13px', margin: 0 }}>
+          <p style={{ color: 'var(--footer-note)', fontSize: '13px', margin: 0 }}>
             © {currentYear} Armor Down — Gender &amp; Society Midterm Project
           </p>
         </div>

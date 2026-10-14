@@ -68,10 +68,10 @@ const affirmations = [
 ];
 
 const steps = [
-  { step: '01', text: 'Acknowledge you\'re struggling — that alone takes strength.', color: '#c47a3a' },
-  { step: '02', text: 'Tell one trusted person how you\'re really feeling.', color: '#e8a87c' },
-  { step: '03', text: 'Call a hotline or schedule a counseling session.', color: '#8b6b4e' },
-  { step: '04', text: 'Be patient — healing is a process, not a destination.', color: '#e8a87c' },
+  { step: '01', text: 'Acknowledge you\'re struggling — that alone takes strength.', color: '#c47a3a', numberColor: 'var(--highlight-step-amber)' },
+  { step: '02', text: 'Tell one trusted person how you\'re really feeling.', color: '#e8a87c', numberColor: 'var(--highlight-step-amber-lt)' },
+  { step: '03', text: 'Call a hotline or schedule a counseling session.', color: '#8b6b4e', numberColor: 'var(--highlight-step-muted)' },
+  { step: '04', text: 'Be patient — healing is a process, not a destination.', color: '#e8a87c', numberColor: 'var(--highlight-step-amber-lt)' },
 ];
 
 export default function BreakSilence() {
@@ -107,7 +107,7 @@ export default function BreakSilence() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 10vw, 120px) clamp(16px, 4vw, 24px)',
-        background: 'linear-gradient(160deg, #130f0b 0%, #0f0d0b 50%, #0d0b09 100%)',
+        background: 'linear-gradient(160deg, var(--bg-page-alt) 0%, var(--bg-page) 50%, var(--bg-page-alt) 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -137,12 +137,12 @@ export default function BreakSilence() {
         {/* Badge */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(196,122,58,0.08)', border: '1px solid rgba(196,122,58,0.28)',
+          background: 'var(--badge-bg)', border: '1px solid var(--badge-border)',
           borderRadius: '50px', padding: '8px 20px', marginBottom: '36px',
           opacity: visible ? 1 : 0, transition: 'all 0.7s ease',
         }}>
           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#c0504d', animation: 'pulse-slow 1.5s infinite' }} />
-          <span style={{ color: '#e8a87c', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase' }}>
+          <span style={{ color: 'var(--highlight-amber-lt)', fontSize: '13px', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase' }}>
             Break the Silence
           </span>
         </div>
@@ -162,7 +162,7 @@ export default function BreakSilence() {
         }}>
           You Don't Have to{' '}
           <span style={{
-            background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+            background: 'var(--highlight-gradient)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
@@ -199,7 +199,7 @@ export default function BreakSilence() {
           opacity: visible ? 1 : 0,
           transition: 'all 0.7s ease 0.3s',
         }}>
-          The most important thing you can do right now is <strong style={{ color: '#9e8a78' }}>reach out</strong>.
+          The most important thing you can do right now is <strong style={{ color: 'var(--highlight-emphasis-strong)' }}>reach out</strong>.
           Whether it's talking to a friend, a family member, a counselor, or a crisis hotline —
           taking that first step is an act of extraordinary courage.
           <br /><br />
@@ -224,7 +224,7 @@ export default function BreakSilence() {
               key={i}
               href={h.tel}
               style={{
-                background: hoveredCard === i ? 'rgba(28,22,18,0.95)' : 'rgba(22,17,13,0.8)',
+                background: hoveredCard === i ? 'var(--bg-card-hover)' : 'var(--bg-panel)',
                 border: `1px solid ${hoveredCard === i ? h.color + '50' : h.color + '20'}`,
                 borderRadius: '14px',
                 padding: '22px 18px',
@@ -245,7 +245,8 @@ export default function BreakSilence() {
               <div style={{
                 fontFamily: 'Sora, sans-serif',
                 fontSize: '22px', fontWeight: '800',
-                color: h.color, marginBottom: '6px',
+                color: h.color === '#c47a3a' ? 'var(--highlight-amber)' : 'var(--highlight-amber-lt)',
+                marginBottom: '6px',
                 letterSpacing: '-0.5px',
               }}>
                 {h.number}
@@ -266,8 +267,8 @@ export default function BreakSilence() {
 
         {/* Steps */}
         <div style={{
-          background: 'rgba(196,122,58,0.04)',
-          border: '1px solid rgba(196,122,58,0.12)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: '18px',
           padding: '36px 40px',
           marginBottom: '50px',
@@ -289,7 +290,7 @@ export default function BreakSilence() {
                 <div style={{
                   fontFamily: 'Sora, sans-serif',
                   fontSize: '36px', fontWeight: '900',
-                  color: `${s.color}35`,
+                  color: s.numberColor,
                   lineHeight: '1', marginBottom: '10px',
                 }}>
                   {s.step}
@@ -311,7 +312,7 @@ export default function BreakSilence() {
             fontFamily: 'Sora, sans-serif',
             fontSize: 'clamp(20px, 3vw, 28px)',
             fontWeight: '800',
-            background: 'linear-gradient(135deg, #c47a3a, #e8a87c)',
+            background: 'var(--highlight-gradient)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',

@@ -7,6 +7,7 @@ const effects = [
     stat: '6M',
     statLabel: 'U.S. men affected by depression annually (NIMH, 2021)',
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
     detail: 'Depression in men often goes undiagnosed because it manifests differently — as irritability, workaholism, or risk-taking rather than sadness. The stigma against men showing vulnerability means millions suffer in silence, never seeking the help that could save their lives.',
   },
   {
@@ -15,6 +16,7 @@ const effects = [
     stat: '76%',
     statLabel: 'of violent crime perpetrated by men (FBI, 2020)',
     color: '#c0504d',
+    textColor: 'var(--highlight-red)',
     detail: 'Anger is one of the few emotions socially permitted for men. When grief, fear, and sadness have no outlet, they transform into rage. This is not a character flaw — it is the predictable result of a culture that forbids emotional expression.',
   },
   {
@@ -23,6 +25,7 @@ const effects = [
     stat: '2×',
     statLabel: 'more likely to develop alcohol dependence (NIAAA, 2021)',
     color: '#a0522d',
+    textColor: 'var(--highlight-rust)',
     detail: 'Alcohol and drugs become self-medication when men have no other coping tools. The same masculine norms that prevent help-seeking also glamorize heavy drinking as a marker of toughness, creating a dangerous cycle that destroys health, families, and careers.',
   },
   {
@@ -31,6 +34,7 @@ const effects = [
     stat: '61%',
     statLabel: 'of US adults report feeling lonely — men score slightly lonelier than women (Cigna, 2020) ⚠ the "40% of men" figure previously shown here is not confirmed by this source',
     color: '#8b6b4e',
+    textColor: 'var(--highlight-muted)',
     detail: 'Men are taught that needing others is weakness. As a result, many adult men have no close friendships in which they can be honest. Loneliness is now recognized by the WHO as a public health epidemic — and men are disproportionately affected.',
   },
   {
@@ -39,6 +43,7 @@ const effects = [
     stat: '5 yrs',
     statLabel: 'shorter life expectancy for men (WHO, 2022)',
     color: '#e8a87c',
+    textColor: 'var(--highlight-amber-lt)',
     detail: 'The belief that "real men push through pain" means men delay seeking medical attention until conditions become critical. Cancers, heart disease, and mental illness are all caught later in men — not because of biology, but because of culture.',
   },
   {
@@ -47,6 +52,7 @@ const effects = [
     stat: null,
     statLabel: null,
     color: '#c47a3a',
+    textColor: 'var(--highlight-amber)',
     detail: 'When men cannot identify or express their emotions, intimacy becomes impossible. Partners feel unseen; children grow up with emotionally absent fathers. The cost is generational — boys who watch their fathers suppress emotion learn to do the same.',
   },
 ];
@@ -64,7 +70,7 @@ function EffectCard({ effect, i, visible }) {
       tabIndex={0}
       aria-expanded={expanded}
       style={{
-        background: expanded ? 'rgba(28,22,18,0.95)' : 'rgba(24,19,15,0.7)',
+        background: expanded ? 'var(--effect-card-open-bg)' : 'var(--effect-card-bg)',
         border: `1px solid ${expanded ? effect.color + '55' : effect.color + '20'}`,
         borderRadius: '18px',
         padding: '28px',
@@ -83,10 +89,12 @@ function EffectCard({ effect, i, visible }) {
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = `${effect.color}50`;
         e.currentTarget.style.transform = 'translateY(-3px)';
+        e.currentTarget.style.background = 'var(--effect-card-open-bg)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = expanded ? `${effect.color}55` : `${effect.color}20`;
         e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.background = expanded ? 'var(--effect-card-open-bg)' : 'var(--effect-card-bg)';
       }}
     >
       {/* Left accent bar */}
@@ -123,7 +131,7 @@ function EffectCard({ effect, i, visible }) {
         borderRadius: '50px', padding: '5px 14px',
         marginBottom: expanded ? '18px' : 0,
       }}>
-        <span style={{ color: effect.color, fontSize: '15px', fontWeight: '800', fontFamily: 'Sora, sans-serif' }}>
+        <span style={{ color: effect.textColor, fontSize: '15px', fontWeight: '800', fontFamily: 'Sora, sans-serif' }}>
           {effect.stat}
         </span>
         <span style={{ color: 'var(--text-dimmer)', fontSize: '11px', fontWeight: '500', lineHeight: '1.4' }}>
@@ -186,7 +194,7 @@ export default function Effects() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 24px)',
-        background: 'linear-gradient(180deg, #0f0d0b 0%, #0d0b09 100%)',
+        background: 'linear-gradient(180deg, var(--bg-page) 0%, var(--bg-page-alt) 100%)',
         position: 'relative',
         overflow: 'visible', /* allow popups to escape section bounds */
       }}
@@ -206,7 +214,7 @@ export default function Effects() {
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '16px',
           }}>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c0504d, #a0522d)' }} />
-            <span style={{ color: '#c0504d', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <span style={{ color: 'var(--highlight-red)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
               The Damage Done
             </span>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #a0522d, #c0504d)' }} />
@@ -225,7 +233,7 @@ export default function Effects() {
           }}>
             How Toxic Masculinity{' '}
             <span style={{
-              background: 'linear-gradient(135deg, #c0504d, #a0522d)',
+              background: 'var(--highlight-damage-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',

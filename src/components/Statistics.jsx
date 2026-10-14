@@ -65,7 +65,7 @@ function useCountUp(target, trigger, duration = 900, decimals = 0) {
 /* ════════════════════════════════════════════════
    Animated radial ring — replays on every scroll-in
 ════════════════════════════════════════════════ */
-function RadialRing({ percent, color, size = 120, stroke = 10, label, sublabel, isVisible, delay = 0 }) {
+function RadialRing({ percent, color, textColor, size = 120, stroke = 10, label, sublabel, isVisible, delay = 0 }) {
   const [prog, setProg] = useState(0);
   const r    = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
@@ -115,7 +115,7 @@ function RadialRing({ percent, color, size = 120, stroke = 10, label, sublabel, 
           />
         </svg>
         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontFamily: 'Sora, sans-serif', fontSize: size * 0.2, fontWeight: '800', color, lineHeight: 1, filter: `drop-shadow(0 0 8px ${color}60)` }}>
+          <span style={{ fontFamily: 'Sora, sans-serif', fontSize: size * 0.2, fontWeight: '800', color: textColor, lineHeight: 1, filter: `drop-shadow(0 0 8px ${color}60)` }}>
             {label}
           </span>
         </div>
@@ -173,13 +173,13 @@ function ChartTooltip({ active, payload, label, unit = '' }) {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: 'rgba(15,23,42,0.97)', border: '1px solid rgba(196,122,58,0.22)',
+      background: 'var(--tooltip-bg)', border: '1px solid var(--tooltip-border)',
       borderRadius: '10px', padding: '10px 16px',
-      boxShadow: '0 8px 32px rgba(0,0,0,0.55)', pointerEvents: 'none',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.35)', pointerEvents: 'none',
     }}>
       <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 5px', fontWeight: '600' }}>{label}</p>
       {payload.map((entry, i) => (
-        <p key={i} style={{ color: entry.fill, fontSize: '15px', fontWeight: '800', margin: '2px 0', fontFamily: 'Sora, sans-serif' }}>
+        <p key={i} style={{ color: entry.payload.textColor, fontSize: '15px', fontWeight: '800', margin: '2px 0', fontFamily: 'Sora, sans-serif' }}>
           {entry.value}{unit}
           <span style={{ color: 'var(--text-dimmer)', fontSize: '11px', fontWeight: '500', marginLeft: '6px' }}>{entry.name}</span>
         </p>
@@ -249,8 +249,8 @@ function ChartLegend() {
    CHART 1 — Help-seeking (%)
 ════════════════════════════════════════════════ */
 const helpRawData = [
-  { group: 'Men',   value: 41.6, fill: MEN_COLOR   },
-  { group: 'Women', value: 56.9, fill: WOMEN_COLOR  },
+  { group: 'Men',   value: 41.6, fill: MEN_COLOR, textColor: 'var(--highlight-amber)' },
+  { group: 'Women', value: 56.9, fill: WOMEN_COLOR, textColor: 'var(--highlight-amber-lt)' },
 ];
 
 function HelpSeekingChart() {
@@ -274,7 +274,7 @@ function HelpSeekingChart() {
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         style={{
-          background: 'rgba(22,17,13,0.8)', border: '1px solid rgba(196,122,58,0.18)',
+          background: 'var(--bg-panel)', border: '1px solid rgba(196,122,58,0.18)',
           borderRadius: '24px', padding: 'clamp(20px, 3vw, 36px)', boxSizing: 'border-box',
         }}
       >
@@ -283,7 +283,7 @@ function HelpSeekingChart() {
         </p>
         <h3 style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(17px, 2.5vw, 24px)', fontWeight: '800', color: 'var(--text-primary)', margin: '0 0 6px', letterSpacing: '-0.4px' }}>
           Men vs Women —{' '}
-          <span style={{ background: `linear-gradient(135deg, ${MEN_COLOR}, #e8a87c)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <span style={{ background: 'var(--highlight-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Who seeks help? (%)
           </span>
         </h3>
@@ -297,7 +297,7 @@ function HelpSeekingChart() {
         <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px' }}>
           {helpRawData.map(d => (
             <div key={d.group} style={{ textAlign: 'center' }}>
-              <span style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '900', color: d.fill, filter: `drop-shadow(0 0 10px ${d.fill}55)` }}>
+              <span style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '900', color: d.textColor, filter: `drop-shadow(0 0 10px ${d.fill}55)` }}>
                 {displayVals[d.group]}%
               </span>
               <p style={{ color: 'var(--text-dimmer)', fontSize: '12px', margin: '2px 0 0', fontWeight: '600' }}>{d.group}</p>
@@ -308,10 +308,10 @@ function HelpSeekingChart() {
         <div style={{ width: '100%', height: '200px' }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={helpRawData} margin={{ top: 4, right: 16, left: 0, bottom: 4 }} barCategoryGap="38%">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
               <XAxis dataKey="group" tick={{ fill: 'var(--text-dim)', fontSize: 13, fontWeight: 600 }} axisLine={false} tickLine={false} />
               <YAxis domain={[0, 100]} tickFormatter={v => `${v}%`} tick={{ fill: 'var(--text-dimmer)', fontSize: 11 }} axisLine={false} tickLine={false} width={36} />
-              <Tooltip content={<ChartTooltip unit="%" />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
+              <Tooltip content={<ChartTooltip unit="%" />} cursor={{ fill: 'var(--badge-bg)' }} />
               <Bar dataKey="value" name="seeking help" shape={<BarShapeSnappy />} maxBarSize={80} isAnimationActive={false}>
                 {helpRawData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
               </Bar>
@@ -331,10 +331,10 @@ function HelpSeekingChart() {
    CHART 2 — Suicide Rate (per 100,000)
 ════════════════════════════════════════════════ */
 const suicideRawData = [
-  { group: 'Men (Global)',   value: 12.3, fill: MEN_COLOR   },
-  { group: 'Women (Global)', value: 5.6,  fill: WOMEN_COLOR  },
-  { group: 'Men (PH)',       value: 6.1,  fill: '#a0522d'    },
-  { group: 'Women (PH)',     value: 2.1,  fill: '#d4956a'    },
+  { group: 'Men (Global)',   value: 12.3, fill: MEN_COLOR, textColor: 'var(--highlight-amber)' },
+  { group: 'Women (Global)', value: 5.6,  fill: WOMEN_COLOR, textColor: 'var(--highlight-amber-lt)' },
+  { group: 'Men (PH)',       value: 6.1,  fill: '#a0522d', textColor: 'var(--highlight-rust)' },
+  { group: 'Women (PH)',     value: 2.1,  fill: '#d4956a', textColor: 'var(--highlight-peach)' },
 ];
 
 function SuicideRateChart() {
@@ -358,7 +358,7 @@ function SuicideRateChart() {
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
         transition={{ duration: 0.6, ease: 'easeOut', delay: 0.08 }}
         style={{
-          background: 'rgba(22,17,13,0.8)', border: '1px solid rgba(192,80,77,0.15)',
+          background: 'var(--bg-panel)', border: '1px solid rgba(192,80,77,0.15)',
           borderRadius: '24px', padding: 'clamp(20px, 3vw, 36px)', boxSizing: 'border-box',
         }}
       >
@@ -367,7 +367,7 @@ function SuicideRateChart() {
         </p>
         <h3 style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(17px, 2.5vw, 24px)', fontWeight: '800', color: 'var(--text-primary)', margin: '0 0 6px', letterSpacing: '-0.4px' }}>
           Suicide rate comparison{' '}
-          <span style={{ color: '#c0504d', fontSize: '0.65em', fontWeight: '600' }}>per 100,000</span>
+          <span style={{ color: 'var(--highlight-red)', fontSize: '0.65em', fontWeight: '600' }}>per 100,000</span>
         </h3>
         <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.6', margin: '0 0 22px' }}>
           Global and Philippines suicide rates by sex per 100,000 population (WHO Global Health Estimates, 2021 data). Men die by suicide at more than twice the rate of women worldwide.
@@ -379,7 +379,7 @@ function SuicideRateChart() {
         <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px' }}>
           {suicideRawData.filter(d => d.group.includes('Global')).map(d => (
             <div key={d.group} style={{ textAlign: 'center' }}>
-              <span style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '900', color: d.fill, filter: `drop-shadow(0 0 10px ${d.fill}55)` }}>
+              <span style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '900', color: d.textColor, filter: `drop-shadow(0 0 10px ${d.fill}55)` }}>
                 {displayVals[d.group]}
               </span>
               <p style={{ color: 'var(--text-dimmer)', fontSize: '12px', margin: '2px 0 0', fontWeight: '600' }}>{d.group}</p>
@@ -393,14 +393,14 @@ function SuicideRateChart() {
         <div style={{ width: '100%', height: '200px' }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={suicideRawData} margin={{ top: 4, right: 16, left: 0, bottom: 4 }} barCategoryGap="38%">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" vertical={false} />
               <XAxis dataKey="group" tick={{ fill: 'var(--text-dim)', fontSize: 13, fontWeight: 600 }} axisLine={false} tickLine={false} />
               <YAxis
                 domain={[0, 16]} tick={{ fill: 'var(--text-dimmer)', fontSize: 11 }}
                 axisLine={false} tickLine={false} width={28}
                 label={{ value: 'per 100k', angle: -90, position: 'insideLeft', offset: 12, fill: 'var(--text-faint)', fontSize: 10 }}
               />
-              <Tooltip content={<ChartTooltip unit=" per 100k" />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
+              <Tooltip content={<ChartTooltip unit=" per 100k" />} cursor={{ fill: 'var(--badge-bg)' }} />
               <Bar dataKey="value" name="suicide rate" shape={<BarShapeSmooth />} maxBarSize={80} isAnimationActive={false}>
                 {suicideRawData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
               </Bar>
@@ -435,7 +435,7 @@ export default function Statistics() {
       ref={ref}
       style={{
         padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 24px)',
-        background: 'linear-gradient(180deg, #0f0d0b 0%, #0d0b09 50%, #0f0d0b 100%)',
+        background: 'linear-gradient(180deg, var(--bg-page) 0%, var(--bg-page-alt) 50%, var(--bg-page) 100%)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -452,7 +452,7 @@ export default function Statistics() {
             opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transition: 'all 0.7s ease',
           }}>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
-            <span style={{ color: '#c47a3a', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>The hard numbers</span>
+            <span style={{ color: 'var(--amber-text)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>The hard numbers</span>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
           </div>
           <h2 style={{
@@ -461,7 +461,7 @@ export default function Statistics() {
             opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transition: 'all 0.7s ease 0.1s',
           }}>
             The silent crisis in{' '}
-            <span style={{ background: 'linear-gradient(135deg, #c47a3a, #e8a87c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>numbers</span>
+            <span style={{ background: 'var(--highlight-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>numbers</span>
           </h2>
           <p style={{
             color: 'var(--text-dim)', fontSize: 'clamp(14px, 2vw, 17px)', maxWidth: '540px', margin: '0 auto', lineHeight: '1.7',
@@ -473,7 +473,7 @@ export default function Statistics() {
 
         {/* ── ROW 1: Radial rings ── */}
         <div style={{
-          background: 'rgba(22,17,13,0.7)', border: '1px solid rgba(196,122,58,0.1)',
+          background: 'var(--bg-panel)', border: '1px solid var(--border-subtle)',
           borderRadius: '24px', padding: 'clamp(24px, 4vw, 40px)', marginBottom: '24px',
           opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.3s',
         }}>
@@ -481,9 +481,9 @@ export default function Statistics() {
             Help-seeking & awareness gaps
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(24px, 4vw, 48px)' }}>
-            <RadialRing percent={41.6} color="#c47a3a" size={130} stroke={11} label="41.6%" sublabel="Men with any mental illness who received treatment (NIMH, 2022)" isVisible={visible} delay={400} />
-            <RadialRing percent={50}   color="#e8a87c" size={130} stroke={11} label="~50%"  sublabel="Men who felt very depressed and told someone — vs. 67% of women (CALM, 2016)" isVisible={visible} delay={550} />
-            <RadialRing percent={40}   color="#a0522d" size={130} stroke={11} label="40%"   sublabel="UK men who have never spoken to anyone about their mental health (Priory Group)" isVisible={visible} delay={700} />
+            <RadialRing percent={41.6} color="#c47a3a" textColor="var(--highlight-amber)" size={130} stroke={11} label="41.6%" sublabel="Men with any mental illness who received treatment (NIMH, 2022)" isVisible={visible} delay={400} />
+            <RadialRing percent={50}   color="#e8a87c" textColor="var(--highlight-amber-lt)" size={130} stroke={11} label="~50%"  sublabel="Men who felt very depressed and told someone — vs. 67% of women (CALM, 2016)" isVisible={visible} delay={550} />
+            <RadialRing percent={40}   color="#a0522d" textColor="var(--highlight-rust)" size={130} stroke={11} label="40%"   sublabel="UK men who have never spoken to anyone about their mental health (Priory Group)" isVisible={visible} delay={700} />
           </div>
           <p style={{ color: 'var(--text-ghost)', fontSize: '11px', textAlign: 'center', marginTop: '24px', marginBottom: 0 }}>
             Sources: NIMH (2022), CALM Masculinity Audit (2016), Priory Group survey of 1,000 men
@@ -509,15 +509,15 @@ export default function Statistics() {
           opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.7s',
         }}>
           {[
-            { num: 3, suffix: '–4×', label: 'Men more likely to die by suicide than women globally', color: '#c0504d', source: 'WHO, 2021 [1]' },
-            { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', source: 'NIMH, 2022 [5]' },
-            { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women globally (68.4 vs 73.8 years in 2021)', color: '#e8a87c', source: 'WHO GHE 2021, via Our World in Data [6]' },
-            { num: 3, suffix: '×',   label: 'Nearly 3× higher male suicide rate in the Philippines vs females', color: '#e8a87c', source: 'WHO via Our World in Data, 2021 [6]' },
+            { num: 3, suffix: '–4×', label: 'Men more likely to die by suicide than women globally', color: '#c0504d', textColor: 'var(--highlight-red)', source: 'WHO, 2021 [1]' },
+            { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', textColor: 'var(--highlight-amber)', source: 'NIMH, 2022 [5]' },
+            { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women globally (68.4 vs 73.8 years in 2021)', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)', source: 'WHO GHE 2021, via Our World in Data [6]' },
+            { num: 3, suffix: '×',   label: 'Nearly 3× higher male suicide rate in the Philippines vs females', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)', source: 'WHO via Our World in Data, 2021 [6]' },
           ].map((item, i) => (
             <div
               key={i}
               style={{
-                background: 'rgba(22,17,13,0.7)', border: `1px solid ${item.color}20`,
+                background: 'var(--bg-panel)', border: `1px solid ${item.color}20`,
                 borderRadius: '16px', padding: '24px 20px',
                 position: 'relative', overflow: 'hidden', transition: 'all 0.3s ease',
               }}
@@ -525,11 +525,11 @@ export default function Statistics() {
               onMouseLeave={(e) => { e.currentTarget.style.borderColor = `${item.color}20`; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: `linear-gradient(90deg, transparent, ${item.color}, transparent)` }} />
-              <div style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: '900', color: item.color, lineHeight: 1, letterSpacing: '-1px', filter: `drop-shadow(0 0 12px ${item.color}50)` }}>
+              <div style={{ fontFamily: 'Sora, sans-serif', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: '900', color: item.textColor, lineHeight: 1, letterSpacing: '-1px', filter: `drop-shadow(0 0 12px ${item.color}50)` }}>
                 <Counter target={item.num} suffix={item.suffix} isVisible={visible} delay={800 + i * 100} />
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '13px', fontWeight: '500', lineHeight: '1.5', margin: '10px 0 8px' }}>{item.label}</p>
-              <span style={{ background: `${item.color}12`, border: `1px solid ${item.color}25`, borderRadius: '5px', padding: '2px 8px', color: item.color, fontSize: '10px', fontWeight: '600' }}>
+              <span style={{ background: `${item.color}12`, border: `1px solid ${item.color}25`, borderRadius: '5px', padding: '2px 8px', color: item.textColor, fontSize: '10px', fontWeight: '600' }}>
                 {item.source}
               </span>
             </div>

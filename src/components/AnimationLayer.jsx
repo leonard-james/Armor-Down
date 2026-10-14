@@ -108,7 +108,7 @@ function ScrollToTop() {
         justifyContent: 'center',
         fontSize: '20px',
         zIndex: 9990,
-        boxShadow: '0 8px 28px rgba(196,122,58,0.35)',
+        boxShadow: '0 8px 28px var(--scroll-top-shadow)',
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.8)',
         opacity: visible ? 1 : 0,
         transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
@@ -117,11 +117,11 @@ function ScrollToTop() {
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-4px) scale(1.1)';
-        e.currentTarget.style.boxShadow = '0 16px 36px rgba(196,122,58,0.55)';
+        e.currentTarget.style.boxShadow = '0 16px 36px var(--scroll-top-shadow-hv)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0) scale(1)';
-        e.currentTarget.style.boxShadow = '0 8px 28px rgba(196,122,58,0.35)';
+        e.currentTarget.style.boxShadow = '0 8px 28px var(--scroll-top-shadow)';
       }}
     >
       ↑
