@@ -195,6 +195,7 @@ export default function References() {
                 display: 'flex',
                 alignItems: 'flex-start',
                 gap: '16px',
+                boxSizing: 'border-box',
                 transition: 'all 0.3s ease',
                 opacity: visible ? 1 : 0,
                 transform: visible ? 'translateX(0)' : 'translateX(-20px)',
@@ -219,7 +220,7 @@ export default function References() {
               </div>
 
               {/* Content */}
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
                   <p style={{
                     color: 'var(--text-muted)',
@@ -228,6 +229,8 @@ export default function References() {
                     margin: 0,
                     fontFamily: 'Georgia, serif',
                     flex: 1,
+                    minWidth: 0,
+                    overflowWrap: 'anywhere',
                   }}>
                     {item.citation}
                   </p>

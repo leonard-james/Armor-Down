@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import leoPhoto  from '../assets/Leo.jpg';
 import folaPhoto from '../assets/fola.jpg';
 import lloydPhoto from '../assets/lloyd.jpg';
+import mjPhoto from '../assets/mj.jpg';
 
 const AVATAR_SIZE = 'clamp(90px, 12vw, 120px)';
 
@@ -9,7 +10,7 @@ const members = [
   { name: 'Fola Faustine L. Gersalia', photo: folaPhoto,  role: 'Research & Content', course: 'BSIT NAS 4-2', university: 'Sorsogon State University - Bulan Campus', year: '2026' },
   { name: 'Lloyd Allan B. Gimena',     photo: lloydPhoto, role: 'Design & Layout',    course: 'BSIT NAS 4-2', university: 'Sorsogon State University - Bulan Campus', year: '2026' },
   { name: 'Leonard James H. Gobris',   photo: leoPhoto,   role: 'Development & Testing', course: 'BSIT NAS 4-2', university: 'Sorsogon State University - Bulan Campus', year: '2026' },
-  { name: 'Mark John D. Ernacio',      photo: null,       role: 'Data & Statistics',  course: 'BSIT NAS 4-2', university: 'Sorsogon State University - Bulan Campus', year: '2026' },
+  { name: 'Mark John D. Ernacio',      photo: mjPhoto,    role: 'Data & Statistics',  course: 'BSIT NAS 4-2', university: 'Sorsogon State University - Bulan Campus', year: '2026' },
 ];
 
 const avatarWrapStyle = {
