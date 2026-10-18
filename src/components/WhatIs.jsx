@@ -163,7 +163,7 @@ export default function WhatIs() {
                   paddingBottom: '1px',
                 }}
               >
-                [8]
+                [12]
               </a>
             </p>
 

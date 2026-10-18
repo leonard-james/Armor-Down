@@ -3,7 +3,7 @@ export const crisisHotline = {
   number: '1553',
   tel: 'tel:1553',
   region: 'Philippines',
-  reference: 'reference-12',
+  reference: 'reference-10',
   color: '#c47a3a',
 };
 

@@ -154,13 +154,13 @@ export default function Footer() {
               ))}
             </div>
             <p style={{ color: 'var(--footer-copy)', fontSize: '12px', lineHeight: '1.6', margin: '0 0 16px' }}>
-              The official NCMH site was not accessible during this audit; the current number, hours, and mobile alternatives could not be independently confirmed.{' '}
+              For crisis support in the Philippines, call the NCMH hotline at 1553.{' '}
               <a
                 href={`#${crisisHotline.reference}`}
                 onClick={(event) => scrollTo(event, `#${crisisHotline.reference}`)}
                 style={{ color: 'var(--amber-text)', textDecoration: 'underline', textUnderlineOffset: '2px' }}
               >
-                NCMH source details
+                Hotline reference
               </a>
             </p>
 
@@ -190,7 +190,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div style={{ textAlign: 'center' }}>
           <p style={{ color: 'var(--footer-note)', fontSize: '13px', margin: 0 }}>
-            © {currentYear} Armor Down — Gender &amp; Society Midterm Project
+            © {currentYear} Armor Down — Gender &amp; Society
           </p>
         </div>
 

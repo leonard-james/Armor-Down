@@ -162,8 +162,7 @@ export default function BreakSilence() {
           Whether it's talking to a friend, a family member, a counselor, or a crisis hotline —
           taking that first step is an act of extraordinary courage.
           <br /><br />
-          If you or someone you know is struggling, consider contacting the National Center for Mental Health.
-          Current operating hours and mobile alternatives could not be independently confirmed during this audit.
+          If you or someone you know is struggling, contact the National Center for Mental Health at 1553.
         </p>
 
         {/* Hotline card */}
@@ -267,9 +266,9 @@ export default function BreakSilence() {
         {/* Final message */}
         <div style={{ opacity: visible ? 1 : 0, transition: 'all 0.8s ease 0.8s' }}>
           <p style={{ color: 'var(--text-faint)', fontSize: '15px', lineHeight: '1.8', margin: '0 0 8px' }}>
-            The 1553 number is listed in the NCMH reference below. If you cannot connect and there is immediate danger, call{' '}
+            If you cannot connect and there is immediate danger, call{' '}
             <a href={emergencyNumber.tel} style={{ color: 'var(--highlight-red)' }}>{emergencyNumber.number}</a> or go to the nearest emergency room. See{' '}
-            <a href={`#${crisisHotline.reference}`} style={{ color: 'var(--amber-text)' }}>NCMH source details</a>.
+            <a href={`#${crisisHotline.reference}`} style={{ color: 'var(--amber-text)' }}>NCMH hotline reference</a>.
           </p>
           <p style={{
             fontFamily: 'Sora, sans-serif',

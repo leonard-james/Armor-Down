@@ -1,111 +1,134 @@
 import { useEffect, useRef, useState } from 'react';
 
 const references = [
-  // [1] WHO 2025
+  // Data & Statistics
   {
     citation: 'World Health Organization. (2025). Suicide worldwide in 2021: Global health estimates. World Health Organization. https://www.who.int/publications/i/item/9789240110069',
     url: 'https://www.who.int/publications/i/item/9789240110069',
+    category: 'data',
     type: 'International Organization',
     color: '#c47a3a',
     textColor: 'var(--highlight-amber)',
   },
-  // [2] APA 2018 guidelines
+  // Further Reading
   {
     citation: 'American Psychological Association. (2018). APA guidelines for psychological practice with boys and men. American Psychological Association. https://www.apa.org/about/policy/boys-men-practice-guidelines.pdf',
     url: 'https://www.apa.org/about/policy/boys-men-practice-guidelines.pdf',
+    category: 'further-reading',
     type: 'Clinical Guidelines',
     color: '#e8a87c',
     textColor: 'var(--highlight-amber-lt)',
   },
-  // [3] CALM / HuffPost 2016
+  // Data & Statistics
   {
     citation: 'Campaign Against Living Miserably & HuffPost UK. (2016). Masculinity audit 2016: Research reveals pressures on modern men. CALM. https://www.thecalmzone.net/masculinity-audit-2016-research-reveals-pressures-on-modern-men',
     url: 'https://www.thecalmzone.net/masculinity-audit-2016-research-reveals-pressures-on-modern-men',
+    category: 'data',
     type: 'Research Report',
     color: '#a0522d',
     textColor: 'var(--highlight-rust)',
   },
-  // [4] Priory Group
+  // Data & Statistics
   {
     citation: 'Priory Group. (n.d.). Men\'s mental health: 40% of men won\'t talk to anyone about their mental health. Priory Group. https://www.priorygroup.com/blog/40-of-men-wont-talk-to-anyone-about-their-mental-health',
     url: 'https://www.priorygroup.com/blog/40-of-men-wont-talk-to-anyone-about-their-mental-health',
+    category: 'data',
     type: 'Survey / Report',
     color: '#8b6b4e',
     textColor: 'var(--highlight-muted)',
   },
-  // [5] NIMH
+  // Data & Statistics
   {
     citation: 'National Institute of Mental Health. (n.d.). Mental illness. National Institute of Mental Health. https://www.nimh.nih.gov/health/statistics/mental-illness',
     url: 'https://www.nimh.nih.gov/health/statistics/mental-illness',
+    category: 'data',
     type: 'Government Statistics',
     color: '#c47a3a',
     textColor: 'var(--highlight-amber)',
   },
-  // [6] Our World in Data / WHO
+  // Data & Statistics
   {
     citation: 'Ritchie, H., & Roser, M. (2024). Male vs. female suicide rate, 2021 [Data visualization]. Our World in Data. https://ourworldindata.org/grapher/male-vs-female-suicide',
     url: 'https://ourworldindata.org/grapher/male-vs-female-suicide',
+    category: 'data',
     type: 'Data Visualization',
     color: '#e8a87c',
     textColor: 'var(--highlight-amber-lt)',
   },
-  // [7] WHO Special Initiative — Philippines 2020
+  // Data & Statistics
   {
     citation: 'World Health Organization. (2020). WHO Special Initiative for Mental Health: Philippines country brief. World Health Organization. https://www.who.int/docs/default-source/mental-health/special-initiative/who-special-initiative-country-brief-report---philippines---2020-04-23-brief.pdf',
     url: 'https://www.who.int/docs/default-source/mental-health/special-initiative/who-special-initiative-country-brief-report---philippines---2020-04-23-brief.pdf',
+    category: 'data',
     type: 'WHO Country Brief',
     color: '#c47a3a',
     textColor: 'var(--highlight-amber)',
   },
-  // [8] Connell
+  // Further Reading
   {
     citation: 'Connell, R. W. (2005). Masculinities (2nd ed.). University of California Press. https://ucpress.edu/books/masculinities/paper',
     url: 'https://ucpress.edu/books/masculinities/paper',
+    category: 'further-reading',
     type: 'Academic Book',
     color: '#e8a87c',
     textColor: 'var(--highlight-amber-lt)',
   },
-  // [9] RA 11036
+  // Laws & Policies
   {
     citation: 'Republic of the Philippines. (2018). Republic Act No. 11036: An act establishing a national mental health policy for the purpose of enhancing the delivery of integrated mental health services, promoting and protecting the rights of persons utilizing psychiatric, neurologic and psychosocial health services, appropriating funds therefor, and for other purposes [Mental Health Act]. Senate of the Philippines Legislative Reference Bureau. https://ldr.senate.gov.ph/legislative-issuance/republic-act-no-11036',
     url: 'https://ldr.senate.gov.ph/legislative-issuance/republic-act-no-11036',
+    category: 'laws',
     type: 'Philippine Law',
     color: '#a0522d',
     textColor: 'var(--highlight-rust)',
   },
-  // [10] RA 10533
+  // Laws & Policies
   {
     citation: 'Republic of the Philippines. (2013). Republic Act No. 10533: An act enhancing the Philippine basic education system by strengthening its curriculum and increasing the number of years for basic education [Enhanced Basic Education Act of 2013]. Senate of the Philippines Legislative Reference Bureau. https://ldr.senate.gov.ph/bills/senate-bill-no-3286-15th-congress-republic',
     url: 'https://ldr.senate.gov.ph/bills/senate-bill-no-3286-15th-congress-republic',
+    category: 'laws',
     type: 'Philippine Law',
     color: '#8b6b4e',
     textColor: 'var(--highlight-muted)',
   },
-  // [11] DOH AO 2016-0039
+  // Laws & Policies
   {
     citation: 'Department of Health Philippines. (2016). Administrative Order No. 2016-0039: Revised operational framework for a comprehensive national mental health program. Department of Health. https://www.scribd.com/document/748744909/Administrative-Order-No-2016-0039-Revised-Operational-Framework-for-a-Comprehensive-National-Mental-Health-Program',
     url: 'https://www.scribd.com/document/748744909/Administrative-Order-No-2016-0039-Revised-Operational-Framework-for-a-Comprehensive-National-Mental-Health-Program',
+    category: 'laws',
     type: 'Administrative Order',
     color: '#c47a3a',
     textColor: 'var(--highlight-amber)',
   },
-  // [12] NCMH
+  // Hotlines
   {
     citation: 'National Center for Mental Health. (n.d.). NCMH crisis hotline. National Center for Mental Health, Department of Health. https://ncmh.gov.ph',
     url: 'https://ncmh.gov.ph',
+    category: 'hotlines',
     type: 'Government Agency',
     color: '#e8a87c',
     textColor: 'var(--highlight-amber-lt)',
   },
-  // [13] Addis & Mahalik
+  // Further Reading
   {
     citation: 'Addis, M. E., & Mahalik, J. R. (2003). Men, masculinity, and the contexts of help seeking. American Psychologist, 58(1), 5–14. https://doi.org/10.1037/0003-066X.58.1.5',
     url: 'https://doi.org/10.1037/0003-066X.58.1.5',
+    category: 'further-reading',
     type: 'Journal Article',
     color: '#a0522d',
     textColor: 'var(--highlight-rust)',
   },
 ];
+
+const referenceGroups = [
+  { title: 'Laws & Policies', category: 'laws' },
+  { title: 'Data & Statistics', category: 'data' },
+  { title: 'Hotlines', category: 'hotlines' },
+  { title: 'Further Reading', category: 'further-reading' },
+];
+const numberedReferences = referenceGroups
+  .flatMap((group) => references.filter((item) => item.category === group.category))
+  .map((item, index) => ({ ...item, number: index + 1 }));
 
 export default function References() {
   const [visible, setVisible] = useState(false);
@@ -147,7 +170,7 @@ export default function References() {
           }}>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #c47a3a, #e8a87c)' }} />
             <span style={{ color: 'var(--amber-text)', fontSize: '13px', fontWeight: '600', letterSpacing: '2px', textTransform: 'uppercase' }}>
-              Sources
+              Reference categories
             </span>
             <div style={{ height: '2px', width: '40px', background: 'linear-gradient(90deg, #e8a87c, #c47a3a)' }} />
           </div>
@@ -176,118 +199,128 @@ export default function References() {
             color: 'var(--text-dim)', fontSize: '15px',
             opacity: visible ? 1 : 0, transition: 'all 0.7s ease 0.2s',
           }}>
-            All claims in this project are supported by academic, governmental, and organizational sources.
+            Browse the laws, data and statistics, hotline information, and further reading behind this project.
           </p>
         </div>
 
         {/* References list */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {references.map((item, i) => (
-            <div
-              key={i}
-              id={`reference-${i + 1}`}
-              tabIndex={-1}
-              style={{
-                background: 'var(--ref-bg)',
-                border: '1px solid var(--ref-border)',
-                borderRadius: '12px',
-                padding: '18px 22px',
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '16px',
-                boxSizing: 'border-box',
-                transition: 'all 0.3s ease',
-                opacity: visible ? 1 : 0,
-                transform: visible ? 'translateX(0)' : 'translateX(-20px)',
-                transitionDelay: `${0.2 + i * 0.06}s`,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = `${item.color}22`;
-                e.currentTarget.style.background = 'var(--ref-bg-hover)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--ref-border)';
-                e.currentTarget.style.background = 'var(--ref-bg)';
-              }}
-            >
-              {/* Number */}
-              <div style={{
-                fontFamily: 'Sora, sans-serif',
-                fontSize: '13px', fontWeight: '700',
-                color: item.textColor, minWidth: '28px', marginTop: '2px',
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          {referenceGroups.map((group) => (
+            <section key={group.category} aria-labelledby={`reference-group-${group.category}`}>
+              <h3 id={`reference-group-${group.category}`} style={{
+                color: 'var(--text-secondary)', fontFamily: 'Sora, sans-serif',
+                fontSize: '20px', margin: '0 0 14px',
               }}>
-                [{i + 1}]
-              </div>
+                {group.title}
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {numberedReferences.filter((item) => item.category === group.category).map((item) => (
+                  <div
+                    key={item.number}
+                    id={`reference-${item.number}`}
+                    tabIndex={-1}
+                    style={{
+                      background: 'var(--ref-bg)',
+                      border: '1px solid var(--ref-border)',
+                      borderRadius: '12px',
+                      padding: '18px 22px',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '16px',
+                      boxSizing: 'border-box',
+                      transition: 'all 0.3s ease',
+                      opacity: visible ? 1 : 0,
+                      transform: visible ? 'translateX(0)' : 'translateX(-20px)',
+                      transitionDelay: `${0.2 + item.number * 0.06}s`,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = `${item.color}22`;
+                      e.currentTarget.style.background = 'var(--ref-bg-hover)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--ref-border)';
+                      e.currentTarget.style.background = 'var(--ref-bg)';
+                    }}
+                  >
+                    <div style={{
+                      fontFamily: 'Sora, sans-serif',
+                      fontSize: '13px', fontWeight: '700',
+                      color: item.textColor, minWidth: '28px', marginTop: '2px',
+                    }}>
+                      [{item.number}]
+                    </div>
 
-              {/* Content */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
-                  <p style={{
-                    color: 'var(--text-muted)',
-                    fontSize: '14px',
-                    lineHeight: '1.7',
-                    margin: 0,
-                    fontFamily: 'Georgia, serif',
-                    flex: 1,
-                    minWidth: 0,
-                    overflowWrap: 'anywhere',
-                  }}>
-                    {item.citation}
-                  </p>
-                  {item.url && (
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Open reference ${i + 1}: ${item.type} in a new tab`}
-                      style={{
-                        color: item.textColor,
-                        fontSize: '11px',
-                        fontWeight: '600',
-                        textDecoration: 'none',
-                        padding: '4px 10px',
-                        border: `1px solid ${item.color}28`,
-                        borderRadius: '6px',
-                        flexShrink: 0,
-                        transition: 'all 0.2s ease',
-                        whiteSpace: 'nowrap',
-                      }}
-                      onMouseEnter={(e) => { e.target.style.background = `${item.color}12`; }}
-                      onMouseLeave={(e) => { e.target.style.background = 'transparent'; }}
-                    >
-                      Open source ↗
-                    </a>
-                  )}
-                </div>
-                <div style={{
-                  marginTop: '8px',
-                  display: 'inline-block',
-                  background: `${item.color}0d`,
-                  border: `1px solid ${item.color}1e`,
-                  borderRadius: '4px',
-                  padding: '2px 8px',
-                }}>
-                  <span style={{ color: item.textColor, fontSize: '10px', fontWeight: '600', letterSpacing: '0.5px' }}>
-                    {item.type}
-                  </span>
-                </div>
-                {item.needsVerification && (
-                  <div style={{
-                    display: 'inline-block',
-                    marginLeft: '8px',
-                    marginTop: '8px',
-                    background: 'rgba(192,80,77,0.08)',
-                    border: '1px solid rgba(192,80,77,0.35)',
-                    borderRadius: '4px',
-                    padding: '2px 8px',
-                  }}>
-                    <span style={{ color: 'var(--highlight-red)', fontSize: '10px', fontWeight: '700', letterSpacing: '0.5px' }}>
-                      ⚠ Needs verification
-                    </span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                        <p style={{
+                          color: 'var(--text-muted)',
+                          fontSize: '14px',
+                          lineHeight: '1.7',
+                          margin: 0,
+                          fontFamily: 'Georgia, serif',
+                          flex: 1,
+                          minWidth: 0,
+                          overflowWrap: 'anywhere',
+                        }}>
+                          {item.citation}
+                        </p>
+                        {item.url && (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Open reference ${item.number}: ${item.type} in a new tab`}
+                            style={{
+                              color: item.textColor,
+                              fontSize: '11px',
+                              fontWeight: '600',
+                              textDecoration: 'none',
+                              padding: '4px 10px',
+                              border: `1px solid ${item.color}28`,
+                              borderRadius: '6px',
+                              flexShrink: 0,
+                              transition: 'all 0.2s ease',
+                              whiteSpace: 'nowrap',
+                            }}
+                            onMouseEnter={(e) => { e.target.style.background = `${item.color}12`; }}
+                            onMouseLeave={(e) => { e.target.style.background = 'transparent'; }}
+                          >
+                            Open source ↗
+                          </a>
+                        )}
+                      </div>
+                      <div style={{
+                        marginTop: '8px',
+                        display: 'inline-block',
+                        background: `${item.color}0d`,
+                        border: `1px solid ${item.color}1e`,
+                        borderRadius: '4px',
+                        padding: '2px 8px',
+                      }}>
+                        <span style={{ color: item.textColor, fontSize: '10px', fontWeight: '600', letterSpacing: '0.5px' }}>
+                          {item.type}
+                        </span>
+                      </div>
+                      {item.needsVerification && (
+                        <div style={{
+                          display: 'inline-block',
+                          marginLeft: '8px',
+                          marginTop: '8px',
+                          background: 'rgba(192,80,77,0.08)',
+                          border: '1px solid rgba(192,80,77,0.35)',
+                          borderRadius: '4px',
+                          padding: '2px 8px',
+                        }}>
+                          <span style={{ color: 'var(--highlight-red)', fontSize: '10px', fontWeight: '700', letterSpacing: '0.5px' }}>
+                            ⚠ Needs verification
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
-            </div>
+            </section>
           ))}
         </div>
 

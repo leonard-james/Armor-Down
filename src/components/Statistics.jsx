@@ -319,9 +319,6 @@ function HelpSeekingChart() {
           </ResponsiveContainer>
         </div>
 
-        <p style={{ color: 'var(--text-faint)', fontSize: '11px', marginTop: '14px', marginBottom: 0, fontStyle: 'italic' }}>
-          Source: NIMH, using SAMHSA National Survey on Drug Use and Health data (2022). See reference [5]. Among US adults with any mental illness: 41.6% of men vs. 56.9% of women received mental health treatment.
-        </p>
       </motion.div>
     </AnimKeyCtx.Provider>
   );
@@ -370,7 +367,7 @@ function SuicideRateChart() {
           <span style={{ color: 'var(--highlight-red)', fontSize: '0.65em', fontWeight: '600' }}>per 100,000</span>
         </h3>
         <p style={{ color: 'var(--text-dim)', fontSize: '14px', lineHeight: '1.6', margin: '0 0 22px' }}>
-          Global and Philippines suicide rates by sex per 100,000 population (WHO Global Health Estimates, 2021 data). Men die by suicide at more than twice the rate of women worldwide.
+          Global and Philippines suicide rates by sex per 100,000 population (2021 data). Men die by suicide at more than twice the rate of women worldwide.
         </p>
 
         <SuicideLegend />
@@ -387,7 +384,7 @@ function SuicideRateChart() {
           ))}
         </div>
         <p style={{ color: 'var(--text-faint)', fontSize: '11px', margin: '0 0 10px', fontStyle: 'italic', textAlign: 'center' }}>
-          Philippines (2021): Men 6.1 · Women 2.1 per 100,000 — Source: WHO via Our World in Data, 2021 (see reference [6])
+          Philippines (2021): Men 6.1 · Women 2.1 per 100,000
         </p>
 
         <div style={{ width: '100%', height: '200px' }}>
@@ -415,9 +412,6 @@ function SuicideRateChart() {
           </p>
         </div>
 
-        <p style={{ color: 'var(--text-faint)', fontSize: '11px', marginTop: '12px', marginBottom: 0, fontStyle: 'italic' }}>
-          Source: WHO Global Health Estimates (2021), via Our World in Data. Global — Men 12.3, Women 5.6 per 100,000. Philippines — Men 6.1, Women 2.1 per 100,000. See references [1] and [6].
-        </p>
       </motion.div>
     </AnimKeyCtx.Provider>
   );
@@ -491,7 +485,7 @@ export default function Statistics() {
           }}>
             <thead>
               <tr>
-                {['Measure', 'Men', 'Women', 'Source'].map((heading) => (
+                {['Measure', 'Men', 'Women'].map((heading) => (
                   <th key={heading} scope="col" style={{
                     padding: '10px 8px', color: 'var(--text-secondary)',
                     borderBottom: '1px solid var(--border-divider)',
@@ -501,34 +495,26 @@ export default function Statistics() {
             </thead>
             <tbody>
               {[
-                ['U.S. adults with mental illness who received treatment (2022)', '41.6%', '56.9%', [['Reference [5]: NIMH statistics', 'reference-5']]],
-                ['UK men who felt depressed and told someone (2016)', '50%', '67%', [['Reference [3]: CALM Masculinity Audit', 'reference-3']]],
-                ['UK men who had never discussed their mental health', '40%', '—', [['Reference [4]: Priory Group survey', 'reference-4']]],
-                ['Suicide deaths per 100,000 worldwide (2021)', '12.3', '5.6', [['Reference [1]: WHO estimates', 'reference-1'], ['Reference [6]: Our World in Data', 'reference-6']]],
-                ['Suicide deaths per 100,000 in the Philippines (2021)', '6.1', '2.1', [['Reference [6]: Our World in Data', 'reference-6']]],
-                ['Male-to-female suicide-rate ratio worldwide (2021)', '2.2×', '—', [['Reference [1]: WHO estimates', 'reference-1'], ['Reference [6]: Our World in Data', 'reference-6']]],
-                ['U.S. men affected by depression annually', '6 million', '—', [['Reference [5]: NIMH statistics', 'reference-5']]],
-                ['Global life-expectancy difference (2021)', '5 years shorter', '—', [['Reference [6]: Our World in Data', 'reference-6']]],
-                ['Male-to-female suicide-rate ratio in the Philippines (2021)', '2.9×', '—', [['Reference [6]: Our World in Data', 'reference-6']]],
-              ].map(([measure, men, women, sources]) => (
+                ['U.S. adults with mental illness who received treatment (2022)', '41.6%', '56.9%'],
+                ['UK men who felt depressed and told someone (2016)', '50%', '67%'],
+                ['UK men who had never discussed their mental health', '40%', '—'],
+                ['Suicide deaths per 100,000 worldwide (2021)', '12.3', '5.6'],
+                ['Suicide deaths per 100,000 in the Philippines (2021)', '6.1', '2.1'],
+                ['Male-to-female suicide-rate ratio worldwide (2021)', '2.2×', '—'],
+                ['U.S. men affected by depression annually', '6 million', '—'],
+                ['Global life-expectancy difference (2021)', '5 years shorter', '—'],
+                ['Male-to-female suicide-rate ratio in the Philippines (2021)', '2.9×', '—'],
+              ].map(([measure, men, women]) => (
                 <tr key={measure}>
                   <th scope="row" style={{ padding: '10px 8px', fontWeight: '500', borderBottom: '1px solid var(--border-divider)' }}>{measure}</th>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid var(--border-divider)' }}>{men}</td>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid var(--border-divider)' }}>{women}</td>
-                  <td style={{ padding: '10px 8px', borderBottom: '1px solid var(--border-divider)' }}>
-                    {sources.map(([label, id], index) => (
-                      <span key={id}>
-                        {index > 0 ? ' · ' : ''}
-                        <a href={`#${id}`} style={{ color: 'var(--amber-text)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>{label}</a>
-                      </span>
-                    ))}
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
           <p style={{ color: 'var(--text-faint)', fontSize: '12px', lineHeight: '1.5', margin: '14px 0 0' }}>
-            Years and populations differ by source. Rates are per 100,000 where stated; “—” means the cited statistic is not presented as a sex comparison.
+            Years and populations differ. Rates are per 100,000 where stated; “—” means the statistic is not presented as a sex comparison.
           </p>
         </div>
 
@@ -542,13 +528,10 @@ export default function Statistics() {
             Help-seeking & awareness gaps
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(24px, 4vw, 48px)' }}>
-            <RadialRing percent={41.6} color="#c47a3a" textColor="var(--highlight-amber)" size={130} stroke={11} label="41.6%" sublabel="Men with any mental illness who received treatment (NIMH, 2022)" isVisible={visible} delay={400} />
-            <RadialRing percent={50}   color="#e8a87c" textColor="var(--highlight-amber-lt)" size={130} stroke={11} label="~50%"  sublabel="Men who felt very depressed and told someone — vs. 67% of women (CALM, 2016)" isVisible={visible} delay={550} />
-            <RadialRing percent={40}   color="#a0522d" textColor="var(--highlight-rust)" size={130} stroke={11} label="40%"   sublabel="UK men who have never spoken to anyone about their mental health (Priory Group)" isVisible={visible} delay={700} />
+            <RadialRing percent={41.6} color="#c47a3a" textColor="var(--highlight-amber)" size={130} stroke={11} label="41.6%" sublabel="Men with any mental illness who received treatment" isVisible={visible} delay={400} />
+            <RadialRing percent={50}   color="#e8a87c" textColor="var(--highlight-amber-lt)" size={130} stroke={11} label="~50%"  sublabel="Men who felt very depressed and told someone — vs. 67% of women" isVisible={visible} delay={550} />
+            <RadialRing percent={40}   color="#a0522d" textColor="var(--highlight-rust)" size={130} stroke={11} label="40%"   sublabel="UK men who have never spoken to anyone about their mental health" isVisible={visible} delay={700} />
           </div>
-          <p style={{ color: 'var(--text-ghost)', fontSize: '11px', textAlign: 'center', marginTop: '24px', marginBottom: 0 }}>
-            Sources: NIMH (2022), CALM Masculinity Audit (2016), Priory Group survey of 1,000 men
-          </p>
         </div>
 
         {/* ── ROW 2: Animated Recharts — Help-seeking + Suicide rate ── */}
@@ -570,10 +553,10 @@ export default function Statistics() {
           opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.7s',
         }}>
           {[
-            { num: 2, suffix: '.2×', label: 'Higher male suicide death rate worldwide (2021)', color: '#c0504d', textColor: 'var(--highlight-red)', source: 'WHO, 2021 [1]' },
-            { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', textColor: 'var(--highlight-amber)', source: 'NIMH, 2022 [5]' },
-            { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women globally (68.4 vs 73.8 years in 2021)', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)', source: 'WHO GHE 2021, via Our World in Data [6]' },
-            { num: 3, suffix: '×',   label: 'Nearly 3× higher male suicide rate in the Philippines vs females', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)', source: 'WHO via Our World in Data, 2021 [6]' },
+            { num: 2, suffix: '.2×', label: 'Higher male suicide death rate worldwide (2021)', color: '#c0504d', textColor: 'var(--highlight-red)' },
+            { num: 6, suffix: 'M',   label: 'U.S. men affected by depression annually', color: '#c47a3a', textColor: 'var(--highlight-amber)' },
+            { num: 5, suffix: ' yrs', label: 'Shorter average life expectancy for men vs women globally (68.4 vs 73.8 years in 2021)', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)' },
+            { num: 3, suffix: '×',   label: 'Nearly 3× higher male suicide rate in the Philippines vs females', color: '#e8a87c', textColor: 'var(--highlight-amber-lt)' },
           ].map((item, i) => (
             <div
               key={i}
@@ -590,9 +573,6 @@ export default function Statistics() {
                 <Counter target={item.num} suffix={item.suffix} isVisible={visible} delay={800 + i * 100} />
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '13px', fontWeight: '500', lineHeight: '1.5', margin: '10px 0 8px' }}>{item.label}</p>
-              <span style={{ background: `${item.color}12`, border: `1px solid ${item.color}25`, borderRadius: '5px', padding: '2px 8px', color: item.textColor, fontSize: '10px', fontWeight: '600' }}>
-                {item.source}
-              </span>
             </div>
           ))}
         </div>
