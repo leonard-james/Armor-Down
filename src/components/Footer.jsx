@@ -153,17 +153,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <p style={{ color: 'var(--footer-copy)', fontSize: '12px', lineHeight: '1.6', margin: '0 0 16px' }}>
-              For crisis support in the Philippines, call the NCMH hotline at 1553.{' '}
-              <a
-                href={`#${crisisHotline.reference}`}
-                onClick={(event) => scrollTo(event, `#${crisisHotline.reference}`)}
-                style={{ color: 'var(--amber-text)', textDecoration: 'underline', textUnderlineOffset: '2px' }}
-              >
-                Hotline reference
-              </a>
-            </p>
-
             {/* Emergency callout */}
             <div style={{
               background: 'rgba(192,80,77,0.06)',

@@ -21,7 +21,7 @@ const stories = [
   {
     img: benchImg,
     alt: 'Person sitting alone on a bench',
-    quote: 'I sat on that bench for an hour before I finally called the hotline. That one call changed everything.',
+    quote: 'I didn’t know what to say when I reached out. I just knew I didn’t want to face everything alone anymore.',
     tag: 'Reaching Out',
     color: '#e8a87c',
     textColor: 'var(--highlight-amber-lt)',

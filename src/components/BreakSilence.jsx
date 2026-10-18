@@ -167,6 +167,7 @@ export default function BreakSilence() {
 
         {/* Hotline card */}
         <div
+          id="crisis-hotline"
           className="hotline-grid"
           style={{
             display: 'grid',
